@@ -88,6 +88,9 @@ def rejTech_velPlummer(r,M,a,G):
         g0 = np.random.uniform(0.,gmax)
     return x0*velEscape_Plummer(r,M,a,G)
 
+def g_Plummer(x):
+    return x*x * (1. - x*x)**3.5 
+
 def rand_unit_vector(d):
     """
     Returns d-dimensional random unit vector (norm = 1)
