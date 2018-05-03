@@ -10,11 +10,26 @@ except ModuleNotFoundError:
     __GPU_AVAIL = False
 else:
     __GPU_AVAIL = True
-import multiprocessing as mp
 from warnings import warn
 
 
 def cuda_timestep(p, v, a, dt):
+    """
+    Returns the updated positions (p) and velocities (v) given accelerations 
+    (a) and a timestep dt, using the leap-frog algorithm.
+    Implemented using pycuda. If GPU isn't available or initialized, will 
+    raise a warning, and use the serial version.
+
+    Input:
+       p - positions (N x d)
+       v - velocities (N x d)
+       a - accelerations (N x d)
+       dt - time step
+    
+    Output:
+       p - updated positions (N x d)
+       v - updated velocites (N x d)
+    """
     if not __GPU_AVAIL:
         warn('GPU not available, switching to serial implementation')
         return serial_timestep(p, v, a, dt)
@@ -34,6 +49,20 @@ def cuda_timestep(p, v, a, dt):
 
 
 def serial_timestep(p, v, a, dt):
+    """
+    Returns the updated positions (p) and velocities (v) given accelerations 
+    (a) and a timestep dt, using the leap-frog algorithm.
+
+    Input:
+       p - positions (N x d)
+       v - velocities (N x d)
+       a - accelerations (N x d)
+       dt - time step
+    
+    Output:
+       p - updated positions (N x d)
+       v - updated velocites (N x d)
+    """
     # for the correct leapfrog condition, assume self-started
     # i.e. p = p(i)
     #      v = v(i - 1/2)
@@ -43,48 +72,3 @@ def serial_timestep(p, v, a, dt):
     # drift step: x(i+1) = x(i) + v(i + 1/2) dt
     p1 = p + v1 * dt
     return p1, v1
-
-
-def multi_timestep(p, v, a, dt, num_procs=32):
-    pool = mp.Pool(processes=num_procs)
-    results = [pool.apply_async(serial_timestep, args=(p_, v_, a_, dt))
-               for p_, v_, a_ in zip(p, v, a)]
-    p1, v1 = [], []
-    for r in results:
-        new_p, new_v = r.get()
-        p1 += [new_p]
-        v1 += [new_v]
-    return np.array(p1), np.array(v1)
-
-
-def serial_leapfrog(pos_init, vel_init, mass, dt, max_steps,
-                    acc_func, self_start=True, acc_kwargs={}):
-    """
-    """
-    pos = np.array(pos_init).astype(float)
-    vel = np.array(vel_init).astype(float)
-    mass = np.array(mass).astype(float)
-    
-    N_part = pos.shape[0]
-    d_space = pos.shape[1]
-    assert vel.shape == (N_part, d_space), ("input velocities must mach shape "
-                                            "of input positions")
-    assert mass.shape == (N_part,), ("input masses must match length of "
-                                     "input positions")
-    assert type(max_steps) == int, ("max_steps must be an integer")
-    assert type(dt) in [int, float], ("dt must be a real number")
-    dt = float(dt)
-
-    # the initial self-starting step (Eulerian) to offset velocity by 1/2 dt
-    if self_start:
-        accel = acc_func(pos, mass, **acc_kwargs)
-        assert accel.shape == (N_part, d_space), ("the acceleration function must "
-                                                  "return dimensions matching "
-                                                  "shape of positions ")
-        vel += accel * dt / 2.
-
-    for i in range(max_steps):
-        # compute acceleration: a(i+1) = a(x[i+1], m)
-        accel = acc_func(pos, mass, **acc_kwargs)
-        pos, vel = serial_timestep(pos, vel, accel, dt)
-        yield np.copy(pos), np.copy(vel)
