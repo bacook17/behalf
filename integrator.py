@@ -2,6 +2,37 @@
 # Ben Cook (bcook@cfa.harvard.edu)
 
 import numpy as np
+import pycuda.gpuarray as gpuarray
+# os.environ['CUDA_DEVICE'] = '0'  # figure out how this will work on MPI
+import pycuda.autoinit
+
+
+def cuda_timestep(p, v, a, dt):
+    # for the correct leapfrog condition, assume self-started
+    # i.e. p = p(i)
+    #      v = v(i - 1/2)
+    #      a = F(p(i))
+    p_d = gpuarray.to_gpu(np.array(p).astype(np.float32))
+    v_d = gpuarray.to_gpu(np.array(v).astype(np.float32))
+    a_d = gpuarray.to_gpu(np.array(a).astype(np.float32))
+
+    # kick step: v(i + 1/2) = v(i - 1/2) + a(i) * dt
+    v_d += a_d * dt
+    # drift step: x(i+1) = x(i) + v(i + 1/2) dt
+    p_d += v_d * dt
+    return p_d.get(), v_d.get()
+
+
+def serial_timestep(p, v, a, dt):
+    # for the correct leapfrog condition, assume self-started
+    # i.e. p = p(i)
+    #      v = v(i - 1/2)
+    #      a = F(p(i))
+    # kick step: v(i + 1/2) = v(i - 1/2) + a(i) * dt
+    v += a * dt
+    # drift step: x(i+1) = x(i) + v(i + 1/2) dt
+    p += v * dt
+    return p, v
 
 
 def serial_leapfrog(pos_init, vel_init, mass, dt, max_steps,
@@ -31,10 +62,7 @@ def serial_leapfrog(pos_init, vel_init, mass, dt, max_steps,
         vel += accel * dt / 2.
 
     for i in range(max_steps):
-        # drift step: x(i+1) = x(i) + v(i + 1/2) dt
-        pos += vel * dt
         # compute acceleration: a(i+1) = a(x[i+1], m)
         accel = acc_func(pos, mass, **acc_kwargs)
-        # kick step: v(i + 3/2) = v(i + 1/2) + a(i+1) dt
-        vel += accel * dt
+        pos, vel = serial_timestep(pos, vel, accel, dt)
         yield np.copy(pos), np.copy(vel)
