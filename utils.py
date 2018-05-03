@@ -3,11 +3,11 @@ from time import time
 from datetime import datetime, timedelta
 
 
-def compute_energy(pos, vel, mass, G=6.67e-11):
+def compute_energy(pos, vel, mass=None, G=1.):
     """
     Returns the total energy of the system defined by
-    input positions (pos), velocities (vel), and masses,
-    using units defined by choice of G.
+    input positions (pos), velocities (vel), and masses (defaults
+    to 1.0 for all particles), using units defined by choice of G.
 
     Total energy is the sum of potential and kinetic energy
     (see: compute_potential_energy and compute_kinetic_energy)
@@ -15,20 +15,23 @@ def compute_energy(pos, vel, mass, G=6.67e-11):
     Input:
        pos - positions (N x d)
        vel - velocities (N x d)
-       mass - masses (N)
-       G - Newton's Constant (optional. Default=6.67e-11)
+       mass - masses (optonal. Default: np.ones(N))
+       G - Newton's Constant (optional. Default=1.)
 
     Output:
        E - total energy (float)
     """
+    if mass is None:
+        mass = np.ones(len(pos))
     return compute_potential_energy(pos, mass, G=G) +\
         compute_kinetic_energy(vel, mass)
 
 
-def compute_potential_energy(pos, mass, G=6.67e-11):
+def compute_potential_energy(pos, mass=None, G=1.):
     """
     Returns the gravitational potential energy of the system defined by input
-    positions (pos) and masses, using units defined by choice of G.
+    positions (pos) and masses (defaults to 1.0 for all particles),
+    using units defined by choice of G.
     
     Potential energy is defined as:
     U = - sum_i ( sum_[j > i] ( G * mass[i] * mass[j] / r_ij))
@@ -36,42 +39,50 @@ def compute_potential_energy(pos, mass, G=6.67e-11):
 
     Input:
        pos - positions (N x d)
-       mass - masses (N)
-       G - Newton's Constant (optional. Default=6.67e-11)
+       mass - masses (optonal. Default: np.ones(N))
+       G - Newton's Constant (optional. Default=1.)
 
     Output:
        U - Gravitational potential energy (float)
     """
     pos = np.array(pos).astype(float)
-    mass = np.array(mass).astype(float)
     N_part = pos.shape[0]
+    if mass is None:
+        mass = np.ones(N_part)
+    else:
+        mass = np.array(mass).astype(float)
     assert mass.shape == (N_part,), ("input masses must match length of "
                                      "input positions")
     U = 0.
     for i in range(N_part):
-        for j in range(i+1, N_part):
-            r = np.sqrt(np.sum((pos[i] - pos[j])**2))
-            U -= G * mass[i] * mass[j] / r
+        m_i = mass[i]
+        m_j = mass[i+1:]
+        dr = np.linalg.norm(pos[i] - pos[i+1:], axis=1)
+        U -= np.sum(G * m_i * m_j / dr)
     return U
 
 
-def compute_kinetic_energy(vel, mass):
+def compute_kinetic_energy(vel, mass=None):
     """
     Returns the kinetic of the system defined by input
-    velocities and mass.
+    velocities and mass (defaults to 1.0 for all particles).
     
     Kinetic energy is defined as:
     K = 1/2 sum_i (mass[i] * ||vel[i]||**2)
 
     Input:
        vel - velocities (N x 3)
-       mass - masses (N)
+       mass - masses (optonal. Default: np.ones(N))
 
     Output:
        K - kinetic energy (float)
     """
     vel = np.array(vel).astype(float)
-    mass = np.array(mass).astype(float)
+    N_part = vel.shape[0]
+    if mass is None:
+        mass = np.ones(N_part)
+    else:
+        mass = np.array(mass).astype(float)
     N_part = vel.shape[0]
     assert mass.shape == (N_part,), ("input masses must match length of "
                                      "input velocities")
