@@ -2,12 +2,22 @@
 # Ben Cook (bcook@cfa.harvard.edu)
 
 import numpy as np
-import pycuda.gpuarray as gpuarray
-# os.environ['CUDA_DEVICE'] = '0'  # figure out how this will work on MPI
-import pycuda.autoinit
+try:
+    import pycuda.gpuarray as gpuarray
+    # os.environ['CUDA_DEVICE'] = '0'  # figure out how this will work on MPI
+    import pycuda.autoinit
+except ModuleNotFoundError:
+    __GPU_AVAIL = False
+else:
+    __GPU_AVAIL = True
+import multiprocessing as mp
+from warnings import warn
 
 
 def cuda_timestep(p, v, a, dt):
+    if not __GPU_AVAIL:
+        warn('GPU not available, switching to serial implementation')
+        return serial_timestep(p, v, a, dt)
     # for the correct leapfrog condition, assume self-started
     # i.e. p = p(i)
     #      v = v(i - 1/2)
@@ -29,10 +39,22 @@ def serial_timestep(p, v, a, dt):
     #      v = v(i - 1/2)
     #      a = F(p(i))
     # kick step: v(i + 1/2) = v(i - 1/2) + a(i) * dt
-    v += a * dt
+    v1 = v + a * dt
     # drift step: x(i+1) = x(i) + v(i + 1/2) dt
-    p += v * dt
-    return p, v
+    p1 = p + v1 * dt
+    return p1, v1
+
+
+def multi_timestep(p, v, a, dt, num_procs=32):
+    pool = mp.Pool(processes=num_procs)
+    results = [pool.apply_async(serial_timestep, args=(p_, v_, a_, dt))
+               for p_, v_, a_ in zip(p, v, a)]
+    p1, v1 = [], []
+    for r in results:
+        new_p, new_v = r.get()
+        p1 += [new_p]
+        v1 += [new_v]
+    return np.array(p1), np.array(v1)
 
 
 def serial_leapfrog(pos_init, vel_init, mass, dt, max_steps,
