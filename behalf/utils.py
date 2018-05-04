@@ -1,7 +1,7 @@
 import numpy as np
 from time import time
 from datetime import datetime, timedelta
-import octree
+from behalf import octree
 
 
 def construct_tree(pos, mass):

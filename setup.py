@@ -44,7 +44,7 @@ setup(
     url='https://github.com/bacook17/behalf',
     license='LICENSE',
     description="""BarnEs-Hut ALgorithm For CS205""",
-    scripts=['behalf/run_behalf.py'],
+    scripts=['bin/run_behalf.py'],
     include_package_data=True,
     cmdclass={'clean': CleanCommand, 'install': CustomInstall},
     install_requires=[

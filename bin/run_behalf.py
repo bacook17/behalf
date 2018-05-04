@@ -2,9 +2,9 @@
 import numpy as np
 from mpi4py import MPI
 from time import time
-import initialConditions
-import integrator
-import utils
+from behalf import initialConditions
+from behalf import integrator
+from behalf import utils
 import sys
 import argparse
 import os
@@ -26,25 +26,27 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--run-name', 'Name of the run (must be unique)',
+    parser.add_argument('--run-name', help='Name of the run',
                         type=str, required=True)
-    parser.add_argument('--N-parts', 'Number of particles', type=int,
+    parser.add_argument('--N-parts', help='Number of particles', type=int,
                         required=True)
-    parser.add_argument('--total-mass', 'Total mass of the system (in GMsun)',
+    parser.add_argument('--total-mass', help='Total mass of the system (in GMsun)',
                         type=float, default=1e5)
-    parser.add_argument('--radius', 'Scale Radius (in kpc)',
+    parser.add_argument('--radius', help='Scale Radius (in kpc)',
                         type=float, default=10.)
-    parser.add_argument('--N-steps', 'Number of time steps',
-                        type-int, default=1000)
-    parser.add_argument('--dt', 'Size of time step (in Myr)',
+    parser.add_argument('--N-steps', help='Number of time steps',
+                        type=int, default=1000)
+    parser.add_argument('--dt', help='Size of time step (in Myr)',
                         type=float, default=0.01)
-    parser.add_argument('--softening', 'Softening length (in kpc)',
+    parser.add_argument('--softening', help='Softening length (in kpc)',
                         type=float, default=0.01)
-    parser.add_argument('--save_every', 'How often to save output results',
+    parser.add_argument('--save_every', help='How often to save output results',
                         type=int, default=10)
-    parser.add_argument('--rand-seed', 'Random seed to initialize',
+    parser.add_argument('--rand-seed', help='Random seed to initialize',
                         type=int, default=1234)
-    parser.add_argument('--clobber', 'Should previous results be overwritten?',
+    parser.add_argument('--clobber', help='Should previous results be overwritten?',
+                        action='store_true')
+    parser.add_argument('--verbose', help='Should diagnostics be printed?',
                         action='store_true')
     args = parser.parse_args()
 
@@ -58,7 +60,8 @@ if __name__ == '__main__':
     softening = args.softening  # softening length (in kpc)
     save_every = args.save_every  # how often to save output results
     seed = args.rand_seed  # Initialize state identically every time
-    clobbrer = args.clobber
+    clobber = args.clobber
+    verbose = args.verbose
     
     # If we split "N_parts" particles into "size" chunks,
     # which particles does each process get?
@@ -102,8 +105,9 @@ if __name__ == '__main__':
     
     # The main integration loop
     if rank == 0:
-        print('Starting Integration Loop')
-        sys.stdout.flush()
+        if verbose:
+            print('Starting Integration Loop')
+            sys.stdout.flush()
         t_start = time()
     for i in range(N_steps):
         # Construct the tree and compute forces
@@ -136,12 +140,12 @@ if __name__ == '__main__':
         comm.Gatherv(vel, [vel_full, N_per_process*3, displacements, MPI.DOUBLE],
                      root=0)
 
-        # Print status
         if rank == 0:
-            print('Iteration {:d} complete. {:.1f} seconds elapsed.'.format(i, time() - t_start))
-            sys.stdout.flush()
-        # Save the results to output file
-        if rank == 0:
+            # Print status
+            if verbose:
+                print('Iteration {:d} complete. {:.1f} seconds elapsed.'.format(i, time() - t_start))
+                sys.stdout.flush()
+            # Save the results to output file
             if ((i % save_every) == 0) or (i == N_steps - 1):
                 utils.save_results(results_dir + 'step_{:d}.dat'.format(i), pos_full, vel_full, t_start, i, N_steps,
                                    size)
