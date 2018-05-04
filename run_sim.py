@@ -20,7 +20,7 @@ if __name__ == '__main__':
     THETA = 0.5
     
     M_total = 1e5  # total mass of system (in 10^9 M_sun)
-    N_parts = 1000  # how many particles?
+    N_parts = 100  # how many particles?
     M_part = M_total / N_parts  # mass of each particle (in 10^9 M_sun)
     a = 10.0  # scale radius (in kpc)
     N_steps = 100  # how many time steps?
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     N_this = N_per_process[rank]
 
     if rank == 0:
-        results_dir = 'testrun_1/'
+        results_dir = 'gal_test_1/'  # name of ouptut directory
 
         # Set Plummer Sphere (or other) initial conditions
         pos_init, vel_init = plummerSphere.plummer(N_parts, a, m=M_part,
@@ -61,8 +61,11 @@ if __name__ == '__main__':
         # From now on, the Leapfrog algorithm can do Full-Kick + Full-Drift
     else:
         pos_full, vel_full = None, None
+    # Print status
+    if rank == 0:
+        print('Starting Integration Loop')
     
-        # The main integration loop
+    # The main integration loop
     if rank == 0:
         t_start = time()
     for i in range(N_steps):
@@ -96,6 +99,9 @@ if __name__ == '__main__':
         comm.Gatherv(vel, [vel_full, N_per_process*3, displacements, MPI.double],
                      root=0)
 
+        # Print status
+        if rank == 0:
+            print('Iteration {:d} complete. {:.1f} seconds elapsed.'.format(i, time.time() - t_start))
         # Save the results to output file
         if rank == 0:
             if ((i % save_every) == 0) or (i == N_steps - 1):
