@@ -1,6 +1,21 @@
 import numpy as np
 from time import time
 from datetime import datetime, timedelta
+import octree
+
+
+def construct_tree(pos, mass):
+    sim_box = octree.bbox(np.array([np.min(pos, axis=0),
+                                    np.max(pos, axis=0)]).T)
+    return octree.octree(pos, mass, sim_box)
+
+
+def compute_force(tree, part_ids, theta, G):
+    if type(part_ids) == int:
+        return tree.force(theta, part_ids, G)
+    else:
+        return np.array([tree.force(theta, p_id, G)
+                         for p_id in part_ids])
 
 
 def compute_energy(pos, vel, mass=None, G=1.):

@@ -1,89 +1,102 @@
+import numpy as np
+from mpi4py import MPI
+from time import time
+from initial_conditions import plummerSphere
 import integrator
 import utils
-from mpi4py import MPI
-### import tree_calc
-### import initial_conditions
-import argparse
-from time import time
-from datetime import datetime
 
-comm = MPI.COMM_WORLD
-rank = comm.Get_rank()
-size = comm.Get_size()
 
-N_parts = 1000  # how many particles?
-N_steps = 100  # how many time steps?
-dt = 0.1  # size of time step
-save_every = 1  # how often to save output results
+if __name__ == '__main__':
+    comm = MPI.COMM_WORLD
+    rank = comm.Get_rank()
+    size = comm.Get_size()
+    
+    # Our unit system:
+    # Length: kpc
+    # Time: Myr
+    # Mass: 10^9 M_sun
 
-# If we split "N_parts" particles into "size" chunks,
-# how many particles does this process get?
-parts_per_process = [utils.split_size(N_parts, size, r)
-                     for r in range(size)]
-N_rec = parts_per_process[rank]
+    GRAV_CONST = 4.483e-3  # Newton's Constant, in kpc^3 GM_sun^-1 Myr^-2
+    THETA = 0.5
+    
+    M_total = 1e5  # total mass of system (in 10^9 M_sun)
+    N_parts = 1000  # how many particles?
+    M_part = M_total / N_parts  # mass of each particle (in 10^9 M_sun)
+    a = 10.0  # scale radius (in kpc)
+    N_steps = 100  # how many time steps?
+    dt = 0.1  # size of time step (in Myr)
+    save_every = 1  # how often to save output results
+    seed = 1234  # Initialize state identically every time
+    
+    # If we split "N_parts" particles into "size" chunks,
+    # which particles does each process get?
+    part_ids_per_process = np.array_split(np.arange(N_parts), size)
+    # How many particles are on each processor?
+    N_per_process = np.array([len(part_ids_per_process[p])
+                              for p in range(size)])
+    # data-displacements, for transferring data to-from processor
+    displacements = np.insert(np.cumsum(N_per_process * 3), 0, 0)[0:-1]
+    # How many particles on this process?
+    N_this = N_per_process[rank]
 
-if rank == 0:
-    results_dir = 'testrun_1/'
-
-    # Set Plummer Sphere (or other) initial conditions
-    #######################
-    # pos_init, vel_init = ### initial_conditions.plummer(N_parts)
-    #######################
-
-    # Self-start the Leap-Frog algorithm, all on the main node
-    # Construct the tree and compute forces
-    #######################
-    # tree = tree_calc.build(pos_init)
-    # accels = tree.get_forces(pos_init)
-    #######################
-    # get v_1/2 = v_0 + a_0 * (dt / 2)
-    _, vel = integrator.cuda_timestep(pos_init, vel_init, accels, dt/2.)
-    # get x_1 = x_0 + v_1/2 * dt
-    pos, _ = integrator.cuda_timestep(pos_init, vel, accels, dt)
-
-# The main integration loop
-if rank == 0:
-    t_start = time()
-for i in range(N_steps):
-    # Construct the tree and compute forces
     if rank == 0:
-        #######################
-        # tree = tree_calc.build(pos)
-        #######################
+        results_dir = 'testrun_1/'
+
+        # Set Plummer Sphere (or other) initial conditions
+        pos_init, vel_init = plummerSphere.plummer(N_parts, a, m=M_part,
+                                                   G=GRAV_CONST, seed=seed)
+        masses = np.ones(N_parts) * M_part
+        
+        # Self-start the Leap-Frog algorithm, all on the main node
+        # Construct the tree and compute forces
+        tree = utils.construct_tree(pos_init, masses)
+        accels = utils.compute_force(tree, np.arange(N_parts),
+                                     THETA, GRAV_CONST) / M_part
+        # Half-kick
+        _, vel_full = integrator.cuda_timestep(pos_init, vel_init, accels,
+                                               dt/2.)
+        # Full-drift
+        pos_full, _ = integrator.cuda_timestep(pos_init, vel_full, accels, dt)
+        # From now on, the Leapfrog algorithm can do Full-Kick + Full-Drift
     else:
-        tree = None
-    # broadcast the tree
-    tree = comm.bcast(tree, root=0)
-    # scatter the positions and velocities
+        pos_full, vel_full = None, None
+    
+        # The main integration loop
     if rank == 0:
-        pos_send = np.array_split(pos, parts_per_process)
-        vel_send = np.array_split(vel, parts_per_process)
-    else:
-        data_send = None
-    pos = np.empty((N_rec, 3))
-    vel = np.empty((N_rec, 3))
-    comm.Scatter(pos_send, pos, root=0)
-    comm.Scatter(vel_send, vel, root=0)
-    # compute forces
-    ################
-    # accels = tree.get_forces(pos)
-    ################
-    # forward one time step
-    pos, vel = integrator.cuda_timestep(pos, vel, accels, dt)
-    # gather the positions and velocities
-    pos_rec = None
-    vel_rec = None
-    if rank == 0:
-        pos_rec = [np.empty((N, 3)) for N in parts_per_process]
-        vel_rec = [np.empty((N, 3)) for N in parts_per_process]
-    comm.Gather(pos, pos_rec, root=0)
-    comm.Gather(vel, vel_rec, root=0)
-    # Merge positions and velocities together
-    if rank == 0:
-        pos = np.concatenate(pos_rec)
-        vel = np.concatenate(vel_rec)
+        t_start = time()
+    for i in range(N_steps):
+        # Construct the tree and compute forces
+        if rank == 0:
+            tree = utils.construct_tree(pos_full, masses)
+        else:
+            tree = None
+        # broadcast the tree
+        tree = comm.bcast(tree, root=0)
+        # scatter the positions and velocities
+        pos = np.empty((N_this, 3))
+        vel = np.empty((N_this, 3))
+        comm.Scatterv([pos_full, N_per_process*3, displacements, MPI.double],
+                      pos, root=0)
+        comm.Scatterv([vel_full, N_per_process*3, displacements, MPI.double],
+                      vel, root=0)
+        # compute forces
+        accels = utils.compute_force(tree, part_ids_per_process[rank],
+                                     THETA, GRAV_CONST) / M_part
+        # forward one time step
+        pos, vel = integrator.cuda_timestep(pos, vel, accels, dt)
+        # gather the positions and velocities
+        pos_full = None
+        vel_full = None
+        if rank == 0:
+            pos_full = np.empty((N_parts, 3))
+            vel_full = np.empty((N_parts, 3))
+        comm.Gatherv(pos, [pos_full, N_per_process*3, displacements, MPI.double],
+                     root=0)
+        comm.Gatherv(vel, [vel_full, N_per_process*3, displacements, MPI.double],
+                     root=0)
 
-    # Save the results to output file
-    if ((i % save_every) == 0) or (i == N_steps - 1):
-        utils.save_results(pos, vel, t_start, i, N_steps, size,
-                           results_dir + 'step_{:d}.dat'.format(i))
+        # Save the results to output file
+        if rank == 0:
+            if ((i % save_every) == 0) or (i == N_steps - 1):
+                utils.save_results(pos_full, vel_full, t_start, i, N_steps,
+                                   size, results_dir + 'step_{:d}.dat'.format(i))

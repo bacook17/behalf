@@ -171,11 +171,10 @@ class octree:
         leaves: list of leaves (octnode)
         particles_dict: dictionary mapping particle index to the leaf node the particle belongs to (dictionary)
     """
-    def __init__(self, particles, masses, box, softening):
+    def __init__(self, particles, masses, box):
         self.particles = particles
         self.masses = masses
         self.box = box
-        self.softening = softening
         self.root = self.create_tree()
         self.leaves = []
         self.particle_dict = {}
@@ -187,7 +186,7 @@ class octree:
         bb = bbox([[bl, bh], [bl, bh], [bl, bh]]) #does this make sense to do? or should i use the particle min/maxes
         root = node(bb, self.particles, self.masses)
         
-        for i in xrange(len(self.particles)): #parallelize tree construction!!!!
+        for i in range(len(self.particles)): #parallelize tree construction!!!!
             root.insert(self.particles[i], i) 
         
         return root
@@ -200,7 +199,7 @@ class octree:
             for c in n.children: #otherwise loop over all its children
                 self.get_all_leaves(c)
             
-    def force(self, theta, particle_id, G):
+    def force(self, theta, particle_id, G, softening=0.1):
         """
         Description: 
             Calculate force for a given particle_id in the simulation with some tolerance theta
@@ -211,10 +210,11 @@ class octree:
         Output: 
             grad: force array (1x3)
         """
-        grad = self.traverse(self.root, self.particle_dict[particle_id], theta, particle_id, np.zeros(3), G)
+        grad = self.traverse(self.root, self.particle_dict[particle_id], theta,
+                             particle_id, np.zeros(3), G, softening=softening)
         return grad
     
-    def traverse(self, n0, n1, theta, idx, ret, G):
+    def traverse(self, n0, n1, theta, idx, ret, G, softening=0.1):
         """
         given two nodes n0 and n1, and some tol theta, traverse the tree till it's far enough that you can approximate the
         node as a "particle" and add the gravitational force of that particle to the ret array. n1 is the leaf node that 
@@ -222,11 +222,11 @@ class octree:
         """
         if(n0 == n1):
             return
-        dr = n0.com - n1.com 
+        dr = n0.com - n1.com
         r = np.sqrt(np.sum(dr**2))
         size_of_node = n0.box.xhigh - n0.box.xlow
         if(size_of_node/r < theta or n0.leaf):
-            if(r > self.softening[idx]):
+            if(r > softening):
                 ret += G*n0.M*dr/(r**3)
             else:
                 ret += G*n0.M*dr/(r**3) #actually do the softening idiot
