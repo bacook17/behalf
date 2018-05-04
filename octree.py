@@ -199,26 +199,26 @@ class octree:
             for c in n.children: #otherwise loop over all its children
                 self.get_all_leaves(c)
             
-    def force(self, theta, particle_id, G, softening=0.1):
+    def accel(self, theta, particle_id, G, softening=0.1):
         """
         Description: 
-            Calculate force for a given particle_id in the simulation with some tolerance theta
-        Inputs: 
+            Calculate acceleration for a given particle_id in the simulation with some tolerance theta
+        Inputs:
             theta: opening angle (float)
             particle_id: index of particle in sim to calculate force for (int)
             G: gravitational constant (float)
-        Output: 
+        Output:
             grad: force array (1x3)
         """
         grad = self.traverse(self.root, self.particle_dict[particle_id], theta,
                              particle_id, np.zeros(3), G, softening=softening)
         return grad
     
-    def traverse(self, n0, n1, theta, idx, ret, G, softening=0.1):
+    def traverse(self, n0, n1, theta, idx, ret, G, eps=0.01):
         """
         given two nodes n0 and n1, and some tol theta, traverse the tree till it's far enough that you can approximate the
-        node as a "particle" and add the gravitational force of that particle to the ret array. n1 is the leaf node that 
-        holds the particle we are calculating the force for. 
+        node as a "particle" and add the gravitational acceleration of that particle to the ret array. n1 is the leaf node that 
+        holds the particle we are calculating the accel for.
         """
         if(n0 == n1):
             return
@@ -226,10 +226,7 @@ class octree:
         r = np.sqrt(np.sum(dr**2))
         size_of_node = n0.box.xhigh - n0.box.xlow
         if(size_of_node/r < theta or n0.leaf):
-            if(r > softening):
-                ret += G*n0.M*dr/(r**3)
-            else:
-                ret += G*n0.M*dr/(r**3) #actually do the softening idiot
+            ret += G*n0.M*dr/(r**2 + eps**2)**1.5
         else:
             for c in n0.children:
                 self.traverse(c, n1, theta, idx, ret)

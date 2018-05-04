@@ -25,6 +25,7 @@ if __name__ == '__main__':
     a = 10.0  # scale radius (in kpc)
     N_steps = 100  # how many time steps?
     dt = 0.1  # size of time step (in Myr)
+    softening = 0.01  # softening length (in kpc)
     save_every = 1  # how often to save output results
     seed = 1234  # Initialize state identically every time
     
@@ -50,8 +51,8 @@ if __name__ == '__main__':
         # Self-start the Leap-Frog algorithm, all on the main node
         # Construct the tree and compute forces
         tree = utils.construct_tree(pos_init, masses)
-        accels = utils.compute_force(tree, np.arange(N_parts),
-                                     THETA, GRAV_CONST) / M_part
+        accels = utils.compute_accel(tree, np.arange(N_parts),
+                                     THETA, GRAV_CONST)
         # Half-kick
         _, vel_full = integrator.cuda_timestep(pos_init, vel_init, accels,
                                                dt/2.)
@@ -80,7 +81,7 @@ if __name__ == '__main__':
         comm.Scatterv([vel_full, N_per_process*3, displacements, MPI.double],
                       vel, root=0)
         # compute forces
-        accels = utils.compute_force(tree, part_ids_per_process[rank],
+        accels = utils.compute_accel(tree, part_ids_per_process[rank],
                                      THETA, GRAV_CONST) / M_part
         # forward one time step
         pos, vel = integrator.cuda_timestep(pos, vel, accels, dt)

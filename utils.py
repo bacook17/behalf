@@ -10,11 +10,11 @@ def construct_tree(pos, mass):
     return octree.octree(pos, mass, sim_box)
 
 
-def compute_force(tree, part_ids, theta, G):
+def compute_accel(tree, part_ids, theta, G):
     if type(part_ids) == int:
-        return tree.force(theta, part_ids, G)
+        return tree.accel(theta, part_ids, G)
     else:
-        return np.array([tree.force(theta, p_id, G)
+        return np.array([tree.accel(theta, p_id, G)
                          for p_id in part_ids])
 
 
