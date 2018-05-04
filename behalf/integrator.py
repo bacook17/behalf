@@ -6,7 +6,7 @@ try:
     import pycuda.gpuarray as gpuarray
     # os.environ['CUDA_DEVICE'] = '0'  # figure out how this will work on MPI
     import pycuda.autoinit
-except ModuleNotFoundError:
+except (ModuleNotFoundError, ImportError):
     __GPU_AVAIL = False
 else:
     __GPU_AVAIL = True

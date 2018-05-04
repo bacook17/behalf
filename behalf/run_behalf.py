@@ -1,16 +1,17 @@
 import numpy as np
 from mpi4py import MPI
 from time import time
-from initial_conditions import plummerSphere
+import initialConditions
 import integrator
 import utils
+import sys
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
 
 
 if __name__ == '__main__':
-    comm = MPI.COMM_WORLD
-    rank = comm.Get_rank()
-    size = comm.Get_size()
-    
     # Our unit system:
     # Length: kpc
     # Time: Myr
@@ -20,13 +21,13 @@ if __name__ == '__main__':
     THETA = 0.5
     
     M_total = 1e5  # total mass of system (in 10^9 M_sun)
-    N_parts = 100  # how many particles?
+    N_parts = 1000  # how many particles?
     M_part = M_total / N_parts  # mass of each particle (in 10^9 M_sun)
     a = 10.0  # scale radius (in kpc)
-    N_steps = 100  # how many time steps?
-    dt = 0.1  # size of time step (in Myr)
+    N_steps = 1000  # how many time steps?
+    dt = 0.01  # size of time step (in Myr)
     softening = 0.01  # softening length (in kpc)
-    save_every = 1  # how often to save output results
+    save_every = 100  # how often to save output results
     seed = 1234  # Initialize state identically every time
     
     # If we split "N_parts" particles into "size" chunks,
@@ -41,11 +42,11 @@ if __name__ == '__main__':
     N_this = N_per_process[rank]
 
     if rank == 0:
-        results_dir = 'gal_test_1/'  # name of ouptut directory
+        results_dir = 'gal_test_2/'  # name of ouptut directory
 
         # Set Plummer Sphere (or other) initial conditions
-        pos_init, vel_init = plummerSphere.plummer(N_parts, a, m=M_part,
-                                                   G=GRAV_CONST, seed=seed)
+        pos_init, vel_init = initialConditions.plummer(N_parts, a, m=M_part,
+                                                       G=GRAV_CONST, seed=seed)
         pos_init -= np.mean(pos_init, axis=0)
         vel_init -= np.mean(vel_init, axis=0)
         masses = np.ones(N_parts) * M_part
@@ -54,7 +55,7 @@ if __name__ == '__main__':
         # Construct the tree and compute forces
         tree = utils.construct_tree(pos_init, masses)
         accels = utils.compute_accel(tree, np.arange(N_parts),
-                                     THETA, GRAV_CONST)
+                                     THETA, GRAV_CONST, eps=softening)
         # Half-kick
         _, vel_full = integrator.cuda_timestep(pos_init, vel_init, accels,
                                                dt/2.)
@@ -63,12 +64,11 @@ if __name__ == '__main__':
         # From now on, the Leapfrog algorithm can do Full-Kick + Full-Drift
     else:
         pos_full, vel_full = None, None
-    # Print status
-    if rank == 0:
-        print('Starting Integration Loop')
     
     # The main integration loop
     if rank == 0:
+        print('Starting Integration Loop')
+        sys.stdout.flush()
         t_start = time()
     for i in range(N_steps):
         # Construct the tree and compute forces
@@ -81,13 +81,13 @@ if __name__ == '__main__':
         # scatter the positions and velocities
         pos = np.empty((N_this, 3))
         vel = np.empty((N_this, 3))
-        comm.Scatterv([pos_full, N_per_process*3, displacements, MPI.double],
+        comm.Scatterv([pos_full, N_per_process*3, displacements, MPI.DOUBLE],
                       pos, root=0)
-        comm.Scatterv([vel_full, N_per_process*3, displacements, MPI.double],
+        comm.Scatterv([vel_full, N_per_process*3, displacements, MPI.DOUBLE],
                       vel, root=0)
         # compute forces
         accels = utils.compute_accel(tree, part_ids_per_process[rank],
-                                     THETA, GRAV_CONST) / M_part
+                                     THETA, GRAV_CONST, eps=softening)
         # forward one time step
         pos, vel = integrator.cuda_timestep(pos, vel, accels, dt)
         # gather the positions and velocities
@@ -96,16 +96,17 @@ if __name__ == '__main__':
         if rank == 0:
             pos_full = np.empty((N_parts, 3))
             vel_full = np.empty((N_parts, 3))
-        comm.Gatherv(pos, [pos_full, N_per_process*3, displacements, MPI.double],
+        comm.Gatherv(pos, [pos_full, N_per_process*3, displacements, MPI.DOUBLE],
                      root=0)
-        comm.Gatherv(vel, [vel_full, N_per_process*3, displacements, MPI.double],
+        comm.Gatherv(vel, [vel_full, N_per_process*3, displacements, MPI.DOUBLE],
                      root=0)
 
         # Print status
         if rank == 0:
-            print('Iteration {:d} complete. {:.1f} seconds elapsed.'.format(i, time.time() - t_start))
+            print('Iteration {:d} complete. {:.1f} seconds elapsed.'.format(i, time() - t_start))
+            sys.stdout.flush()
         # Save the results to output file
         if rank == 0:
             if ((i % save_every) == 0) or (i == N_steps - 1):
-                utils.save_results(pos_full, vel_full, t_start, i, N_steps,
-                                   size, results_dir + 'step_{:d}.dat'.format(i))
+                utils.save_results(results_dir + 'step_{:d}.dat'.format(i), pos_full, vel_full, t_start, i, N_steps,
+                                   size)

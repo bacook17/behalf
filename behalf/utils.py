@@ -10,11 +10,11 @@ def construct_tree(pos, mass):
     return octree.octree(pos, mass, sim_box)
 
 
-def compute_accel(tree, part_ids, theta, G):
+def compute_accel(tree, part_ids, theta, G, eps=0.1):
     if type(part_ids) == int:
-        return tree.accel(theta, part_ids, G)
+        return tree.accel(theta, part_ids, G, eps=eps)
     else:
-        return np.array([tree.accel(theta, p_id, G)
+        return np.array([tree.accel(theta, p_id, G, eps=eps)
                          for p_id in part_ids])
 
 
@@ -122,11 +122,11 @@ def save_results(out_file, pos, vel, t_start, iter_num, iter_total, num_cores):
     header += 'Num Cores: {:d}\n'.format(num_cores)
     E_total = compute_energy(pos, vel, np.ones(len(pos)))
     header += 'Total Energy: {:.6e}\n'.format(E_total)
-    header += 'Iterations: {:d} of {:d}\n'.format(iter_num, iter_total)
+    header += 'Iterations: {:d} of {:d}\n'.format(iter_num+1, iter_total)
     header += 'Current Time: {:s}\n'.format(str(datetime.now()))
     dt = time()-t_start
     header += 'Elapsed Time: {:s}\n'.format(str(timedelta(seconds=dt)))
-    ave_dt = dt / iter_num
+    ave_dt = dt / (iter_num + 1)
     header += 'Avg. Step Time: {:s}\n'.format(str(timedelta(seconds=ave_dt)))
     header += '\n'
     header += 'x\ty\tz\tvx\tvy\tvz\n'

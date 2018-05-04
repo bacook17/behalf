@@ -160,13 +160,11 @@ class octree:
         particles: positions of all particles in simulation (Nx3 numpy array)
         masses: masses of all particles in simulation (Nx1 numpy array)
         box: bounding box (class bbox; see above.)
-        softening: force softening for each particle in simulation (Nx1 numpy array)
 
     Attributes:
         particles: positions of all particles in simulation (Nx3 numpy array)
         masses: masses of all particles in simulation (Nx1 numpy array)
         box: bounding box (class bbox; see above.)
-        softening: force softening for each particle in simulation (Nx1 numpy array)
         root: octnode object which holds the root of the created tree (octnode)
         leaves: list of leaves (octnode)
         particles_dict: dictionary mapping particle index to the leaf node the particle belongs to (dictionary)
@@ -199,7 +197,7 @@ class octree:
             for c in n.children: #otherwise loop over all its children
                 self.get_all_leaves(c)
             
-    def accel(self, theta, particle_id, G, softening=0.1):
+    def accel(self, theta, particle_id, G, eps=0.1):
         """
         Description: 
             Calculate acceleration for a given particle_id in the simulation with some tolerance theta
@@ -211,7 +209,7 @@ class octree:
             grad: force array (1x3)
         """
         grad = self.traverse(self.root, self.particle_dict[particle_id], theta,
-                             particle_id, np.zeros(3), G, softening=softening)
+                             particle_id, np.zeros(3), G, eps=eps)
         return grad
     
     def traverse(self, n0, n1, theta, idx, ret, G, eps=0.01):
@@ -229,6 +227,6 @@ class octree:
             ret += G*n0.M*dr/(r**2 + eps**2)**1.5
         else:
             for c in n0.children:
-                self.traverse(c, n1, theta, idx, ret)
+                self.traverse(c, n1, theta, idx, ret, G)
         return ret
     
