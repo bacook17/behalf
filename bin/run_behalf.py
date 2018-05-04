@@ -26,10 +26,10 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--run-name', help='Name of the run',
+    parser.add_argument('--run-name', help='REQUIRED - Name of the run',
                         type=str, required=True)
-    parser.add_argument('--N-parts', help='Number of particles', type=int,
-                        required=True)
+    parser.add_argument('--N-parts', help='REQUIRED - Number of particles',
+                        type=int, required=True)
     parser.add_argument('--total-mass', help='Total mass of the system (in GMsun)',
                         type=float, default=1e5)
     parser.add_argument('--radius', help='Scale Radius (in kpc)',
@@ -75,7 +75,7 @@ if __name__ == '__main__':
     N_this = N_per_process[rank]
 
     if rank == 0:
-        results_dir = run_name + '/'
+        results_dir = 'results/' + run_name + '/'
         if os.path.exists(results_dir) and not clobber:
             assert False, 'Directory already exists, and clobber not set'
         else:
