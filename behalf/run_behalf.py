@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import numpy as np
 from mpi4py import MPI
 from time import time
@@ -5,6 +6,9 @@ import initialConditions
 import integrator
 import utils
 import sys
+import argparse
+import os
+
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
@@ -19,16 +23,42 @@ if __name__ == '__main__':
 
     GRAV_CONST = 4.483e-3  # Newton's Constant, in kpc^3 GM_sun^-1 Myr^-2
     THETA = 0.5
-    
-    M_total = 1e5  # total mass of system (in 10^9 M_sun)
-    N_parts = 1000  # how many particles?
+
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('--run-name', 'Name of the run (must be unique)',
+                        type=str, required=True)
+    parser.add_argument('--N-parts', 'Number of particles', type=int,
+                        required=True)
+    parser.add_argument('--total-mass', 'Total mass of the system (in GMsun)',
+                        type=float, default=1e5)
+    parser.add_argument('--radius', 'Scale Radius (in kpc)',
+                        type=float, default=10.)
+    parser.add_argument('--N-steps', 'Number of time steps',
+                        type-int, default=1000)
+    parser.add_argument('--dt', 'Size of time step (in Myr)',
+                        type=float, default=0.01)
+    parser.add_argument('--softening', 'Softening length (in kpc)',
+                        type=float, default=0.01)
+    parser.add_argument('--save_every', 'How often to save output results',
+                        type=int, default=10)
+    parser.add_argument('--rand-seed', 'Random seed to initialize',
+                        type=int, default=1234)
+    parser.add_argument('--clobber', 'Should previous results be overwritten?',
+                        action='store_true')
+    args = parser.parse_args()
+
+    run_name = args.run_name
+    M_total = args.total_mass  # total mass of system (in 10^9 M_sun)
+    N_parts = args.N_parts  # how many particles?
     M_part = M_total / N_parts  # mass of each particle (in 10^9 M_sun)
-    a = 10.0  # scale radius (in kpc)
-    N_steps = 1000  # how many time steps?
-    dt = 0.01  # size of time step (in Myr)
-    softening = 0.01  # softening length (in kpc)
-    save_every = 100  # how often to save output results
-    seed = 1234  # Initialize state identically every time
+    a = args.radius  # scale radius (in kpc)
+    N_steps = args.N_steps  # how many time steps?
+    dt = args.dt  # size of time step (in Myr)
+    softening = args.softening  # softening length (in kpc)
+    save_every = args.save_every  # how often to save output results
+    seed = args.rand_seed  # Initialize state identically every time
+    clobbrer = args.clobber
     
     # If we split "N_parts" particles into "size" chunks,
     # which particles does each process get?
@@ -42,8 +72,12 @@ if __name__ == '__main__':
     N_this = N_per_process[rank]
 
     if rank == 0:
-        results_dir = 'gal_test_2/'  # name of ouptut directory
-
+        results_dir = run_name + '/'
+        if os.path.exists(results_dir) and not clobber:
+            assert False, 'Directory already exists, and clobber not set'
+        else:
+            os.makedirs(results_dir)
+        
         # Set Plummer Sphere (or other) initial conditions
         pos_init, vel_init = initialConditions.plummer(N_parts, a, m=M_part,
                                                        G=GRAV_CONST, seed=seed)
