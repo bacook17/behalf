@@ -81,6 +81,7 @@ if __name__ == '__main__':
         # Set Plummer Sphere (or other) initial conditions
         pos_init, vel_init = initialConditions.plummer(N_parts, a, m=M_part,
                                                        G=GRAV_CONST, seed=seed)
+        # Set center-of-mass and mean velocity to zero
         pos_init -= np.mean(pos_init, axis=0)
         vel_init -= np.mean(vel_init, axis=0)
         masses = np.ones(N_parts) * M_part

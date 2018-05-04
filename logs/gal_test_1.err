@@ -1,0 +1,3 @@
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 43325252 ON holy2a09207 CANCELLED AT 2018-05-04T15:10:12 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 43325252.0 ON holy2a09207 CANCELLED AT 2018-05-04T15:10:12 DUE TO TIME LIMIT ***

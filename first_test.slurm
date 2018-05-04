@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p conroy
+#SBATCH -p shared
 #SBATCH -J gal_test_1 # Job Name
 #SBATCH -n 8 # Number of MPI tasks
 #SBATCH -N 1 #ensure that all cores are on one machine
@@ -10,7 +10,7 @@
 #SBATCH --mail-type=BEGIN,END,FAIL #alert when done
 #SBATCH --mail-user=bcook@cfa.harvard.edu #Email to send to
 
-mpiexec -n $SLURM_NTASKS python run_sim.py
+mpiexec -n $SLURM_NTASKS run_behalf.py --run-name gal_test_1 --clobber --N-parts 100 
 RESULT=${PIPESTATUS[0]}
 sacct -j "${SLURM_JOB_ID}".batch --format=JOBID%20,JobName,NTasks,AllocCPUs,AllocGRES,Partition,Elapsed,MaxRSS,MaxVMSize,MaxDiskRead,MaxDiskWrite,State 
 exit $RESULT
