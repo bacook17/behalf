@@ -76,8 +76,9 @@ if __name__ == '__main__':
 
     if rank == 0:
         results_dir = 'results/' + run_name + '/'
-        if os.path.exists(results_dir) and not clobber:
-            assert False, 'Directory already exists, and clobber not set'
+        if os.path.exists(results_dir):
+            if not clobber:
+                assert False, 'Directory already exists, and clobber not set'
         else:
             os.makedirs(results_dir)
         
@@ -108,6 +109,7 @@ if __name__ == '__main__':
         if verbose:
             print('Starting Integration Loop')
             sys.stdout.flush()
+            sys.stderr.flush()
         t_start = time()
     for i in range(N_steps):
         # Construct the tree and compute forces
@@ -141,11 +143,12 @@ if __name__ == '__main__':
                      root=0)
 
         if rank == 0:
-            # Print status
-            if verbose:
-                print('Iteration {:d} complete. {:.1f} seconds elapsed.'.format(i, time() - t_start))
-                sys.stdout.flush()
             # Save the results to output file
             if ((i % save_every) == 0) or (i == N_steps - 1):
                 utils.save_results(results_dir + 'step_{:d}.dat'.format(i), pos_full, vel_full, t_start, i, N_steps,
                                    size)
+            # Print status
+            if verbose:
+                print('Iteration {:d} complete. {:.1f} seconds elapsed.'.format(i, time() - t_start))
+                sys.stdout.flush()
+                sys.stderr.flush()

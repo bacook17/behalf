@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/n/home01/bcook/.conda/envs/py36/bin/run_behalf.py", line 82, in <module>
+    os.makedirs(results_dir)
+  File "/n/home01/bcook/.conda/envs/py36/lib/python3.6/os.py", line 220, in makedirs
+    mkdir(name, mode)
+FileExistsError: [Errno 17] File exists: 'results/gpu_test/'

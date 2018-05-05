@@ -45,7 +45,7 @@ def cuda_timestep(p, v, a, dt):
     v_d += a_d * dt
     # drift step: x(i+1) = x(i) + v(i + 1/2) dt
     p_d += v_d * dt
-    return p_d.get(), v_d.get()
+    return p_d.get().astype(np.float64), v_d.get().astype(np.float64)
 
 
 def serial_timestep(p, v, a, dt):
