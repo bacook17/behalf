@@ -9,7 +9,7 @@ if __name__ == '__main__':
     Nsteps = 1000
     dt = 10
 
-    NNsteps = 500
+    NNsteps = 300
 
     n_cores = [1, 2, 4, 8, 16,32, 64]
     parallel_time = []
@@ -41,13 +41,11 @@ if __name__ == '__main__':
     serial_time = parallel_time[0]*np.ones(NN)
 
     ratio = serial_time/parallel_time
-    
-    
 
     plt.figure()
     plt.plot(n_cores, ratio, '-ob')
     plt.xlabel('Number of cores (same node)')
-    plt.ylabel('Speedup',fontsize=8)
+    plt.ylabel('Speedup')
     plt.xscale('log')
     plt.title('Speedup versus number of cores')
     plt.savefig('mpi_speedup_vs_ncores_Npart%d_Nsteps%d_dt%d_64.png' %(Npart, NNsteps, dt), dpi=600)
