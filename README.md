@@ -2,6 +2,7 @@ BEHALF
 ========
 
 BarnEs-Hut ALgorithm For CS205
+
 Please visit out (project website)[https://anaroxanapop.github.io/behalf/] to learn more.
 
 ### Installation
