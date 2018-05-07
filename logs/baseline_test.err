@@ -1,6 +1,21 @@
-Traceback (most recent call last):
-  File "/n/home01/bcook/.conda/envs/py36/bin/run_behalf.py", line 82, in <module>
-    os.makedirs(results_dir)
-  File "/n/home01/bcook/.conda/envs/py36/lib/python3.6/os.py", line 220, in makedirs
-    mkdir(name, mode)
-FileExistsError: [Errno 17] File exists: 'results/baseline_test/'
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 43369916 ON holy2a09202 CANCELLED AT 2018-05-05T08:46:11 ***
+slurmstepd: error: *** STEP 43369916.0 ON holy2a09202 CANCELLED AT 2018-05-05T08:46:11 ***
+/n/home01/bcook/behalf/behalf/integrator.py:34: UserWarning: GPU not available, switching to serial implementation
+  warn('GPU not available, switching to serial implementation')
+/n/home01/bcook/behalf/behalf/integrator.py:34: UserWarning: GPU not available, switching to serial implementation
+  warn('GPU not available, switching to serial implementation')
+/n/home01/bcook/behalf/behalf/integrator.py:34: UserWarning: GPU not available, switching to serial implementation
+  warn('GPU not available, switching to serial implementation')
+/n/home01/bcook/behalf/behalf/integrator.py:34: UserWarning: GPU not available, switching to serial implementation
+  warn('GPU not available, switching to serial implementation')
+/n/home01/bcook/behalf/behalf/integrator.py:34: UserWarning: GPU not available, switching to serial implementation
+  warn('GPU not available, switching to serial implementation')
+/n/home01/bcook/behalf/behalf/integrator.py:34: UserWarning: GPU not available, switching to serial implementation
+  warn('GPU not available, switching to serial implementation')
+/n/home01/bcook/behalf/behalf/integrator.py:34: UserWarning: GPU not available, switching to serial implementation
+  warn('GPU not available, switching to serial implementation')
+/n/home01/bcook/behalf/behalf/integrator.py:34: UserWarning: GPU not available, switching to serial implementation
+  warn('GPU not available, switching to serial implementation')
+slurmstepd: error: *** JOB 43369594 ON holy2a09202 CANCELLED AT 2018-05-05T14:04:47 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 43369594.0 ON holy2a09202 CANCELLED AT 2018-05-05T14:04:47 DUE TO TIME LIMIT ***

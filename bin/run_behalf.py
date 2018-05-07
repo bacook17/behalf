@@ -76,12 +76,13 @@ if __name__ == '__main__':
 
     if rank == 0:
         results_dir = 'results/' + run_name + '/'
-        if os.path.exists(results_dir):
-            if not clobber:
-                assert False, 'Directory already exists, and clobber not set'
-        else:
+        try:
             os.makedirs(results_dir)
-        
+        except FileExistsError:
+            if clobber:
+                pass
+            else:
+                assert False, 'Directory already exists, and clobber not set'
         # Set Plummer Sphere (or other) initial conditions
         pos_init, vel_init = initialConditions.plummer(N_parts, a, m=M_part,
                                                        G=GRAV_CONST, seed=seed)
