@@ -55,6 +55,7 @@ optional arguments:
                         Softening length (in kpc) (default: 0.01)
   --save_every SAVE_EVERY
                         How often to save output results (default: 10)
+  --THETA THETA         Barnes-Hut approximation range (default: 0.5)
   --rand-seed RAND_SEED
                         Random seed to initialize (default: 1234)
   --clobber             Should previous results be overwritten? (default:
