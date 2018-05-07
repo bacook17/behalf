@@ -1,6 +1,14 @@
+from __future__ import division
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import absolute_import
+from builtins import range
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 import numpy as np
 
-class node:
+class node(object):
     def __init__(self, box, particles, masses):
         """
         box: a bbox object with the dimensions of the node/cell
@@ -107,7 +115,7 @@ class node:
             
         self.children = [c1, c2, c3, c4, c5, c6, c7, c8] #assign children
 
-class bbox:
+class bbox(object):
     def __init__(self, box, dim=3):
         """
         bbox makes life a lil easier. 
@@ -154,7 +162,7 @@ class bbox:
         return np.array([self.bb.min(), self.bb.max()])
     
 
-class octree:
+class octree(object):
     """
     Inputs: 
         particles: positions of all particles in simulation (Nx3 numpy array)

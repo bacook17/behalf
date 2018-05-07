@@ -1,3 +1,14 @@
+from __future__ import division
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import absolute_import
+from builtins import range
+from builtins import open
+from builtins import int
+from builtins import str
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
 import numpy as np
 from time import time
 from datetime import datetime, timedelta
@@ -17,7 +28,7 @@ def compute_accel(tree, part_ids, theta, G, eps=0.1):
         return np.array([tree.accel(theta, p_id, G, eps=eps)
                          for p_id in part_ids])
 
-class TimerCollection:
+class TimerCollection(object):
 
     def __init__(self):
         self.start_times = {}
