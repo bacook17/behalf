@@ -22,7 +22,7 @@ if __name__ == '__main__':
     # Mass: 10^9 M_sun
 
     GRAV_CONST = 4.483e-3  # Newton's Constant, in kpc^3 GM_sun^-1 Myr^-2
-    THETA = 0.5
+    # THETA = 0.5 - now taken as input
 
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -42,6 +42,8 @@ if __name__ == '__main__':
                         type=float, default=0.01)
     parser.add_argument('--save_every', help='How often to save output results',
                         type=int, default=10)
+    parser.add_argument('--THETA', help='Barnes-Hut Approximation Range',
+                        type=float, default=0.5)
     parser.add_argument('--rand-seed', help='Random seed to initialize',
                         type=int, default=1234)
     parser.add_argument('--clobber', help='Should previous results be overwritten?',
@@ -59,6 +61,7 @@ if __name__ == '__main__':
     dt = args.dt  # size of time step (in Myr)
     softening = args.softening  # softening length (in kpc)
     save_every = args.save_every  # how often to save output results
+    THETA = args.THETA # Barnes-Hut approximation range - 0.5 works well
     seed = args.rand_seed  # Initialize state identically every time
     clobber = args.clobber
     verbose = args.verbose

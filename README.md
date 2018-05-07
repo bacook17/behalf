@@ -1,7 +1,9 @@
-behalf
+BEHALF
 ========
 
 BarnEs-Hut ALgorithm For CS205
+
+Please visit out [project website](https://anaroxanapop.github.io/behalf/) to learn more.
 
 ### Installation
 To install `behalf`, first clone and navigate into the repository. 
@@ -36,8 +38,8 @@ From there, you should be able to install the GPU support.
 usage: run_behalf.py [-h] --run-name RUN_NAME --N-parts N_PARTS
                      [--total-mass TOTAL_MASS] [--radius RADIUS]
                      [--N-steps N_STEPS] [--dt DT] [--softening SOFTENING]
-                     [--save_every SAVE_EVERY] [--rand-seed RAND_SEED]
-                     [--clobber] [--verbose]
+                     [--save_every SAVE_EVERY] [--THETA THETA] 
+		     [--rand-seed RAND_SEED][--clobber] [--verbose]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -53,6 +55,7 @@ optional arguments:
                         Softening length (in kpc) (default: 0.01)
   --save_every SAVE_EVERY
                         How often to save output results (default: 10)
+  --THETA THETA         Barnes-Hut approximation range (default: 0.5)
   --rand-seed RAND_SEED
                         Random seed to initialize (default: 1234)
   --clobber             Should previous results be overwritten? (default:
