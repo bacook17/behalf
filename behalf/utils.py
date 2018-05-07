@@ -24,13 +24,13 @@ class TimerCollection:
         self.completed_times = {}
 
     def start(self, watch_name):
-        self.starts[watch_name] = time()
+        self.start_times[watch_name] = time()
         if watch_name not in self.completed_times:
             self.completed_times[watch_name] = []
 
     def stop(self, watch_name):
         try:
-            dt = time() - self.starts.pop(watch_name)
+            dt = time() - self.start_times.pop(watch_name)
             self.completed_times[watch_name].append(dt)
         except KeyError:
             raise KeyError('No such timer started')

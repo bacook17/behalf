@@ -1,0 +1,10 @@
+# Run Name: gpu_2_100_100_100
+# Number of Cores: 2
+# Num Particles: 100
+# Total Mass: 1e+05 x 10^9 M_sun
+# Scale Radius: 10 kpc
+# Theta: 0.5
+# Time Step: 0.01
+# Number of Steps: 100
+# Force Softening: 0.01
+# Random Seed: 1234
