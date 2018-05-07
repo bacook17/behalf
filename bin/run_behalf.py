@@ -61,7 +61,7 @@ if __name__ == '__main__':
     dt = args.dt  # size of time step (in Myr)
     softening = args.softening  # softening length (in kpc)
     save_every = args.save_every  # how often to save output results
-    THETA = args.THETA # Barnes-Hut approximation range - 0.5 works well
+    THETA = args.THETA  # Barnes-Hut approximation range - 0.5 works well
     seed = args.rand_seed  # Initialize state identically every time
     clobber = args.clobber
     verbose = args.verbose
@@ -86,6 +86,10 @@ if __name__ == '__main__':
                 pass
             else:
                 assert False, 'Directory already exists, and clobber not set'
+        # Save overview of parameters of this run
+        utils.summarize_run(results_dir + 'overview.txt', run_name, size,
+                            N_parts, M_total, a, THETA, dt, N_steps, softening,
+                            seed)
         # Set Plummer Sphere (or other) initial conditions
         pos_init, vel_init = initialConditions.plummer(N_parts, a, m=M_part,
                                                        G=GRAV_CONST, seed=seed)
@@ -149,7 +153,7 @@ if __name__ == '__main__':
         if rank == 0:
             # Save the results to output file
             if ((i % save_every) == 0) or (i == N_steps - 1):
-                utils.save_results(results_dir + 'step_{:d}.dat'.format(i), pos_full, vel_full, t_start, i, N_steps,
+                utils.save_results(results_dir + 'step_{:d}.dat'.format(i), pos_full, vel_full, masses, t_start, i, N_steps,
                                    size)
             # Print status
             if verbose:

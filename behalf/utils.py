@@ -36,10 +36,8 @@ def compute_energy(pos, vel, mass=None, G=1.):
     Output:
        E - total energy (float)
     """
-    if mass is None:
-        mass = np.ones(len(pos))
-    return compute_potential_energy(pos, mass, G=G) +\
-        compute_kinetic_energy(vel, mass)
+    return compute_potential_energy(pos, mass=mass, G=G) +\
+        compute_kinetic_energy(vel, mass=mass)
 
 
 def compute_potential_energy(pos, mass=None, G=1.):
@@ -64,6 +62,8 @@ def compute_potential_energy(pos, mass=None, G=1.):
     N_part = pos.shape[0]
     if mass is None:
         mass = np.ones(N_part)
+    elif type(mass) is float:
+        mass = np.ones(N_part) * mass
     else:
         mass = np.array(mass).astype(float)
     assert mass.shape == (N_part,), ("input masses must match length of "
@@ -96,6 +96,8 @@ def compute_kinetic_energy(vel, mass=None):
     N_part = vel.shape[0]
     if mass is None:
         mass = np.ones(N_part)
+    elif type(mass) is float:
+        mass = np.ones(N_part) * mass
     else:
         mass = np.array(mass).astype(float)
     N_part = vel.shape[0]
@@ -104,7 +106,8 @@ def compute_kinetic_energy(vel, mass=None):
     return np.sum(vel.T**2. * mass) * 0.5
 
 
-def save_results(out_file, pos, vel, t_start, iter_num, iter_total, num_cores):
+def save_results(out_file, pos, vel, mass, t_start, iter_num, iter_total,
+                 num_cores):
     """
     Saves the current state of the simulation to "out_file". 
     
@@ -118,11 +121,9 @@ def save_results(out_file, pos, vel, t_start, iter_num, iter_total, num_cores):
        num_cores - number of cores used for computation
     """
     header = ""
-    header += 'Num Particles: {:d}\n'.format(len(pos))
-    header += 'Num Cores: {:d}\n'.format(num_cores)
-    E_total = compute_energy(pos, vel, np.ones(len(pos)))
-    header += 'Total Energy: {:.6e}\n'.format(E_total)
     header += 'Iterations: {:d} of {:d}\n'.format(iter_num+1, iter_total)
+    E_total = compute_energy(pos, vel, mass=mass)
+    header += 'Total Energy: {:.6e}\n'.format(E_total)
     header += 'Current Time: {:s}\n'.format(str(datetime.now()))
     dt = time()-t_start
     header += 'Elapsed Time: {:s}\n'.format(str(timedelta(seconds=dt)))
@@ -134,6 +135,21 @@ def save_results(out_file, pos, vel, t_start, iter_num, iter_total, num_cores):
                fmt='%+8.4f', delimiter='\t')
 
 
+def summarize_run(out_file, run_name, N_cores, N_parts, M_total, a, theta, dt,
+                  N_steps, softening, seed):
+    with open(out_file, 'w') as f:
+        f.write('# Run Name: {:s}\n'.format(run_name))
+        f.write('# Number of Cores: {:d}\n'.format(N_cores))
+        f.write('# Num Particles: {:d}\n'.format(N_parts))
+        f.write('# Total Mass: {:.2g} x 10^9 M_sun\n'.format(M_total))
+        f.write('# Scale Radius: {:.2g} kpc\n'.format(a))
+        f.write('# Theta: {.2g}\n'.format(theta))
+        f.write('# Time Step: {:.2g}\n'.format(dt))
+        f.write('# Number of Steps: {:d}\n'.format(N_steps))
+        f.write('# Force Softening: {:.2g}\n'.format(softening))
+        f.write('# Random Seed: {:d}\n'.format(seed))
+
+        
 def split_size(N_parts, N_chunks, i):
     """
     Returns number of particles (out of N_parts) distributed to
