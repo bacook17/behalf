@@ -1,4 +1,4 @@
-default: manual
+default: gpu
 
 gpu: behalf_gpu
 

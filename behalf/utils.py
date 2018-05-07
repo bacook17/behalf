@@ -17,8 +17,32 @@ def compute_accel(tree, part_ids, theta, G, eps=0.1):
         return np.array([tree.accel(theta, p_id, G, eps=eps)
                          for p_id in part_ids])
 
+class TimerCollection:
 
-def compute_energy(pos, vel, mass=None, G=1.):
+    def __init__(self):
+        self.start_times = {}
+        self.completed_times = {}
+
+    def start(self, watch_name):
+        self.starts[watch_name] = time()
+        if watch_name not in self.completed_times:
+            self.completed_times[watch_name] = []
+
+    def stop(self, watch_name):
+        try:
+            dt = time() - self.starts.pop(watch_name)
+            self.completed_times[watch_name].append(dt)
+        except KeyError:
+            raise KeyError('No such timer started')
+
+    def iter_averages(self):
+        for k in sorted(self.completed_times.keys()):
+            yield k, np.mean(self.completed_times[k])
+
+    def clear(self):
+        self.__init__()
+
+def compute_energy(pos, vel, mass=None, G=4.483e-3):
     """
     Returns the total energy of the system defined by
     input positions (pos), velocities (vel), and masses (defaults
@@ -40,7 +64,7 @@ def compute_energy(pos, vel, mass=None, G=1.):
         compute_kinetic_energy(vel, mass=mass)
 
 
-def compute_potential_energy(pos, mass=None, G=1.):
+def compute_potential_energy(pos, mass=None, G=4.483e-3):
     """
     Returns the gravitational potential energy of the system defined by input
     positions (pos) and masses (defaults to 1.0 for all particles),
@@ -107,28 +131,38 @@ def compute_kinetic_energy(vel, mass=None):
 
 
 def save_results(out_file, pos, vel, mass, t_start, iter_num, iter_total,
-                 num_cores):
+                 num_cores, G=4.483e-3, timers=None):
     """
-    Saves the current state of the simulation to "out_file". 
+    Saves the current state of the simulation to "out_file".
     
     Input:
        out_file - filename to save results to
        pos - array of particle positions (N x d)
        vel - array of particle velocities (N x d)
+       mass - array of particle masses (N)
        t_start - start time (in seconds) of the simulation
        iter_num - current time step of the simulation
        iter_total - total number of iterations the simulation will run for
        num_cores - number of cores used for computation
+       timers - TimerCollection of custom timers to save
     """
     header = ""
     header += 'Iterations: {:d} of {:d}\n'.format(iter_num+1, iter_total)
-    E_total = compute_energy(pos, vel, mass=mass)
-    header += 'Total Energy: {:.6e}\n'.format(E_total)
+    K = compute_kinetic_energy(vel, mass=mass)
+    U = compute_potential_energy(pos, mass=mass, G=G)
+    E_total = K+U
+    header += 'Total Energy: {:.6g}\n'.format(E_total)
+    header += '   Kinetic Energy: {:.6g}\n'.format(K)
+    header += '   Potential Energy: {:.6g}\n'.format(U)
     header += 'Current Time: {:s}\n'.format(str(datetime.now()))
     dt = time()-t_start
     header += 'Elapsed Time: {:s}\n'.format(str(timedelta(seconds=dt)))
     ave_dt = dt / (iter_num + 1)
     header += 'Avg. Step Time: {:s}\n'.format(str(timedelta(seconds=ave_dt)))
+    if timers is not None:
+        header += '\nAvg. Times for Sections\n'
+        for name, avg in timers.iter_averages():
+            header += '   {:s}: {:.2g}\n'.format(name, avg)
     header += '\n'
     header += 'x\ty\tz\tvx\tvy\tvz\n'
     np.savetxt(out_file, np.append(pos, vel, axis=-1), header=header,
@@ -167,3 +201,5 @@ def split_size(N_parts, N_chunks, i):
     90
     """
     return (N_parts // N_chunks) + int((N_parts % N_chunks) > i)
+
+

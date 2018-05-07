@@ -15,14 +15,14 @@ def rand_unit_vector(d, rand=np.random):
     return vec
 
 
-def plummer(Npart, a, m=1., G=1., seed=None):
+def plummer(Npart, a, m=1., G=4.483e-3, seed=None):
     """
     Returns the positions and velocities of particles in the Plummer sphere
     input:
         Npart - total number of particles to be initialized
         a - Plummer radius (scale parameter setting the cluster core)
         m - mass of particles (if single value, all particles will be initialized with the same mass; if array, each particles i will have mass m_i)
-        G - Gravitational constant; by default, work in units where G=1
+        G - Gravitational constant; by default, work in Kpc-GM_sun-Myr units
         seed - random generator seed (int, optional: defaults to random numpy seed)
     output:
         [pos, vel] - [(Npart x 3), (Npart x 3)] of positions and velocities in cartesian coordinates
