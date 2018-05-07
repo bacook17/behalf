@@ -14,8 +14,6 @@ comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
 
-sys.excepthook = comm.Abort(1)  # mpi4py doesn't terminate if one rank throws exception
-
 if __name__ == '__main__':
     # Our unit system:
     # Length: kpc
