@@ -171,7 +171,7 @@ def save_results(out_file, pos, vel, mass, t_start, iter_num, iter_total,
     if timers is not None:
         header += '\nAvg. Times for Sections\n'
         for name, avg in timers.iter_averages():
-            header += '   {:s}: {:.3e}\n'.format(name, avg)
+            header += '   {:s}:\t\t{:.6f}\n'.format(name, avg)
     header += '\n'
     header += 'x\ty\tz\tvx\tvy\tvz\n'
     np.savetxt(out_file, np.append(pos, vel, axis=-1), header=header,

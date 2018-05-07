@@ -39,7 +39,7 @@ if __name__ == '__main__':
                         type=float, default=0.01)
     parser.add_argument('--softening', help='Softening length (in kpc)',
                         type=float, default=0.01)
-    parser.add_argument('--save_every', help='How often to save output results',
+    parser.add_argument('--save-every', help='How often to save output results',
                         type=int, default=10)
     parser.add_argument('--THETA', help='Barnes-Hut Approximation Range',
                         type=float, default=0.5)
