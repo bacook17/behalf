@@ -116,14 +116,14 @@ if __name__ == '__main__':
     if rank == 0:
         if verbose:
             print('Starting Integration Loop')
-            sys.stdout.flush()
-            sys.stderr.flush()
+        sys.stdout.flush()
+        sys.stderr.flush()
         # Track how long each step takes
         timers = utils.TimerCollection()
     for i in range(N_steps):
-        timers.start('Overall')
         # Construct the tree and compute forces
         if rank == 0:
+            timers.start('Overall')
             timers.start('Tree Construction')
             tree = utils.construct_tree(pos_full, masses)
             timers.stop('Tree Construction')
@@ -177,5 +177,5 @@ if __name__ == '__main__':
             # Print status
             if verbose:
                 print('Iteration {:d} complete. {:.1f} seconds elapsed.'.format(i, time() - t_start))
-                sys.stdout.flush()
-                sys.stderr.flush()
+            sys.stdout.flush()
+            sys.stderr.flush()

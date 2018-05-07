@@ -2,11 +2,20 @@
 # Ben Cook (bcook@cfa.harvard.edu)
 
 import numpy as np
+import os
+from mpi4py import MPI
+
+rank = MPI.COMM_WORLD.Get_rank()
+
 try:
+    # try to split up the GPU devices
+    devices = os.environ['CUDA_VISIBLE_DEVICES'].split(',')
+    n_devices = len(devices)
+    my_device = rank % n_devices
+    os.environ['CUDA_DEVICE'] = devices[my_device]
     import pycuda.gpuarray as gpuarray
-    # os.environ['CUDA_DEVICE'] = '0'  # figure out how this will work on MPI
     import pycuda.autoinit
-except (ModuleNotFoundError, ImportError):
+except (ImportError):
     __GPU_AVAIL = False
 else:
     __GPU_AVAIL = True
