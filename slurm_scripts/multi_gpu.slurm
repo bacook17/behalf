@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p gpu
+#SBATCH -p holyseasgpu
 #SBATCH -J multi_gpu # Job Name
 #SBATCH -n 4 # Number of MPI tasks
 #SBATCH -N 1 #ensure that all cores are NOT on one machine
