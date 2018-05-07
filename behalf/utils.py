@@ -177,7 +177,7 @@ def summarize_run(out_file, run_name, N_cores, N_parts, M_total, a, theta, dt,
         f.write('# Num Particles: {:d}\n'.format(N_parts))
         f.write('# Total Mass: {:.2g} x 10^9 M_sun\n'.format(M_total))
         f.write('# Scale Radius: {:.2g} kpc\n'.format(a))
-        f.write('# Theta: {.2g}\n'.format(theta))
+        f.write('# Theta: {:.2g}\n'.format(theta))
         f.write('# Time Step: {:.2g}\n'.format(dt))
         f.write('# Number of Steps: {:d}\n'.format(N_steps))
         f.write('# Force Softening: {:.2g}\n'.format(softening))
