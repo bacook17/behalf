@@ -38,8 +38,8 @@ From there, you should be able to install the GPU support.
 usage: run_behalf.py [-h] --run-name RUN_NAME --N-parts N_PARTS
                      [--total-mass TOTAL_MASS] [--radius RADIUS]
                      [--N-steps N_STEPS] [--dt DT] [--softening SOFTENING]
-                     [--save_every SAVE_EVERY] [--rand-seed RAND_SEED]
-                     [--clobber] [--verbose]
+                     [--save_every SAVE_EVERY] [--THETA THETA] 
+		     [--rand-seed RAND_SEED][--clobber] [--verbose]
 
 optional arguments:
   -h, --help            show this help message and exit
