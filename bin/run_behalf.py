@@ -14,6 +14,7 @@ comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
 
+sys.excepthook = comm.Abort(1)  # mpi4py doesn't terminate if one rank throws exception
 
 if __name__ == '__main__':
     # Our unit system:
@@ -122,6 +123,7 @@ if __name__ == '__main__':
         # Track how long each step takes
         timers = utils.TimerCollection()
     for i in range(N_steps):
+        timers.start('Overall')
         # Construct the tree and compute forces
         if rank == 0:
             timers.start('Tree Construction')
@@ -168,6 +170,7 @@ if __name__ == '__main__':
                      root=0)
         if rank == 0:
             timers.stop('Gather Particles')
+            timers.stop('Overall')
             # Save the results to output file
             if ((i % save_every) == 0) or (i == N_steps - 1):
                 utils.save_results(results_dir + 'step_{:d}.dat'.format(i), pos_full, vel_full, masses, t_start, i, N_steps,

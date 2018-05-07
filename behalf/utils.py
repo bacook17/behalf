@@ -151,18 +151,16 @@ def save_results(out_file, pos, vel, mass, t_start, iter_num, iter_total,
     K = compute_kinetic_energy(vel, mass=mass)
     U = compute_potential_energy(pos, mass=mass, G=G)
     E_total = K+U
-    header += 'Total Energy: {:.6g}\n'.format(E_total)
-    header += '   Kinetic Energy: {:.6g}\n'.format(K)
-    header += '   Potential Energy: {:.6g}\n'.format(U)
+    header += 'Total Energy: {:.3e}\n'.format(E_total)
+    header += '   Kinetic Energy: {:.3e}\n'.format(K)
+    header += '   Potential Energy: {:.3e}\n'.format(U)
     header += 'Current Time: {:s}\n'.format(str(datetime.now()))
     dt = time()-t_start
     header += 'Elapsed Time: {:s}\n'.format(str(timedelta(seconds=dt)))
-    ave_dt = dt / (iter_num + 1)
-    header += 'Avg. Step Time: {:s}\n'.format(str(timedelta(seconds=ave_dt)))
     if timers is not None:
         header += '\nAvg. Times for Sections\n'
         for name, avg in timers.iter_averages():
-            header += '   {:s}: {:.2g}\n'.format(name, avg)
+            header += '   {:s}: {:.3e}\n'.format(name, avg)
     header += '\n'
     header += 'x\ty\tz\tvx\tvy\tvz\n'
     np.savetxt(out_file, np.append(pos, vel, axis=-1), header=header,
@@ -175,12 +173,12 @@ def summarize_run(out_file, run_name, N_cores, N_parts, M_total, a, theta, dt,
         f.write('# Run Name: {:s}\n'.format(run_name))
         f.write('# Number of Cores: {:d}\n'.format(N_cores))
         f.write('# Num Particles: {:d}\n'.format(N_parts))
-        f.write('# Total Mass: {:.2g} x 10^9 M_sun\n'.format(M_total))
-        f.write('# Scale Radius: {:.2g} kpc\n'.format(a))
-        f.write('# Theta: {:.2g}\n'.format(theta))
-        f.write('# Time Step: {:.2g}\n'.format(dt))
+        f.write('# Total Mass: {:.2e} M_sun\n'.format(M_total * 1e9))
+        f.write('# Scale Radius: {:.2f} kpc\n'.format(a))
+        f.write('# Theta: {:.2f}\n'.format(theta))
+        f.write('# Time Step: {:.2g} Myr\n'.format(dt))
         f.write('# Number of Steps: {:d}\n'.format(N_steps))
-        f.write('# Force Softening: {:.2g}\n'.format(softening))
+        f.write('# Force Softening: {:.2f} kpc\n'.format(softening))
         f.write('# Random Seed: {:d}\n'.format(seed))
 
         
