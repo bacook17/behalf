@@ -17,6 +17,30 @@ def compute_accel(tree, part_ids, theta, G, eps=0.1):
         return np.array([tree.accel(theta, p_id, G, eps=eps)
                          for p_id in part_ids])
 
+class TimerCollection:
+
+    def __init__(self):
+        self.start_times = {}
+        self.completed_times = {}
+
+    def start(self, watch_name):
+        self.starts[watch_name] = time()
+        if watch_name not in self.completed_times:
+            self.completed_times[watch_name] = []
+
+    def stop(self, watch_name):
+        try:
+            dt = time() - self.starts.pop(watch_name)
+            self.completed_times[watch_name].append(dt)
+        except KeyError:
+            raise KeyError('No such timer started')
+
+    def iter_averages(self):
+        for k in sorted(self.completed_times.keys()):
+            yield k, np.mean(self.completed_times[k])
+
+    def clear(self):
+        self.__init__()
 
 def compute_energy(pos, vel, mass=None, G=1.):
     """
@@ -104,7 +128,8 @@ def compute_kinetic_energy(vel, mass=None):
     return np.sum(vel.T**2. * mass) * 0.5
 
 
-def save_results(out_file, pos, vel, t_start, iter_num, iter_total, num_cores):
+def save_results(out_file, pos, vel, t_start, iter_num, iter_total, num_cores,
+                 timers=None):
     """
     Saves the current state of the simulation to "out_file". 
     
@@ -116,6 +141,7 @@ def save_results(out_file, pos, vel, t_start, iter_num, iter_total, num_cores):
        iter_num - current time step of the simulation
        iter_total - total number of iterations the simulation will run for
        num_cores - number of cores used for computation
+       timers - TimerCollection of custom timers to save
     """
     header = ""
     header += 'Num Particles: {:d}\n'.format(len(pos))
@@ -128,6 +154,10 @@ def save_results(out_file, pos, vel, t_start, iter_num, iter_total, num_cores):
     header += 'Elapsed Time: {:s}\n'.format(str(timedelta(seconds=dt)))
     ave_dt = dt / (iter_num + 1)
     header += 'Avg. Step Time: {:s}\n'.format(str(timedelta(seconds=ave_dt)))
+    if timers is not None:
+        header += '\nAvg. Times for Sections\n'
+        for name, avg in timers.iter_averages():
+            header += '   {:s}: {:.2g}\n'.format(name, avg)
     header += '\n'
     header += 'x\ty\tz\tvx\tvy\tvz\n'
     np.savetxt(out_file, np.append(pos, vel, axis=-1), header=header,
@@ -151,3 +181,5 @@ def split_size(N_parts, N_chunks, i):
     90
     """
     return (N_parts // N_chunks) + int((N_parts % N_chunks) > i)
+
+

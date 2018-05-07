@@ -78,6 +78,7 @@ if __name__ == '__main__':
     N_this = N_per_process[rank]
 
     if rank == 0:
+        t_start = time()
         results_dir = 'results/' + run_name + '/'
         try:
             os.makedirs(results_dir)
@@ -114,15 +115,22 @@ if __name__ == '__main__':
             print('Starting Integration Loop')
             sys.stdout.flush()
             sys.stderr.flush()
-        t_start = time()
+        # Track how long each step takes
+        timers = utils.TimerCollection()
     for i in range(N_steps):
         # Construct the tree and compute forces
         if rank == 0:
+            timers.start('Tree Construction')
             tree = utils.construct_tree(pos_full, masses)
+            timers.stop('Tree Construction')
+            timers.start('Tree Broadcast')
         else:
             tree = None
         # broadcast the tree
         tree = comm.bcast(tree, root=0)
+        if rank == 0:
+            timers.stop('Tree Broadcast')
+            timers.start('Scatter Particles')
         # scatter the positions and velocities
         pos = np.empty((N_this, 3))
         vel = np.empty((N_this, 3))
@@ -130,11 +138,20 @@ if __name__ == '__main__':
                       pos, root=0)
         comm.Scatterv([vel_full, N_per_process*3, displacements, MPI.DOUBLE],
                       vel, root=0)
+        if rank == 0:
+            timers.stop('Scatter Particles')
+            timers.start('Force Computation')
         # compute forces
         accels = utils.compute_accel(tree, part_ids_per_process[rank],
                                      THETA, GRAV_CONST, eps=softening)
+        if rank == 0:
+            timers.stop('Force Computation')
+            timers.start('Time Integration')
         # forward one time step
         pos, vel = integrator.cuda_timestep(pos, vel, accels, dt)
+        if rank == 0:
+            timers.stop('Time Integration')
+            timers.start('Gather Particles')
         # gather the positions and velocities
         pos_full = None
         vel_full = None
@@ -145,12 +162,13 @@ if __name__ == '__main__':
                      root=0)
         comm.Gatherv(vel, [vel_full, N_per_process*3, displacements, MPI.DOUBLE],
                      root=0)
-
         if rank == 0:
+            timers.stop('Gather Particles')
             # Save the results to output file
             if ((i % save_every) == 0) or (i == N_steps - 1):
                 utils.save_results(results_dir + 'step_{:d}.dat'.format(i), pos_full, vel_full, t_start, i, N_steps,
-                                   size)
+                                   size, timers=timers)
+                timers.clear()
             # Print status
             if verbose:
                 print('Iteration {:d} complete. {:.1f} seconds elapsed.'.format(i, time() - t_start))
