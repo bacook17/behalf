@@ -1,0 +1,3 @@
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 43524218.0 ON holyseasgpu10 CANCELLED AT 2018-05-07T18:26:15 ***
+slurmstepd: error: *** JOB 43524218 ON holyseasgpu10 CANCELLED AT 2018-05-07T18:26:15 ***

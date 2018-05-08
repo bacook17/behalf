@@ -1,0 +1,10 @@
+# Run Name: gpu_384-8_10000_10_100
+# Number of Cores: 384
+# Num Particles: 10000
+# Total Mass: 1.00e+14 M_sun
+# Scale Radius: 10.00 kpc
+# Theta: 0.50
+# Time Step: 0.01 Myr
+# Number of Steps: 10
+# Force Softening: 0.01 kpc
+# Random Seed: 1234
