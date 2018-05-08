@@ -12,13 +12,15 @@ from builtins import object
 import numpy as np
 from time import time
 from datetime import datetime, timedelta
-standard_library.install_aliases()
 
+__CYTHON_AVAIL = False
 try:
-    from force import accel_cython
+    from behalf.force import accel_cython
+    __CYTHON_AVAIL = True
 except: 
     print("Cython module not loaded")
 
+standard_library.install_aliases()
 
 def construct_tree(pos, mass):
     sim_box = octree.bbox(np.array([np.min(pos, axis=0),
@@ -28,12 +30,12 @@ def construct_tree(pos, mass):
 
 def compute_accel(tree, part_ids, theta, G, eps=0.1, cython=True):
     if type(part_ids) == int:
-        if(cython):
+        if(cython and __CYTHON_AVAIL):
             return accel_cython(tree, theta, part_ids, G, eps=eps)
         else:
             return tree.accel(theta, part_ids, G, eps=eps)
     else:
-        if(cython):
+        if(cython and __CYTHON_AVAIL):
             return np.array([accel_cython(tree, theta, p_id, G, eps=eps) for p_id in part_ids])
         else:
             return np.array([tree.accel(theta, p_id, G, eps=eps) for p_id in part_ids])
