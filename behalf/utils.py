@@ -46,9 +46,9 @@ class TimerCollection(object):
         except KeyError:
             raise KeyError('No such timer started')
 
-    def iter_averages(self):
+    def iter_medians(self):
         for k in sorted(self.completed_times.keys()):
-            yield k, np.mean(self.completed_times[k])
+            yield k, np.median(self.completed_times[k])
 
     def clear(self):
         self.__init__()
@@ -169,9 +169,13 @@ def save_results(out_file, pos, vel, mass, t_start, iter_num, iter_total,
     dt = time()-t_start
     header += 'Elapsed Time: {:s}\n'.format(str(timedelta(seconds=dt)))
     if timers is not None:
-        header += '\nAvg. Times for Sections\n'
-        for name, avg in timers.iter_averages():
+        header += '\nMed. Times for Sections\n'
+        for name, avg in timers.iter_medians():
             header += '   {:s}:\t\t{:.6f}\n'.format(name, avg)
+            header += '       ['
+            for t in timers.completed_times[name]:
+                header += '{:.6f}'.format(t)
+            header += ']\n'
     header += '\n'
     header += 'x\ty\tz\tvx\tvy\tvz\n'
     np.savetxt(out_file, np.append(pos, vel, axis=-1), header=header,

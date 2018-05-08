@@ -101,16 +101,38 @@ if __name__ == '__main__':
         # Self-start the Leap-Frog algorithm, all on the main node
         # Construct the tree and compute forces
         tree = utils.construct_tree(pos_init, masses)
-        accels = utils.compute_accel(tree, np.arange(N_parts),
-                                     THETA, GRAV_CONST, eps=softening)
-        # Half-kick
-        _, vel_full = integrator.cuda_timestep(pos_init, vel_init, accels,
-                                               dt/2.)
-        # Full-drift
-        pos_full, _ = integrator.cuda_timestep(pos_init, vel_full, accels, dt)
-        # From now on, the Leapfrog algorithm can do Full-Kick + Full-Drift
     else:
-        pos_full, vel_full = None, None
+        tree = None
+        pos_init = None
+        vel_init = None
+    # broadcast the initial tree
+    tree = comm.bcast(tree, root=0)
+    # scatter the initial positions and velocities
+    pos = np.empty((N_this, 3))
+    vel = np.empty((N_this, 3))
+    comm.Scatterv([pos_init, N_per_process*3, displacements, MPI.DOUBLE],
+                  pos, root=0)
+    comm.Scatterv([vel_init, N_per_process*3, displacements, MPI.DOUBLE],
+                  vel, root=0)
+    # compute forces
+    accels = utils.compute_accel(tree, part_ids_per_process[rank],
+                                 THETA, GRAV_CONST, eps=softening)
+    # Half-kick
+    _, vel = integrator.cuda_timestep(pos, vel, accels,
+                                           dt/2.)
+    # Full-drift
+    pos, _ = integrator.cuda_timestep(pos, vel, accels, dt)
+    # From now on, the Leapfrog algorithm can do Full-Kick + Full-Drift
+    # gather the positions and velocities
+    pos_full = None
+    vel_full = None
+    if rank == 0:
+        pos_full = np.empty((N_parts, 3))
+        vel_full = np.empty((N_parts, 3))
+    comm.Gatherv(pos, [pos_full, N_per_process*3, displacements, MPI.DOUBLE],
+                 root=0)
+    comm.Gatherv(vel, [vel_full, N_per_process*3, displacements, MPI.DOUBLE],
+                 root=0)
     
     # The main integration loop
     if rank == 0:

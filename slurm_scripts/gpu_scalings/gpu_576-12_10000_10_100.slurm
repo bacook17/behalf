@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH -p holyseasgpu
-#SBATCH -J gpu_24-12_10000_10_100 # Job Name
-#SBATCH -n 24 # Number of MPI tasks
+#SBATCH -J gpu_576-12_10000_10_100 # Job Name
+#SBATCH -n 576 # Number of MPI tasks
 #SBATCH -N 12 # Fix number of nodes
 #SBATCH --gres=gpu:2 #Number of GPUs requested per node
 #SBATCH --constraint=cuda-7.5 #require CUDA
-#SBATCH -t 0-01:00 # runtime in D-HH:MM
-#SBATCH --mem-per-cpu 4000 # memory per MPI task
+#SBATCH -t 0-02:00 # runtime in D-HH:MM
+#SBATCH --mem-per-cpu 1536 # memory per MPI task
 #SBATCH -o logs/%x.out
 #SBATCH -e logs/%x.err
 #SBATCH --mail-type=BEGIN,END,FAIL #alert when done
@@ -14,5 +14,5 @@
 
 mpiexec -n $SLURM_NTASKS run_behalf.py --run-name $SLURM_JOB_NAME --clobber --verbose --N-parts 10000 --N-steps 10 --dt 0.010 --save-every 1
 RESULT=${PIPESTATUS[0]}
-sacct -j $SLURM_JOB_ID --format=JOBID%20,JobName,NTasks,AllocCPUs,AllocGRES,Partition,Elapsed,MaxRSS,MaxVMSize,MaxDiskRead,MaxDiskWrite,State
+sacct -j $SLURM_JOB_ID ----format=JOBID%20,JobName,NTasks,AllocCPUs,AllocGRES,Partition,Elapsed,MaxRSS,MaxVMSize,MaxDiskRead,MaxDiskWrite,State
 exit $RESULT
