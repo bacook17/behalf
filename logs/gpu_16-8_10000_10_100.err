@@ -1,1 +1,3 @@
-sacct: unrecognized option '----format=JOBID%20,JobName,NTasks,AllocCPUs,AllocGRES,Partition,Elapsed,MaxRSS,MaxVMSize,MaxDiskRead,MaxDiskWrite,State'
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 43590445.0 ON holyseasgpu03 CANCELLED AT 2018-05-08T15:06:32 ***
+slurmstepd: error: *** JOB 43590445 ON holyseasgpu03 CANCELLED AT 2018-05-08T15:06:32 ***

@@ -60,6 +60,8 @@ if __name__ == '__main__':
                         action='store_true')
     parser.add_argument('--verbose', help='Should diagnostics be printed?',
                         action='store_true')
+    parser.add_argument('--production', help="Remove intentional slow-down for profiling",
+                        action='store_true')
     args = parser.parse_args()
 
     run_name = args.run_name  # Unique run-name required, or --clobber set
@@ -75,6 +77,7 @@ if __name__ == '__main__':
     seed = args.rand_seed  # Initialize state identically every time
     clobber = args.clobber
     verbose = args.verbose
+    production = args.production  # If False, will synchronize MPI after each step
     
     # If we split "N_parts" particles into "size" chunks,
     # which particles does each process get?
@@ -182,13 +185,15 @@ if __name__ == '__main__':
         # compute forces
         accels = utils.compute_accel(tree, part_ids_per_process[rank],
                                      THETA, GRAV_CONST, eps=softening)
-        comm.Barrier()
+        # if not production:
+        #     comm.Barrier()
         if rank == 0:
             timers.stop('Force Computation')
             timers.start('Time Integration')
         # forward one time step
         pos, vel = integrator.cuda_timestep(pos, vel, accels, dt)
-        comm.Barrier()
+        # if not production:
+        #     comm.Barrier()
         if rank == 0:
             timers.stop('Time Integration')
             timers.start('Gather Particles')
