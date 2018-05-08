@@ -6,7 +6,7 @@
 #SBATCH --gres=gpu:1 #Number of GPUs requested per node
 #SBATCH --constraint=cuda-7.5 #require CUDA
 #SBATCH -t 0-02:00 # runtime in D-HH:MM
-#SBATCH --mem-per-cpu 4000 # memory per MPI task
+#SBATCH --mem-per-cpu 1536 # memory per MPI task
 #SBATCH -o logs/%x.out
 #SBATCH -e logs/%x.err
 #SBATCH --mail-type=BEGIN,END,FAIL #alert when done
