@@ -12,12 +12,12 @@ from builtins import object
 import numpy as np
 from time import time
 from datetime import datetime, timedelta
-standard_library.install_aliases()
-
 try:
     from force import accel_cython
 except: 
     print("Cython module not loaded")
+
+standard_library.install_aliases()
 
 
 def construct_tree(pos, mass):

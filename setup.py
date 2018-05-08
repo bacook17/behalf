@@ -7,7 +7,9 @@
 import os
 
 from setuptools import setup, Command
+from Cython.Build import cythonize
 from setuptools.command.install import install
+import numpy as np
 
 
 class CustomInstall(install):
@@ -51,4 +53,6 @@ setup(
         'mpi4py', 'numpy', 'future', 'cython'
     ],
     extras_require={"GPU": ['pycuda']},
+    ext_modules=cythonize("behalf/force.pyx"),
+    include_dirs=[np.get_include()]
 )

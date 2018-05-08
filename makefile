@@ -6,10 +6,10 @@ cpu: behalf_cpu
 
 cy: behalf/force.so
 
-behalf/force.so: behalf/force.pyx
-	cythonize -a -i behalf/force.pyx
+#behalf/force.so: behalf/force.pyx
+#	cythonize -a -i behalf/force.pyx
 
-behalf_only: cy
+behalf_only: 
 	@echo "---------------------------------------"
 	@echo "installing behalf only, NO dependencies"
 	pip install . --user --upgrade --no-deps
