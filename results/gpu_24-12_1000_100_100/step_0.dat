@@ -6,13 +6,20 @@
 # Elapsed Time: 0:01:05.173772
 # 
 # Med. Times for Sections
-#    Force Computation:		2.376740 ([2.376739978790283])
-#    Gather Particles:		5.806496 ([5.806495904922485])
-#    Overall:		10.639344 ([10.639343500137329])
-#    Scatter Particles:		0.248396 ([0.2483961582183838])
-#    Time Integration:		0.001769 ([0.0017688274383544922])
-#    Tree Broadcast:		0.923689 ([0.9236886501312256])
-#    Tree Construction:		1.282164 ([1.2821636199951172])
+#    Force Computation:		2.376740
+#       ([2.376739978790283])
+#    Gather Particles:		5.806496
+#       ([5.806495904922485])
+#    Overall:		10.639344
+#       ([10.639343500137329])
+#    Scatter Particles:		0.248396
+#       ([0.2483961582183838])
+#    Time Integration:		0.001769
+#       ([0.0017688274383544922])
+#    Tree Broadcast:		0.923689
+#       ([0.9236886501312256])
+#    Tree Construction:		1.282164
+#       ([1.2821636199951172])
 # 
 # x	y	z	vx	vy	vz
 # 

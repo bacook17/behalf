@@ -2,17 +2,17 @@ from __future__ import division
 from __future__ import unicode_literals
 from __future__ import print_function
 from __future__ import absolute_import
+from behalf import octree
 from builtins import range
 from builtins import open
 from builtins import int
 from builtins import str
 from future import standard_library
-standard_library.install_aliases()
 from builtins import object
 import numpy as np
 from time import time
 from datetime import datetime, timedelta
-from behalf import octree
+standard_library.install_aliases()
 
 
 def construct_tree(pos, mass):
@@ -28,8 +28,8 @@ def compute_accel(tree, part_ids, theta, G, eps=0.1):
         return np.array([tree.accel(theta, p_id, G, eps=eps)
                          for p_id in part_ids])
 
-class TimerCollection(object):
 
+class TimerCollection(object):
     def __init__(self):
         self.start_times = {}
         self.completed_times = {}
@@ -174,7 +174,7 @@ def save_results(out_file, pos, vel, mass, t_start, iter_num, iter_total,
             header += '   {:s}:\t\t{:.6f}\n'.format(name, avg)
             header += '       ['
             for t in timers.completed_times[name]:
-                header += '{:.6f}'.format(t)
+                header += '{:.6f}, '.format(t)
             header += ']\n'
     header += '\n'
     header += 'x\ty\tz\tvx\tvy\tvz\n'
