@@ -14,6 +14,11 @@ from time import time
 from datetime import datetime, timedelta
 standard_library.install_aliases()
 
+try:
+    from force import accel_cython
+except: 
+    print("Cython module not loaded")
+
 
 def construct_tree(pos, mass):
     sim_box = octree.bbox(np.array([np.min(pos, axis=0),
@@ -21,12 +26,17 @@ def construct_tree(pos, mass):
     return octree.octree(pos, mass, sim_box)
 
 
-def compute_accel(tree, part_ids, theta, G, eps=0.1):
+def compute_accel(tree, part_ids, theta, G, eps=0.1, cython=True):
     if type(part_ids) == int:
-        return tree.accel(theta, part_ids, G, eps=eps)
+        if(cython):
+            return accel_cython(tree, theta, part_ids, G, eps=eps)
+        else:
+            return tree.accel(theta, part_ids, G, eps=eps)
     else:
-        return np.array([tree.accel(theta, p_id, G, eps=eps)
-                         for p_id in part_ids])
+        if(cython):
+            return np.array([accel_cython(tree, theta, p_id, G, eps=eps) for p_id in part_ids])
+        else:
+            return np.array([tree.accel(theta, p_id, G, eps=eps) for p_id in part_ids])
 
 
 class TimerCollection(object):
