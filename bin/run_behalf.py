@@ -1,4 +1,14 @@
 #!/usr/bin/env python
+
+"""
+Runs a N-body simulation with Plummer sphere initial conditions,
+using the Behalf code. Takes command-line arguments for configuration.
+
+For usage information, execute:
+
+$ run_behalf.py -h
+"""
+
 import numpy as np
 from mpi4py import MPI
 from time import time
@@ -9,27 +19,28 @@ import sys
 import argparse
 import os
 
-
-comm = MPI.COMM_WORLD
-rank = comm.Get_rank()
-size = comm.Get_size()
-
 if __name__ == '__main__':
+    # Initialize MPI communication
+    comm = MPI.COMM_WORLD
+    rank = comm.Get_rank()
+    size = comm.Get_size()
+
     # Our unit system:
     # Length: kpc
     # Time: Myr
     # Mass: 10^9 M_sun
 
     GRAV_CONST = 4.483e-3  # Newton's Constant, in kpc^3 GM_sun^-1 Myr^-2
-    # THETA = 0.5 - now taken as input
 
+    # read command-line arguments
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--run-name', help='REQUIRED - Name of the run',
                         type=str, required=True)
     parser.add_argument('--N-parts', help='REQUIRED - Number of particles',
                         type=int, required=True)
-    parser.add_argument('--total-mass', help='Total mass of the system (in GMsun)',
+    parser.add_argument('--total-mass', help=('Total mass of the system '
+                                              '(in GMsun)'),
                         type=float, default=1e5)
     parser.add_argument('--radius', help='Scale Radius (in kpc)',
                         type=float, default=10.)
@@ -39,19 +50,19 @@ if __name__ == '__main__':
                         type=float, default=0.01)
     parser.add_argument('--softening', help='Softening length (in kpc)',
                         type=float, default=0.01)
-    parser.add_argument('--save-every', help='How often to save output results',
+    parser.add_argument('--save-every', help='How often to save results',
                         type=int, default=10)
     parser.add_argument('--THETA', help='Barnes-Hut Approximation Range',
                         type=float, default=0.5)
     parser.add_argument('--rand-seed', help='Random seed to initialize',
                         type=int, default=1234)
-    parser.add_argument('--clobber', help='Should previous results be overwritten?',
+    parser.add_argument('--clobber', help='Overwrite previous results?',
                         action='store_true')
     parser.add_argument('--verbose', help='Should diagnostics be printed?',
                         action='store_true')
     args = parser.parse_args()
 
-    run_name = args.run_name
+    run_name = args.run_name  # Unique run-name required, or --clobber set
     M_total = args.total_mass  # total mass of system (in 10^9 M_sun)
     N_parts = args.N_parts  # how many particles?
     M_part = M_total / N_parts  # mass of each particle (in 10^9 M_sun)
@@ -98,7 +109,8 @@ if __name__ == '__main__':
         vel_init -= np.mean(vel_init, axis=0)
         masses = np.ones(N_parts) * M_part
         
-        # Self-start the Leap-Frog algorithm, all on the main node
+    # Self-start the Leap-Frog algorithm
+    if rank == 0:
         # Construct the tree and compute forces
         tree = utils.construct_tree(pos_init, masses)
     else:
@@ -119,7 +131,7 @@ if __name__ == '__main__':
                                  THETA, GRAV_CONST, eps=softening)
     # Half-kick
     _, vel = integrator.cuda_timestep(pos, vel, accels,
-                                           dt/2.)
+                                      dt/2.)
     # Full-drift
     pos, _ = integrator.cuda_timestep(pos, vel, accels, dt)
     # From now on, the Leapfrog algorithm can do Full-Kick + Full-Drift
@@ -170,11 +182,13 @@ if __name__ == '__main__':
         # compute forces
         accels = utils.compute_accel(tree, part_ids_per_process[rank],
                                      THETA, GRAV_CONST, eps=softening)
+        comm.Barrier()
         if rank == 0:
             timers.stop('Force Computation')
             timers.start('Time Integration')
         # forward one time step
         pos, vel = integrator.cuda_timestep(pos, vel, accels, dt)
+        comm.Barrier()
         if rank == 0:
             timers.stop('Time Integration')
             timers.start('Gather Particles')
