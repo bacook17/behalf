@@ -48,7 +48,7 @@ setup(
     include_package_data=True,
     cmdclass={'clean': CleanCommand, 'install': CustomInstall},
     install_requires=[
-        'mpi4py', 'numpy>=1.13.1', 'future',
+        'mpi4py', 'numpy', 'future', 'cython'
     ],
     extras_require={"GPU": ['pycuda']},
 )
