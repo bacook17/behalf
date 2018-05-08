@@ -13,6 +13,7 @@ from mpi4py import MPI
 
 rank = MPI.COMM_WORLD.Get_rank()
 
+__GPU_AVAIL = True
 try:
     # try to split up the GPU devices
     devices = os.environ['CUDA_VISIBLE_DEVICES'].split(',')
@@ -21,10 +22,9 @@ try:
     os.environ['CUDA_DEVICE'] = devices[my_device]
     import pycuda.gpuarray as gpuarray
     import pycuda.autoinit
-except (ImportError):
+except:
     __GPU_AVAIL = False
-else:
-    __GPU_AVAIL = True
+
 from warnings import warn
 
 
