@@ -1,6 +1,6 @@
-# Run Name: serial_4000_3_10
+# Run Name: serial_1000_3_100
 # Number of Cores: 1
-# Num Particles: 4000
+# Num Particles: 1000
 # Total Mass: 1.00e+14 M_sun
 # Scale Radius: 10.00 kpc
 # Theta: 0.50
