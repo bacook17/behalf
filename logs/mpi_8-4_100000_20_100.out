@@ -1,0 +1,11 @@
+Starting Integration Loop
+Iteration 0 complete. 6656.0 seconds elapsed.
+Iteration 1 complete. 9742.0 seconds elapsed.
+Iteration 2 complete. 12877.0 seconds elapsed.
+Iteration 3 complete. 16000.7 seconds elapsed.
+Iteration 4 complete. 19172.2 seconds elapsed.
+Iteration 5 complete. 22306.6 seconds elapsed.
+Iteration 6 complete. 25460.8 seconds elapsed.
+Iteration 7 complete. 28678.8 seconds elapsed.
+               JobID    JobName   NTasks  AllocCPUS    AllocGRES  Partition    Elapsed     MaxRSS  MaxVMSize  MaxDiskRead MaxDiskWrite      State 
+-------------------- ---------- -------- ---------- ------------ ---------- ---------- ---------- ---------- ------------ ------------ ---------- 
