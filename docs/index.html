@@ -37,7 +37,11 @@
 											<li><a href="#Nbody">N-body Problem</a></li>
 											<li><a href="#BarnesHut">Barnes-Hut Algorithm</a></li>
 											<li><a href="#Code">Code Implementation</a></li>
-											<li><a href="#Analysis">Performance and Analysis</a></li>
+											<li><a href="#Analysis">Performance and Analysis</a>
+												<ul>
+													<li><a href="index.html#Plummer"><font color="#d1d1e0">&nbsp; &nbsp;Initial conditions</font></a></li>
+												</ul>
+											</li>
 											<li><a href="#Movies">Movies</a></li>
 											<li><a href="#Citations">Citations</a></li>
 										</ul>
@@ -151,9 +155,13 @@
 						</section>
 						<section id="Analysis" class="inner">
 							<!--<div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">-->
-								<h2>Performance and Analysis</h2>
 								<br>
-								<h4>Initial conditions - Plummer sphere</h4>
+								<br>
+								<br>
+								<h2>Performance and Analysis</h2>
+								<div id="Plummer">
+								<br>
+								<h4><font color="#bb99ff">Initial conditions - Plummer sphere</font></h4>
 								<p>We will test our code by simulating an elliptical galaxy, modeled by the Plummer density profile.</p>
 
 									<!--<div class="box alt">
@@ -172,9 +180,19 @@
 								<p>The mass enclosed within radius r is:
 									<br>
 									\( M(\lt r) = 4 \pi \int_0^r r^2 \rho (r) dr = M \frac{r^3}{(r^2 + a^2)^{3/2}} \) </p>
-								<p> The Plummer model has a distribution function f(E) that has an analytic expression -- it is a polytrope with index \(n=5\) (see, for e.g., <a href="#Citations">Binney & Tremaine 2011</a>) and the distribution function for polytropes follows:
+								<p> The Plummer model has a distribution function \(f(E)\) that has an analytic expression -- it is a polytrope with index \(n=5\) (see, for e.g., <a href="#Citations">Binney & Tremaine 2011</a>) and the distribution function for polytropes follows:
 								<br>
-								\(f(E) \propto |E|^{n-3/2} \Rightarrow\)</p> 
+								\(f(E) \propto |E|^{n-3/2} \Rightarrow f(E) \propto |E|^{7/2}\) for Plummer 
+								<br>
+								Thus, the probability for a particle to have absolute velocity \(v\) at radius \(r\) from the center of the galaxy is:
+								<br>
+								\(g(v) dv \propto |E|^{7/2} v^2 dv \)
+								<br>
+								Letting \( x \equiv v/v_{esc}\) , where the escape velocity of a particle in the Plummer model is:
+								<br>
+								\(v_{esc} = \sqrt{\frac{2GM}{a}} \left[ 1 + \left(\frac{r}{a}\right)^2\right]^{-1/4}\)
+								<br>
+								allows us to simplify the expressions for the energy per unit mass \(E \propto (x^2 - 1)\) and the probability for a particle at radius r to have velocity v: \( g(x) \propto x^2 (1-x^2)^{7/2}\) </p> 
 							</div>
 						</section>
 						<section id="Movies" class="spotlight">
