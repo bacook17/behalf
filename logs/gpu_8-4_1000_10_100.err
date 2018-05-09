@@ -1,0 +1,9 @@
+[proxy:0:0@holyseasgpu01.rc.fas.harvard.edu] HYDU_create_process (./utils/launch/launch.c:69): [proxy:0:0@holyseasgpu01.rc.fas.harvard.edu] execvp error on file run_behalf.py (No such file or directory)
+HYDU_create_process (./utils/launch/launch.c:69): execvp error on file run_behalf.py (No such file or directory)
+[proxy:0:2@holyseasgpu07.rc.fas.harvard.edu] [proxy:0:2@holyseasgpu07.rc.fas.harvard.edu] HYDU_create_process (./utils/launch/launch.c:69): execvp error on file run_behalf.py (No such file or directory)
+HYDU_create_process (./utils/launch/launch.c:69): execvp error on file run_behalf.py (No such file or directory)
+[proxy:0:1@holyseasgpu05.rc.fas.harvard.edu] HYDU_create_process (./utils/launch/launch.c:69): [proxy:0:1@holyseasgpu05.rc.fas.harvard.edu] execvp error on file run_behalf.py (No such file or directory)
+HYDU_create_process (./utils/launch/launch.c:69): execvp error on file run_behalf.py (No such file or directory)
+[proxy:0:3@holyseasgpu08.rc.fas.harvard.edu] HYDU_create_process (./utils/launch/launch.c:69): [proxy:0:3@holyseasgpu08.rc.fas.harvard.edu] execvp error on file run_behalf.py (No such file or directory)
+HYDU_create_process (./utils/launch/launch.c:69): execvp error on file run_behalf.py (No such file or directory)
+sacct: unrecognized option '----format=JOBID%20,JobName,NTasks,AllocCPUs,AllocGRES,Partition,Elapsed,MaxRSS,MaxVMSize,MaxDiskRead,MaxDiskWrite,State'

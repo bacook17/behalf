@@ -1,0 +1,10 @@
+# Run Name: merger_576-12_2000_5000_50
+# Number of Cores: 576
+# Num Particles: 2000
+# Total Mass: 1.00e+14 M_sun
+# Scale Radius: 10.00 kpc
+# Theta: 0.50
+# Time Step: 0.02 Myr
+# Number of Steps: 5000
+# Force Softening: 0.01 kpc
+# Random Seed: 1234
