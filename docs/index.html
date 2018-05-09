@@ -170,9 +170,11 @@
 								
 
 								
-								<p> Barnes and Hut represented this idea using the Octree data structure. In octrees, each internal node has exactly eight child nodes. Octrees have been used in various domains to partition a three-dimensional space by recursively subdividing the space into octants. The figure shown below is an illustration of the 2-dimensional version of the same problem using quadtrees instead of octrees.</p>
+								<p> Barnes and Hut represented this idea using the Octree data structure. In octrees, each internal node has exactly eight child nodes. Octrees have been used in various domains to partition a three-dimensional space by recursively subdividing the space into octants. The figure shown below is an illustration of the 2-dimensional version of the same problem using quadtrees instead of octrees. The upper left quadrant has been recursively subdivided into 4 nodes at each level, until each leaf in the tree contains at most one particle. In this example, we needed 4 levels in the tree in order to fully subdivide the upper left quadrant.</p>
 								<span class="image fit"><img src="images/octree1.png"  /></span>
-								<p>  The far-field approximation that groups far-away particles together mentioned above clearly requires significantly fewer floating point operations than the naive force calculation. Barnes and Hut found that this approach scales as O(NlogN), where the tree traversal is a roughly log(N) operation and the N comes from calculating the force for the N particles in the system. </p>
+								<p>  By grouping distant particles together, the far-field approximation requires significantly fewer floating point operations than the naive force calculation. Barnes and Hut found that this approach scales as O(NlogN), where the tree traversal is a roughly log(N) operation and calculating the force for the N particles in the system requires N operations. </p>
+								<p>We will exemplify this by computing the force exerted on the particle highlighted in red in the upper right corner. Particles in orange squares are sufficiently far away from the target particle that we can group them based on their center of mass and apply the far-field force approximation. However, the green particle is sufficiently close to the target particle such that we will instead compute the precise gravitational force exerted by this particle. In total, Barnes-Hut required only 5 force calculations instead of 23 using the exact particle-particle force calculations.
+								</p>
 								<span class="image fit"><img src="images/BarnesHut_example.jpg"  /></span>
 							</div>
 						</section>
