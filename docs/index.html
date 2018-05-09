@@ -333,6 +333,7 @@
 								<br>
 								<h4><font color="#bb99ff">Physical Performance and Model Accuracy</font></h4>
 								<span class="image fit"><img src="images/EnergyDiffCheck.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+								<p>The accuracy of the Barnes-Hut algorithm is strongly related to the choice of distances over which we apply the far-field force approximation. Let's consider the distance to the center of an octree cell to be \(D\) and the width of the said cell to be \(L\). A critical parameter of the BH algorithm is \(\theta = L/D\). This is an adjustable parameter, which tells the algorithm that for particles sufficiently far away such that \(L/D \lq \theta\), those particles should be approximated by their center of mass. Naively, setting \(\theta = 0\), reduces the Barnes-Hut algorithm to an exact particle-particle force calculation, because no particles will be sufficiently far away to satisfy the requirement. As we increase \(\theta\) more and more, the algorithm speeds up significantly, yet the relative error in the force computation also increases. These trends are shown in the figure below</p>
 								<span class="image fit"><img src="images/theta_err.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
 							</div>
 							<div id="Scalings">
