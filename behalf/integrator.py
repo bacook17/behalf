@@ -1,15 +1,16 @@
+# integrator.py
+# Ben Cook (bcook@cfa.harvard.edu)
 from __future__ import unicode_literals
 from __future__ import print_function
 from __future__ import division
 from __future__ import absolute_import
-# integrator.py
-# Ben Cook (bcook@cfa.harvard.edu)
 
 from future import standard_library
-standard_library.install_aliases()
 import numpy as np
 import os
 from mpi4py import MPI
+from warnings import warn
+standard_library.install_aliases()
 
 rank = MPI.COMM_WORLD.Get_rank()
 
@@ -25,14 +26,12 @@ try:
 except:
     __GPU_AVAIL = False
 
-from warnings import warn
-
 
 def cuda_timestep(p, v, a, dt):
     """
-    Returns the updated positions (p) and velocities (v) given accelerations 
+    Returns the updated positions (p) and velocities (v) given accelerations
     (a) and a timestep dt, using the leap-frog algorithm.
-    Implemented using pycuda. If GPU isn't available or initialized, will 
+    Implemented using pycuda. If GPU isn't available or initialized, will
     raise a warning, and use the serial version.
 
     Input:
@@ -65,7 +64,7 @@ def cuda_timestep(p, v, a, dt):
 
 def serial_timestep(p, v, a, dt):
     """
-    Returns the updated positions (p) and velocities (v) given accelerations 
+    Returns the updated positions (p) and velocities (v) given accelerations
     (a) and a timestep dt, using the leap-frog algorithm.
 
     Input:

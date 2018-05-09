@@ -185,15 +185,15 @@ if __name__ == '__main__':
         # compute forces
         accels = utils.compute_accel(tree, part_ids_per_process[rank],
                                      THETA, GRAV_CONST, eps=softening)
-        # if not production:
-        #     comm.Barrier()
+        if not production:
+            comm.Barrier()
         if rank == 0:
             timers.stop('Force Computation')
             timers.start('Time Integration')
         # forward one time step
         pos, vel = integrator.cuda_timestep(pos, vel, accels, dt)
-        # if not production:
-        #     comm.Barrier()
+        if not production:
+            comm.Barrier()
         if rank == 0:
             timers.stop('Time Integration')
             timers.start('Gather Particles')
