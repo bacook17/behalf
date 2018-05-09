@@ -181,26 +181,34 @@
 								<p>There are two main algorithms required to calculate the force calculation using an octree: building the tree and traversing the tree to calculate the force on a single body. The pseudocode for these two algorithms is presented below. </p>
 
 								<pre><code>
-				function <font color="dark red">insertParticle</font>(<font color="lime"><font color="#32CD32">particle</font></font>, <font color="cyan">node</font>)
-					if(<font color="#32CD32">particle</font>.position is not in <font color="cyan">node</font>.box): # if particle is not in node's bounding box
-						return # end function
-					if(<font color="cyan">node</font> has no particles):
-						<font color="cyan">node</font>.<font color="#32CD32">particle</font> = <font color="#32CD32">particle</font> # particle is now assigned to node
-					if(<font color="cyan">node</font> is an internal node):
-						updateCenterOfMass(<font color="cyan">node</font>) # update center of mass of node
-						updateTotalMass(<font color="cyan">node</font>) # update total mass of node
-						for child in <font color="cyan">node</font>.children: 
-							insertParticle(<font color="#32CD32">particle</font>, child) # insert particle into the appropriate child node
-					if(<font color="cyan">node</font> is an external node): # if node already has another particle associated with it
-						createChildren(<font color="cyan">node</font>) # subdivide this node into its 8 children
-						for child in <font color="cyan">node</font>.children: 
-							insertParticle(<font color="cyan">node</font>.<font color="#32CD32">particle</font>, child) # insert the existing node.particle into the appropriate child node
-						for child in node.children: 
-							insertParticle(<font color="#32CD32">particle</font>, child) # insert particle into the appropriate child node
-								</code></pre>
+		function <font color="dark red">insertParticle</font>(<font color="lime"><font color="#32CD32">particle</font></font>, <font color="cyan">node</font>)
+			if(<font color="#32CD32">particle</font>.position is not in <font color="cyan">node</font>.box): # if particle is not in node's bounding box
+				return # end function
+			if(<font color="cyan">node</font> has no particles):
+				<font color="cyan">node</font>.<font color="#32CD32">particle</font> = <font color="#32CD32">particle</font> # particle is now assigned to node
+			if(<font color="cyan">node</font> is an internal node):
+				updateCenterOfMass(<font color="cyan">node</font>) # update center of mass of node
+				updateTotalMass(<font color="cyan">node</font>) # update total mass of node
+				for child in <font color="cyan">node</font>.children: 
+					insertParticle(<font color="#32CD32">particle</font>, child) # insert particle into the appropriate child node
+			if(<font color="cyan">node</font> is an external node): # if node already has another particle associated with it
+				createChildren(<font color="cyan">node</font>) # subdivide this node into its 8 children
+				for child in <font color="cyan">node</font>.children: 
+					insertParticle(<font color="cyan">node</font>.<font color="#32CD32">particle</font>, child) # insert the existing node.particle into the appropriate child node
+				for child in node.children: 
+					insertParticle(<font color="#32CD32">particle</font>, child) # insert particle into the appropriate child node
+						</code></pre>
 
-								<pre><code>
-				function <font color="dark red">calculateAcceleration</font>(<font color="#32CD32">particle</font></font>, <font color="cyan">node</font>)
+						<pre><code>
+		function <font color="dark red">calculateAcceleration</font>(<font color="#32CD32">particle</font>, <font color="cyan">node</font>, thetaTolerance)
+			if(<font color="cyan">node</font>.leaf):
+				directAccelCalculation(<font color="cyan">node</font>.particle, <font color="#32CD32">particle</font>) # directly sum this node's particle's force on the particle we're considering
+			theta = <font color="cyan">node</font>.size/distance(<font color="cyan">node</font>.com, <font color="#32CD32">particle</font>.position)
+			if(theta is less than thetaTolerance):
+				farFieldForceCalculation(<font color="cyan">node</font>.mass, <font color="cyan">node</font>.com, <font color="#32CD32">particle</font>) # far field approximation is valid
+			else: # far field approximation is not valid
+				for child in <font color="cyan">node</font>.chilren: 
+					calculateAcceleration(<font color="#32CD32">particle</font>, child, thetaTolerance)
 					
 								</code></pre>
 								</section>
