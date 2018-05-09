@@ -1,22 +1,49 @@
-slurmstepd: error: Exceeded job memory limit
-slurmstepd: error: Exceeded job memory limit
-slurmstepd: error: Exceeded job memory limit
-slurmstepd: error: Exceeded job memory limit
-slurmstepd: error: Exceeded job memory limit
-slurmstepd: error: Exceeded job memory limit
-slurmstepd: error: Exceeded job memory limit
-slurmstepd: error: Step 43613129.0 exceeded memory limit (92555964 > 88473600), being killed
-slurmstepd: error: Step 43613129.0 exceeded memory limit (89156212 > 88473600), being killed
-slurmstepd: error: Step 43613129.0 exceeded memory limit (92575364 > 88473600), being killed
-slurmstepd: error: Step 43613129.0 exceeded memory limit (91271620 > 88473600), being killed
-slurmstepd: error: Step 43613129.0 exceeded memory limit (92427112 > 88473600), being killed
-slurmstepd: error: Step 43613129.0 exceeded memory limit (88687412 > 88473600), being killed
-slurmstepd: error: Step 43613129.0 exceeded memory limit (90541992 > 88473600), being killed
-slurmstepd: error: Step 43613129.0 exceeded memory limit (88891624 > 88473600), being killed
-slurmstepd: error: *** STEP 43613129.0 ON holyseasgpu01 CANCELLED AT 2018-05-08T21:08:57 ***
-slurmstepd: error: Step 43613129.0 exceeded memory limit (92490320 > 88473600), being killed
-[mpiexec@holyseasgpu01.rc.fas.harvard.edu] control_cb (./pm/pmiserv/pmiserv_cb.c:215): assert (!closed) failed
-[mpiexec@holyseasgpu01.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
-[mpiexec@holyseasgpu01.rc.fas.harvard.edu] HYD_pmci_wait_for_completion (./pm/pmiserv/pmiserv_pmci.c:181): error waiting for event
+[proxy:0:11@holyseasgpu12.rc.fas.harvard.edu] HYD_pmcd_pmip_control_cmd_cb (./pm/pmiserv/pmip_cb.c:928): assert (!closed) failed
+[proxy:0:11@holyseasgpu12.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[proxy:0:11@holyseasgpu12.rc.fas.harvard.edu] main (./pm/pmiserv/pmip.c:226): demux engine error waiting for event
+[proxy:0:8@holyseasgpu09.rc.fas.harvard.edu] HYD_pmcd_pmip_control_cmd_cb (./pm/pmiserv/pmip_cb.c:928): assert (!closed) failed
+[proxy:0:8@holyseasgpu09.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[proxy:0:8@holyseasgpu09.rc.fas.harvard.edu] main (./pm/pmiserv/pmip.c:226): demux engine error waiting for event
+[proxy:0:0@holyseasgpu01.rc.fas.harvard.edu] HYD_pmcd_pmip_control_cmd_cb (./pm/pmiserv/pmip_cb.c:928): assert (!closed) failed
+[proxy:0:0@holyseasgpu01.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[proxy:0:0@holyseasgpu01.rc.fas.harvard.edu] main (./pm/pmiserv/pmip.c:226): demux engine error waiting for event
+[proxy:0:2@holyseasgpu03.rc.fas.harvard.edu] HYD_pmcd_pmip_control_cmd_cb (./pm/pmiserv/pmip_cb.c:928): assert (!closed) failed
+[proxy:0:2@holyseasgpu03.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[proxy:0:2@holyseasgpu03.rc.fas.harvard.edu] main (./pm/pmiserv/pmip.c:226): demux engine error waiting for event
+[proxy:0:4@holyseasgpu05.rc.fas.harvard.edu] HYD_pmcd_pmip_control_cmd_cb (./pm/pmiserv/pmip_cb.c:928): assert (!closed) failed
+[proxy:0:4@holyseasgpu05.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[proxy:0:4@holyseasgpu05.rc.fas.harvard.edu] main (./pm/pmiserv/pmip.c:226): demux engine error waiting for event
+[proxy:0:5@holyseasgpu06.rc.fas.harvard.edu] HYD_pmcd_pmip_control_cmd_cb (./pm/pmiserv/pmip_cb.c:928): assert (!closed) failed
+[proxy:0:5@holyseasgpu06.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[proxy:0:5@holyseasgpu06.rc.fas.harvard.edu] main (./pm/pmiserv/pmip.c:226): demux engine error waiting for event
+[proxy:0:1@holyseasgpu02.rc.fas.harvard.edu] HYD_pmcd_pmip_control_cmd_cb (./pm/pmiserv/pmip_cb.c:928): assert (!closed) failed
+[proxy:0:1@holyseasgpu02.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[proxy:0:1@holyseasgpu02.rc.fas.harvard.edu] main (./pm/pmiserv/pmip.c:226): demux engine error waiting for event
+[proxy:0:3@holyseasgpu04.rc.fas.harvard.edu] HYD_pmcd_pmip_control_cmd_cb (./pm/pmiserv/pmip_cb.c:928): assert (!closed) failed
+[proxy:0:3@holyseasgpu04.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[proxy:0:3@holyseasgpu04.rc.fas.harvard.edu] main (./pm/pmiserv/pmip.c:226): demux engine error waiting for event
+[proxy:0:6@holyseasgpu07.rc.fas.harvard.edu] HYD_pmcd_pmip_control_cmd_cb (./pm/pmiserv/pmip_cb.c:928): assert (!closed) failed
+[proxy:0:6@holyseasgpu07.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[proxy:0:6@holyseasgpu07.rc.fas.harvard.edu] main (./pm/pmiserv/pmip.c:226): demux engine error waiting for event
+[proxy:0:9@holyseasgpu10.rc.fas.harvard.edu] HYD_pmcd_pmip_control_cmd_cb (./pm/pmiserv/pmip_cb.c:928): assert (!closed) failed
+[proxy:0:9@holyseasgpu10.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[proxy:0:9@holyseasgpu10.rc.fas.harvard.edu] main (./pm/pmiserv/pmip.c:226): demux engine error waiting for event
+[proxy:0:10@holyseasgpu11.rc.fas.harvard.edu] HYD_pmcd_pmip_control_cmd_cb (./pm/pmiserv/pmip_cb.c:928): assert (!closed) failed
+[proxy:0:10@holyseasgpu11.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[proxy:0:10@holyseasgpu11.rc.fas.harvard.edu] main (./pm/pmiserv/pmip.c:226): demux engine error waiting for event
+srun: error: holyseasgpu06: task 5: Exited with exit code 7
+srun: error: holyseasgpu11: task 10: Exited with exit code 7
+srun: error: holyseasgpu09: task 8: Exited with exit code 7
+srun: error: holyseasgpu01: task 0: Exited with exit code 7
+srun: error: holyseasgpu05: task 4: Exited with exit code 7
+srun: error: holyseasgpu03: task 2: Exited with exit code 7
+srun: error: holyseasgpu12: task 11: Exited with exit code 7
+srun: error: holyseasgpu02: task 1: Exited with exit code 7
+srun: error: holyseasgpu04: task 3: Exited with exit code 7
+srun: error: holyseasgpu07: task 6: Exited with exit code 7
+srun: error: holyseasgpu10: task 9: Exited with exit code 7
+[mpiexec@holyseasgpu01.rc.fas.harvard.edu] HYDT_bscu_wait_for_completion (./tools/bootstrap/utils/bscu_wait.c:70): one of the processes terminated badly; aborting
+[mpiexec@holyseasgpu01.rc.fas.harvard.edu] HYDT_bsci_wait_for_completion (./tools/bootstrap/src/bsci_wait.c:23): launcher returned error waiting for completion
+[mpiexec@holyseasgpu01.rc.fas.harvard.edu] HYD_pmci_wait_for_completion (./pm/pmiserv/pmiserv_pmci.c:191): launcher returned error waiting for completion
 [mpiexec@holyseasgpu01.rc.fas.harvard.edu] main (./ui/mpich/mpiexec.c:405): process manager error waiting for completion
 sacct: unrecognized option '----format=JOBID%20,JobName,NTasks,AllocCPUs,AllocGRES,Partition,Elapsed,MaxRSS,MaxVMSize,MaxDiskRead,MaxDiskWrite,State'
