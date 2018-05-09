@@ -149,9 +149,11 @@
 						<section   id="Nbody" class="wrapper style6">
 							<!--<div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">-->
 								<h2>Introduction: N-Body Problem</h2>
-								<p>The N-body problem broadly describes the problem of predicting the future trajectories of a group of objects imparting a gravitational force on one another given each individual object's current position and velocity. The first general formulation of the N-body problem was proposed by Newton when he was studying the motions of Jupiter and its moons <a href="#Citations">Newton 1687</a>. In Astronomy, the N-body problem has been studied at various scales: the study of asteroids near Jupiter <a href="#Citations">Brož et al. (2008)</a> to the study of the largest gravitationally bound clusters in the Universe <a href="#Citations">Angulo et al. (2012)</a>. </p>
+								<p>The N-body problem broadly describes the problem of predicting the future trajectories of a group of objects imparting a gravitational force on one another given each individual object's current position and velocity. The first general formulation of the N-body problem was proposed by Newton when he was studying the motions of Jupiter and its moons (<a href="#Citations">Newton 1687</a>). In Astronomy, the N-body problem has been studied at a wide variety of scales: the study of asteroids near Jupiter (<a href="#Citations">Brož et al. (2008)</a>) to the study of the largest gravitationally bound clusters in the Universe (<a href="#Citations">Angulo et al. (2012)</a>). </p>
 
-								<p> </p>
+								<p>For our project, we will be focusing on the intermediate regime: galaxies. The fundamental unit of resolution in the study of galaxies is a star -- stars are born in a galaxy and move around the galaxy due to the force from the hundreds of billions of other stars in the galaxy. Consequently, studying how galaxies form and evolve is a rich and complicated endeavor that can no longer be attempted using just analytical theory. The dynamic scale that needs to be resolved in order to self-consistently study galaxies is enormous and spans many orders of magnitudes, necessitating the use of high performance computing and sophisticated codes that can utilize various different HPC programming models. </p>
+
+								<p>Naively, the N-body problem is O(N^2). However, most realistic simulations of galaxies require upwards of hundreds of millions of resolution elements. The N^2 scaling of the naive approach would make computations at that scale is just not feasible. Consequently, astronomers have come up with various approximate ways to calculate the forces in the N-body problem: tree-based methods (<a href="#Citations">Barnes and Hut (1986)</a>) and particle mesh methods (<a href="#Citations">Darden et al. (1993)</a>)</p>. For our project, we will be focusing on parallelizing the Barnes-Hut (BH) algorithm. 
 							</div>
 						</section>
 						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
@@ -159,7 +161,7 @@
 								<h2>The Barnes-Hut Algorithm</h2>
 								<br>
 								<br>
-								<p>Describe the algorithm, maybe use a few slides from our talk, describe how particles divided into octants and how the algorithm works theoretically. Cite existing codes</p>
+								<p> </p>
 								<span class="image fit"><img src="images/BarnesHut_example.jpg"  /></span>
 							</div>
 						</section>
@@ -289,8 +291,10 @@
 								<ul class="actions vertical">
 									<li>Aarseth S. J., Henon M., Wielen R., 1974, A&A, 37, 183</li>
 									<li> Angulo, R. E., et al. "Scaling relations for galaxy clusters in the Millennium-XXL simulation." Monthly Notices of the Royal Astronomical Society 426.3 (2012): 2046-2062. </li>
+									<li>Barnes, Josh, and Piet Hut. "A hierarchical O (N log N) force-calculation algorithm." nature 324.6096 (1986): 446. </li>
 									<li>Brož, Miroslav, and David Vokrouhlický. "Asteroid families in the first-order resonances with Jupiter." Monthly Notices of the Royal Astronomical Society 390.2 (2008): 715-732.</li>
 									<li>Binney J., Tremaine S., 2011, Galactic Dynamics. Princeton University Press</li>
+									<li>Darden, Tom, Darrin York, and Lee Pedersen. "Particle mesh Ewald: An N⋅ log (N) method for Ewald sums in large systems." The Journal of chemical physics 98.12 (1993): 10089-10092. </li> 
 									<li>Newton, Isaac. "Principia mathematica." Isaac Newton’s Philosophiae Naturalis Principia Mathematica, Harvard University Press, Cambridge, MA (1972).</li>
 									<li>Plummer H. C., 1911, MNRAS, 71, 460</li>
 
