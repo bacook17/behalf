@@ -115,8 +115,6 @@
 						<div class="inner">
 							<header class="major">
 								<h2>Explore different components of our project <br> or keep scrolling to see it all!</h2>
-								<!--<p>Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
-								fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.</p>-->
 							</header>
 							<ul class="features">
 								<li class="icon fa-star-o">
@@ -130,11 +128,11 @@
 								</li>
 								<li class="icon fa-code">
 									<h3><a href="#Code">Code Implementation</a></h3>
-									<p>Here we describe our oct-tree implementation, leapfrog integration, and parallel approach for the Barnes-Hut algorithm. All the code can be found at our <a href="https://github.com/bacook17/behalf">GitHub repo</a>.</p>
+									<p>Here we describe our octree implementation, leapfrog integration, and parallel approach for the Barnes-Hut algorithm. All the code can be found at our <a href="https://github.com/bacook17/behalf">GitHub repo</a>.</p>
 								</li>
 								<li class="icon fa-laptop">
 									<h3><a href="#Analysis">Performance and Analysis</a></h3>
-									<p>In this section, we analyse the accuracy of our method and the parallel performance of our code (e.g., speed-up, efficiency, weak and strong scaling).</p>
+									<p>In this section, we analyze the accuracy of our method and the parallel performance of our code (e.g., speed-up, efficiency, weak and strong scaling).</p>
 								</li>
 								<li class="icon fa-film">
 									<h3><a href="#Movies">Movies</a></h3>
@@ -208,7 +206,7 @@
 				for child in node.children: 
 					insertParticle(<font color="#32CD32">particle</font>, child) # insert particle into the appropriate child node
 						</code></pre>
-								<p> The <font color="dark red">insertParticle</font> algorithm must be run for every particle in the simulation. The algorithm starts by checking to see if the particle is inside the given node's bounding box. Assuming it is, if the node has no particles, the particle currently being considered will be assigned to the given node. If the node is an internal node (that is, it has child nodes) but has no particles associated with it, we insert the particle into the appropriate child node and update the center of mass and the total mass of the node. If the node is an external node (i.e. it has no children) but already has a particle associated with it, we must first create children for that node and then recursively assign both the particle that was already assigned to the external node and the new particle that we were originally assinging. Once we loop over all particles, each leaf node will have only one particle associated with it. </p>
+								<p> The <font color="dark red">insertParticle</font> algorithm must be run for every particle in the simulation. The algorithm starts by checking to see if the particle is inside the given node's bounding box. Assuming it is, if the node has no particles, the particle currently being considered will be assigned to the given node. If the node is an internal node (that is, it has child nodes) but has no particles associated with it, we insert the particle into the appropriate child node and update the center of mass and the total mass of the node. If the node is an external node (i.e. it has no children) but already has a particle associated with it, we must first create children for that node and then recursively assign both the particle that was already assigned to the external node and the new particle that we were originally assigning. Once we loop over all particles, each leaf node will have only one particle associated with it. </p>
 						<pre><code>
 		function <font color="dark red">calculateAcceleration</font>(<font color="#32CD32">particle</font>, <font color="cyan">node</font>, thetaTolerance)
 			if(<font color="cyan">node</font>.leaf):
@@ -241,7 +239,7 @@
 								  
 								  \(F = m \frac{d^2x}{dt^2}\)<br>
 
-								  Because it is sympletctic, the Leapfrog Algorithm is guaranteed to conserve energy (to reasonable precision,
+								  Because it is symplectic, the Leapfrog Algorithm is guaranteed to conserve energy (to reasonable precision,
 								  determined by the time step chosen). Even though it is a first-order integrator, it performs better than
 								  higher-order algorithms (like 4th order Runge-Kutta) at conserving energy over many time steps.
 
@@ -259,7 +257,8 @@
 								  \(a_1 = F(x_1) / m \)<br>
 								  \(v_{\frac{3}{2}} = v_{\frac{1}{2}} + a_1 dt\)<br>
 								  \(x_2 = x_1 + v_{\frac{3}{2}} dt\)<br>
-								  
+
+								  We discuss the choice of timestep that results in acceptable levels of energy error <a href="#Accuracy">below</a>.
 
 								</p>
 								</div>
@@ -270,9 +269,20 @@
 								  <ol>
 								    <li> Build the Octree </li>
 								    <li> For each particle: compute the total force by traversing the Octree </li>
-								    <li> Update the velocites and positions using LeapFrog algorithm </li>
+								    <li> Update the velocities and positions using LeapFrog algorithm </li>
 								  </ol>
-								  
+
+								  We approach the parallelization of the entire code using a hybrid approach, combining MPI and CUDA. The major
+								  limiting step is Step (1), the creation of the Octree, which is <em>not parallelized</em> without significant
+								  changes to the algorithm (see below for suggested improvements). Therefore, the entire catalog of simulate d
+								  particles is loaded into an individual process at the beginning of each timestep, before the tree is created. <br>
+								  For step (2), once the tree is created, we use MPI to broadcast the entire tree to a system of distributed-memory
+								  processes. The simulated particles are then distributed nearly exactly evenly (to within \(\pm 1\) particle)
+								  across the processes, and the force calculation occurs in parallel. As discussed <a href="Scaling">below</a>, the
+								  force calculation is initially one of the most computationally demanding portions of the code, but this is
+								  conveniently the most trivially parallelizable portion, as distributing particles onto more processes nearly
+								  linearly reduces the execution time. <br>
+								  The second phase of parallelization comes in with the introduction of 
 								</p>
 								</div>
 								<br>
