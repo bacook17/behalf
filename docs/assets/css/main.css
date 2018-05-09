@@ -2612,6 +2612,71 @@
 
 		}
 
+/* Spotlight */
+
+	.spotlight2 {
+		-moz-align-items: center;
+		-webkit-align-items: center;
+		-ms-align-items: center;
+		align-items: center;
+		/*display: -moz-flex;
+		display: -webkit-flex;
+		display: -ms-flex;
+		display: flex;*/
+	}
+
+		.spotlight2 .image {
+			-moz-order: 1;
+			-webkit-order: 1;
+			-ms-order: 1;
+			order: 1;
+			border-radius: 0;
+			width: 40%;
+		}
+
+			.spotlight2 .image img {
+				border-radius: 0;
+				width: 100%;
+			}
+
+		.spotlight2 .content {
+			padding: 20em 40em 100em 40em ;
+			-moz-order: 2;
+			-webkit-order: 2;
+			-ms-order: 2;
+			order: 2;
+			max-width: 48em;
+			width: 60%;
+			padding: 30em 20em 10em 20em ;
+		}
+
+
+		@media screen and (max-width: 1280px) {
+
+			.spotlight2 .image {
+				width: 45%;
+			}
+
+			.spotlight2 .content {
+				width: 85%;
+			}
+
+			.spotlight2 .content {
+				padding: 30em 20em 10em 20em ;
+			}
+
+		}
+
+
+
+		@media screen and (max-width: 736px) {
+
+			.spotlight2 .content {
+				padding: 30em 20em 10em 20em ;
+			}
+
+		}		
+
 /* Wrapper */
 
 	.wrapper {
@@ -3104,18 +3169,18 @@
 				.wrapper.style5 .button:active {
 					background-color: rgba(0, 0, 0, 0.1);
 				}
-
-		.wrapper.style5 {
-			background-color: #ffffff;
-			color: #4E4852;
+		
+		.wrapper.style6 {
+			background-color: #1f262d;
+			color: #ffffff;
 		}
 
 			.wrapper.style6 strong, .wrapper.style6 b {
-				color: #1f262d;
+				color: #ffffff;
 			}
 
 			.wrapper.style6 h2, .wrapper.style6 h3, .wrapper.style6 h4, .wrapper.style6 h5, .wrapper.style6 h6 {
-				color: #2E3842;
+				color: #ffffff;
 			}
 
 			.wrapper.style6 hr {
@@ -3131,7 +3196,7 @@
 			}
 
 			.wrapper.style6 header p {
-				color: #8E8892;
+				color: #ffffff;
 			}
 
 			.wrapper.style6 header.major h2, .wrapper.style6 header.major h3, .wrapper.style6 header.major h4, .wrapper.style6 header.major h5, .wrapper.style6 header.major h6 {
@@ -3139,11 +3204,11 @@
 			}
 
 			.wrapper.style6 header.major p {
-				color: #4E4852;
+				color: #ffffff;
 			}
 
 			.wrapper.style6 label {
-				color: #2E3842;
+				color: #ffffff;
 			}
 
 			.wrapper.style6 input[type="text"],
@@ -3253,10 +3318,7 @@
 
 			}
 
-		.wrapper.style6 {
-			background-color: #1f262d;
-			color: #4E4852;
-		}
+
 
 		@media screen and (max-width: 980px) {
 
@@ -3266,10 +3328,12 @@
 
 		}
 
-		@media screen and (max-width: 736px) {
+		/*@media screen and (max-width: 736px) {*/
+		@media screen and (max-width: 9000px) {
 
 			.wrapper {
-				padding: 3em 2em 1em 2em ;
+				padding: 4em 3em 2em 3em ;
+				/*padding: 3em 2em 1em 2em ;*/
 			}
 
 		}
