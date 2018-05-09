@@ -226,17 +226,33 @@
 								<br>
 								<h4><font color="#bb99ff">Leapfrog Algorithm</font></h4>
 								<p>
-								  Once the forces are calculated, we use the Leapfrog Algorithm to update the positions and velocities. The Leapfrog
-								  integration algorithm is a symplectic (i.e. time-reversible)
-								  								<pre><code>
-		function <font color="dark red">insertParticle</font>(<font color="lime"><font color="#32CD32">particle</font></font>, <font color="cyan">node</font>)
-			if(<font color="#32CD32">particle</font>.position is not in <font color="cyan">node</font>.box): # if particle is not in node's bounding box
-				return # end function
-			if(<font color="cyan">node</font> has no particles):
-				<font color="cyan">node</font>.<font color="#32CD32">particle</font> = <font color="#32CD32">particle</font> # particle is now assigned to node
+								  Once the forces are calculated, we use the <a href="https://www.physics.drexel.edu/students/courses/Comp_Phys/Integrators/leapfrog/">Leapfrog Algorithm</a> to update the positions and velocities. The Leapfrog
+								  integration algorithm is a symplectic (i.e. time-reversible) method for solving the set of differential equations
+								  given by Newton's laws:<br>
 
-								  <span class="image fit"><img src="images/leapfrog.jpg"
-								  /></span>
+								  \(v = \frac{dx}{dt}\) <br>
+								  
+								  \(F = m \frac{d^2x}{dt^2}\)<br>
+
+								  Because it is sympletctic, the Leapfrog Algorithm is guaranteed to conserve energy (to reasonable precision,
+								  determined by the time step chosen). Even though it is a first-order integrator, it performs better than
+								  higher-order algorithms (like 4th order Runge-Kutta) at conserving energy over many time steps.
+
+								  The algorithm is nearly identical to the Euler method, except the velocities and positions are computed at
+								  half-timestep offsets:
+
+								  <span class="image fit"><img src="images/leapfrog.jpg" style="max-width: 800px; margin-left:auto;
+								  margin-right:auto;" /></span>
+
+								  Therefore, there is an initial self-start phase of a half-step:<br>
+								  \(a_0 = F(x_0) / m \)<br>
+								  \(v_{\frac{1}{2}} = v_0 + a_0 \frac{dt}{2} \)<br>
+								  \(x_1 = x_0 + v_{\frac{1}{2}} dt\)<br>
+								  followed by the regular Euler updating kick-drift steps:<br>
+								  \(a_1 = F(x_1) / m \)<br>
+								  \(v_{\frac{3}{2}} = v_{\frac{1}{2}} + a_1 dt\)<br>
+								  \(x_2 = x_1 + v_{\frac{3}{2}} dt\)<br>
+								  
 
 								</p>
 								</div>
