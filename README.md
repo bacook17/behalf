@@ -34,6 +34,16 @@ srun --pty --mem 4096 -n 1 --gres=gpu:1 --constraint=cuda-7.5 -p gpu -t 0-2:00 /
 From there, you should be able to install the GPU support.
 
 ### Running BEHALF
+The primary entry point to running a Plummer Sphere simulation with BEHALF is `bin/run_behalf.py`, which should be installed into the default path.
+
+The required arguments to run_behalf.py are simply the name of the run and the number of particles:
+
+`run_behalf.py --run-name TEST_RUN --N-parts 1000`
+
+For details on advanced features:
+
+`run_behalf.py -h`
+
 ```
 usage: run_behalf.py [-h] --run-name RUN_NAME --N-parts N_PARTS
                      [--total-mass TOTAL_MASS] [--radius RADIUS]
