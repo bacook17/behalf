@@ -50,7 +50,7 @@ setup(
     include_package_data=True,
     cmdclass={'clean': CleanCommand, 'install': CustomInstall},
     install_requires=[
-        'mpi4py', 'numpy', 'future', 'cython'
+        'mpi4py', 'numpy', 'future', 'cython', 'matplotlib', 'seaborn'
     ],
     extras_require={"GPU": ['pycuda']},
     ext_modules=cythonize("behalf/force.pyx"),
