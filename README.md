@@ -34,12 +34,23 @@ srun --pty --mem 4096 -n 1 --gres=gpu:1 --constraint=cuda-7.5 -p gpu -t 0-2:00 /
 From there, you should be able to install the GPU support.
 
 ### Running BEHALF
+The primary entry point to running a Plummer Sphere simulation with BEHALF is `bin/run_behalf.py`, which should be installed into the default path.
+
+The required arguments to run_behalf.py are simply the name of the run and the number of particles:
+
+`run_behalf.py --run-name TEST_RUN --N-parts 1000`
+
+For details on advanced features:
+
+`run_behalf.py -h`
+
 ```
 usage: run_behalf.py [-h] --run-name RUN_NAME --N-parts N_PARTS
                      [--total-mass TOTAL_MASS] [--radius RADIUS]
                      [--N-steps N_STEPS] [--dt DT] [--softening SOFTENING]
-                     [--save_every SAVE_EVERY] [--THETA THETA] 
-		     [--rand-seed RAND_SEED][--clobber] [--verbose]
+                     [--save-every SAVE_EVERY] [--THETA THETA]
+                     [--rand-seed RAND_SEED] [--clobber] [--verbose]
+                     [--production] [--no-cython]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -53,12 +64,14 @@ optional arguments:
   --dt DT               Size of time step (in Myr) (default: 0.01)
   --softening SOFTENING
                         Softening length (in kpc) (default: 0.01)
-  --save_every SAVE_EVERY
-                        How often to save output results (default: 10)
-  --THETA THETA         Barnes-Hut approximation range (default: 0.5)
+  --save-every SAVE_EVERY
+                        How often to save results (default: 10)
+  --THETA THETA         Barnes-Hut Approximation Range (default: 0.5)
   --rand-seed RAND_SEED
                         Random seed to initialize (default: 1234)
-  --clobber             Should previous results be overwritten? (default:
-                        False)
+  --clobber             Overwrite previous results? (default: False)
   --verbose             Should diagnostics be printed? (default: False)
+  --production          Remove intentional slow-down for profiling (default:
+                        False)
+  --no-cython           Dont use Cython (default: False)
 ```
