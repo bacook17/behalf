@@ -108,7 +108,7 @@ if __name__ == '__main__':
                             N_parts, M_total, a, THETA, dt, N_steps, softening,
                             seed)
         # Set Plummer Sphere (or other) initial conditions
-        pos_1, vel_1 = initialConditions.plummer(N_parts/2, a, m=M_part,
+        pos_1, vel_1 = initialConditions.plummer(N_parts//2, a, m=M_part,
                                                  G=GRAV_CONST, seed=seed)
         pos_2, vel_2 = initialConditions.plummer(N_parts - (pos_1.shape[0]), a, m=M_part,
                                                  G=GRAV_CONST, seed=seed)

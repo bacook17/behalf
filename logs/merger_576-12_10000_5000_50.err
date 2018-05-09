@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/n/home01/bcook/.conda/envs/py36/bin/run_merger.py", line 112, in <module>
-    G=GRAV_CONST, seed=seed)
-  File "/n/home01/bcook/behalf/behalf/initialConditions.py", line 45, in plummer
-    pos = PlummerDist_3d_xyz(Npart, a, rand=rand)
-  File "/n/home01/bcook/behalf/behalf/initialConditions.py", line 65, in PlummerDist_3d_xyz
-    r = np.zeros((Npart))
-TypeError: 'float' object cannot be interpreted as an integer

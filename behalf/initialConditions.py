@@ -42,6 +42,7 @@ def plummer(Npart, a, m=1., G=4.483e-3, seed=None):
         rand = np.random
     else:
         rand = np.random.RandomState(seed=seed)
+    Npart = int(Npart)
     pos = PlummerDist_3d_xyz(Npart, a, rand=rand)
     if np.size(m) == 1:
         M = Npart * m  # if all particles have the same mass
@@ -62,6 +63,7 @@ def PlummerDist_3d_xyz(Npart, a, rand=np.random):
     output:
         pos   - (Npart x 3) array of positions in cartesian coordinates
     """
+    Npart = int(Npart)
     r = np.zeros((Npart))
     pos = np.zeros((Npart, 3))
     for i in range(Npart):
