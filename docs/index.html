@@ -167,10 +167,13 @@
 								<p>The BH algorithm and various modifications of the original algorithm have been extensively used in astrophysical simulations (e.g., <a href="#Citations">Katz et al. 1995, Wadsley et al. 2004, Springel et al. 2005 </a>). The fundamental assumption in all variants of the BH algorithm is that the gravitational pull of many far-away bodies can be approximated by replacing the group of many distant bodies with a single object located at the center of mass and encompassing the total mass of those bodies
 									<!--as the gravitational pull due to a single body located at the center of mass of those far-away body and with a magnitude 
 								 with a mass that totals the sum of all masses of the far-away bodies located at the center of mass of that set of far-away bodies--> (<a href="#Citations">Barnes and Hut 1986</a>). </p>
-								<span class="image fit"><img src="images/BarnesHut_example.jpg"  /></span>
 								
-								<p> Barnes and Hut represented this idea using the Octree data structure. In octrees, each internal node has exactly eight child nodes. Octrees have been used in various domains to partition a three-dimensional space by recursively subdividing the space into octants. The figure shown above is an illustration of the 2-dimensional version of the same problem using quadtrees instead of octrees. The far-field approximation that groups far-away particles together mentioned above clearly requires significantly fewer floating point operations than the naive force calculation. Barnes and Hut found that this approach scales as O(NlogN), where the tree traversal is a roughly log(N) operation and the N comes from calculating the force for the N particles in the system. </p>
 
+								
+								<p> Barnes and Hut represented this idea using the Octree data structure. In octrees, each internal node has exactly eight child nodes. Octrees have been used in various domains to partition a three-dimensional space by recursively subdividing the space into octants. The figure shown below is an illustration of the 2-dimensional version of the same problem using quadtrees instead of octrees.</p>
+								<span class="image fit"><img src="images/octree1.png"  /></span>
+								<p>  The far-field approximation that groups far-away particles together mentioned above clearly requires significantly fewer floating point operations than the naive force calculation. Barnes and Hut found that this approach scales as O(NlogN), where the tree traversal is a roughly log(N) operation and the N comes from calculating the force for the N particles in the system. </p>
+								<span class="image fit"><img src="images/BarnesHut_example.jpg"  /></span>
 							</div>
 						</section>
 						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
