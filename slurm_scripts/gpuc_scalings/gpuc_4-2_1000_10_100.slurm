@@ -1,10 +1,8 @@
 #!/bin/bash
-#SBATCH -p holyseasgpu
+#SBATCH -p conroy
 #SBATCH -J gpuc_4-2_1000_10_100 # Job Name
 #SBATCH -n 4 # Number of MPI tasks
 #SBATCH -N 2 # Fix number of nodes
-#SBATCH --gres=gpu:2 #Number of GPUs requested per node
-#SBATCH --constraint=cuda-7.5 #require CUDA
 #SBATCH -t 0-02:00 # runtime in D-HH:MM
 #SBATCH --mem-per-cpu 1536 # memory per MPI task
 #SBATCH -o logs/%x.out

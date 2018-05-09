@@ -1,80 +1,8 @@
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
+pid 13460's current affinity mask: 1000100200000
+pid 13460's new affinity mask: 100200000
+pid 13461's current affinity mask: 1000100200000
+pid 13461's new affinity mask: 100200000
+pid 1073's current affinity mask: 1
+pid 1073's new affinity mask: 1
+pid 13462's current affinity mask: 1000100200000
+pid 13462's new affinity mask: 100200000

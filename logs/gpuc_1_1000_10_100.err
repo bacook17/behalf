@@ -1,1 +1,3 @@
+/n/home01/bcook/behalf/behalf/integrator.py:48: UserWarning: GPU not available, switching to serial implementation
+  warn('GPU not available, switching to serial implementation')
 sacct: unrecognized option '----format=JOBID%20,JobName,NTasks,AllocCPUs,AllocGRES,Partition,Elapsed,MaxRSS,MaxVMSize,MaxDiskRead,MaxDiskWrite,State'
