@@ -6,9 +6,9 @@
 
 import os
 
-from setuptools import setup, Command
+from distutils.core import setup, Command
 from Cython.Build import cythonize
-from setuptools.command.install import install
+from distutils.command.install import install
 import numpy as np
 
 

@@ -4,12 +4,10 @@ gpu: behalf_gpu
 
 cpu: behalf_cpu
 
-cy: behalf/force.so
+cy:
+	python setup.py build_ext --inplace clean
 
-#behalf/force.so: behalf/force.pyx
-#	cythonize -a -i behalf/force.pyx
-
-behalf_only: 
+behalf_only: cy
 	@echo "---------------------------------------"
 	@echo "installing behalf only, NO dependencies"
 	pip install . --user --upgrade --no-deps
