@@ -33,7 +33,11 @@ def parse_name(run_name):
        E - Number of time steps
        F - Time Precision (1 / dt_Myr)
     """
-    run_type, cores, parts, steps, time = run_name.split('_')
+    try:
+        run_type, cores, parts, steps, time = run_name.split('_')
+    except ValueError:
+        run_type, parts, steps, time = run_name.split('_')
+        cores = '1'
     if len(cores.split('-')) == 2:
         cores, nodes = cores.split('-')
     else:
@@ -62,53 +66,83 @@ class RunResults:
         # Load basic properties from run_name
         self.Ncores, self.Nnodes, self.Ngpu, self.Nparts, self.Nsteps, self.dt = parse_name(run_name)
         # Load data from overivew
-        with open(path + 'overview.txt', 'r') as f:
-            lines = f.readlines()
-            lines = [l.rstrip('\n').split(': ')[-1].split(' ')[0] for l in lines]
-        self.Mass = float(lines[3])
-        self.a = float(lines[4])
-        self.theta = float(lines[5])
-        self.softening = float(lines[8])
-        self.rand_seed = int(lines[9])
-        # check properties are correct
-        assert(self.Ncores == int(lines[1]))
-        assert(self.Nparts == int(lines[2]))
-        assert(self.Nsteps == int(lines[7]))
-        assert(self.dt == float(lines[6]))
-        
+        try:
+            with open(path + 'overview.txt', 'r') as f:
+                lines = f.readlines()
+                lines = [l.rstrip('\n').split(': ')[-1].split(' ')[0] for l in lines]
+            self.Mass = float(lines[3])
+            self.a = float(lines[4])
+            self.theta = float(lines[5])
+            self.softening = float(lines[8])
+            self.rand_seed = int(lines[9])
+            # check properties are correct
+            assert(self.Ncores == int(lines[1]))
+            assert(self.Nparts == int(lines[2]))
+            assert(self.Nsteps == int(lines[7]))
+            assert(self.dt == float(lines[6]))
+            self.new = True
+        except:
+            self.Mass = 1e5
+            self.a = 10
+            self.theta = 0.5
+            self.softening = 0.01
+            self.rand_seed = 1234
+            self.new = False
         steps = []
         # figure out what time steps were saved
         for infile in glob( os.path.join(path, '*.dat') ):
             steps.append(int(infile.split('/')[-1].lstrip('step_').strip('.dat')))
         self.steps = sorted(steps)
         self.time_elapsed = np.array(self.steps) * self.dt
-        K, U, E = [], [], []
-        times = {'Force': [], 'Gather': [], 'Overall': [], 'Scatter': [],
-                 'Integ.': [], 'Broadcast': [], 'Tree': [], 'Comm.': []}
-        # Load in data from all results files
-        for i in self.steps:
-            infile = path + 'step_{:d}.dat'.format(i)
-            with open(infile, 'r') as f:
-                lines = []
-                for _ in range(30):
-                    l = f.readline()
-                    if l.startswith('# '):
-                        lines.append(l.lstrip('# ').rstrip('\n').split(':')[-1].lstrip(' \t'))
-                    else:
-                        break
-                # Load energy data
-                K.append(float(lines[2]))
-                U.append(float(lines[3]))
-                E.append(float(lines[1]))
-                # Load timing values
-                times['Force'].append(float(lines[8]))
-                times['Gather'].append(float(lines[10]))
-                times['Overall'].append(float(lines[12]))
-                times['Scatter'].append(float(lines[14]))
-                times['Integ.'].append(float(lines[16]))
-                times['Broadcast'].append(float(lines[18]))
-                times['Tree'].append(float(lines[20]))
-                times['Comm.'].append(times['Gather'][-1] + times['Scatter'][-1] + times['Broadcast'][-1])
+        if self.new:
+            K, U, E = [], [], []
+            times = {'Force': [], 'Gather': [], 'Overall': [], 'Scatter': [],
+                     'Integ.': [], 'Broadcast': [], 'Tree': [], 'Comm.': []}
+            # Load in data from all results files
+            for i in self.steps:
+                infile = path + 'step_{:d}.dat'.format(i)
+                with open(infile, 'r') as f:
+                    lines = []
+                    for _ in range(30):
+                        l = f.readline()
+                        if l.startswith('# '):
+                            lines.append(l.lstrip('# ').rstrip('\n').split(':')[-1].lstrip(' \t'))
+                        else:
+                            break
+                    # Load energy data
+                    K.append(float(lines[2]))
+                    U.append(float(lines[3]))
+                    E.append(float(lines[1]))
+                    # Load timing values
+                    times['Force'].append(float(lines[8]))
+                    times['Gather'].append(float(lines[10]))
+                    times['Overall'].append(float(lines[12]))
+                    times['Scatter'].append(float(lines[14]))
+                    times['Integ.'].append(float(lines[16]))
+                    times['Broadcast'].append(float(lines[18]))
+                    times['Tree'].append(float(lines[20]))
+                    times['Comm.'].append(times['Gather'][-1] + times['Scatter'][-1] + times['Broadcast'][-1])
+        else:
+            K, U, E = [], [], []
+            times = {'Overall': []}
+            for i in self.steps:
+                infile = path + 'step_{:d}.dat'.format(i)
+                with open(infile, 'r') as f:
+                    lines = []
+                    for _ in range(30):
+                        l = f.readline()
+                        if l.startswith('# '):
+                            lines.append(l.lstrip('# ').rstrip('\n').split(': ')[-1].lstrip(' \t'))
+                        else:
+                            break
+                E.append(float(lines[2]))
+                K.append(0.)
+                U.append(0.)
+                t_str = lines[6].split(':')
+                s = int(t_str[0]) * 3600.
+                s += int(t_str[1]) * 60.
+                s += float(t_str[2])
+                times['Overall'].append(s)
         self.med_times = {}
         for k, v in times.items():
             self.med_times[k] = np.median(v)
