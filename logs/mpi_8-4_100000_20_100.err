@@ -1,0 +1,10 @@
+/n/home03/apop/.local/lib/python3.6/site-packages/behalf/integrator.py:49: UserWarning: GPU not available, switching to serial implementation
+  warn('GPU not available, switching to serial implementation')
+slurmstepd: error: Step 43549597.0 exceeded memory limit (4105720 > 4096000), being killed
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: *** STEP 43549597.0 ON holy2a22102 CANCELLED AT 2018-05-08T09:38:07 ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+[mpiexec@holy2a22102.rc.fas.harvard.edu] control_cb (./pm/pmiserv/pmiserv_cb.c:215): assert (!closed) failed
+[mpiexec@holy2a22102.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[mpiexec@holy2a22102.rc.fas.harvard.edu] HYD_pmci_wait_for_completion (./pm/pmiserv/pmiserv_pmci.c:181): error waiting for event
+[mpiexec@holy2a22102.rc.fas.harvard.edu] main (./ui/mpich/mpiexec.c:405): process manager error waiting for completion
