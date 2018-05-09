@@ -92,7 +92,7 @@ if __name__ == '__main__':
     displacements = np.insert(np.cumsum(N_per_process * 3), 0, 0)[0:-1]
     # How many particles on this process?
     N_this = N_per_process[rank]
-
+    
     if rank == 0:
         t_start = time()
         results_dir = 'results/' + run_name + '/'
