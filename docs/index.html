@@ -40,10 +40,17 @@
 											<li><a href="#Analysis">Performance and Analysis</a>
 												<ul>
 													<li><a href="index.html#Plummer"><font color="#d1d1e0">&nbsp; &nbsp;Initial conditions</font></a></li>
+													<li><a href="index.html#Accuracy"><font color="#d1d1e0">&nbsp; &nbsp;Accuracy</font></a></li>
+													<li><a href="index.html#Scalings"><font color="#d1d1e0">&nbsp; &nbsp;Parallel Performance</font></a></li>
 												</ul>
 											</li>
-											<li><a href="#Movies">Movies</a></li>
-											<li><a href="#Citations">Citations</a></li>
+											<li><a href="#Conclusions">Conclusions and Results</a></li>
+												<ul>
+													<li><a href="index.html#Advanced"><font color="#d1d1e0">&nbsp; &nbsp;Advanced Methods</font></a></li>
+													<li><a href="index.html#Future"><font color="#d1d1e0">&nbsp; &nbsp;Future work</font></a></li>
+													<li><a href="index.html#Movies"><font color="#d1d1e0">&nbsp; &nbsp;Movies</font></a></li>
+												</ul>
+											<li><a href="#Citations">References</a></li>
 										</ul>
 									</div>
 								</li>
@@ -153,6 +160,7 @@
 								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
 							</div>
 						</section>
+						<div class="aligncenter" style="width:1600px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
 						<section id="Analysis" class="inner">
 							<!--<div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">-->
 								<br>
@@ -180,7 +188,7 @@
 								<p>The mass enclosed within radius r is:
 									<br>
 									\( M(\lt r) = 4 \pi \int_0^r r^2 \rho (r) dr = M \frac{r^3}{(r^2 + a^2)^{3/2}} \) </p>
-								<p> The Plummer model has a distribution function \(f(E)\) that has an analytic expression -- it is a polytrope with index \(n=5\) (see, for e.g., <a href="#Citations">Binney & Tremaine 2011</a>) and the distribution function for polytropes follows:
+								<p> The Plummer model has a distribution function \(f(E)\) that has an analytic expression - it is a polytrope with index \(n=5\) (see, for e.g., <a href="#Citations">Binney & Tremaine 2011</a>) and the distribution function for polytropes follows:
 								<br>
 								\(f(E) \propto |E|^{n-3/2} \Rightarrow f(E) \propto |E|^{7/2}\) for Plummer 
 								<br>
@@ -193,12 +201,49 @@
 								\(v_{esc} = \sqrt{\frac{2GM}{a}} \left[ 1 + \left(\frac{r}{a}\right)^2\right]^{-1/4}\)
 								<br>
 								allows us to simplify the expressions for the energy per unit mass \(E \propto (x^2 - 1)\) and the probability for a particle at radius r to have velocity v: \( g(x) \propto x^2 (1-x^2)^{7/2}\) </p> 
-								<p> Based on the discussion in <a href="#Citations">Aarseth et al. (1974)</a>, we use the rejection technique to generate random pairs of values \((g_0, x_0)\), where \(c_0\) is between 0 and 1 (implying initial particle velocities between 0 and \(v_{esc}\)), and the velocity probability function \(g\) is allowed to vary between 0 and \(g_{max} \simeq 0.1\). The name of the rejection technique comes from the fact that only those pairs of values for which \(g_0 \leq g(x_0)\) will be kept. This method ensures that, as long as we sample a sufficiently large number of particles, their final velocity distribution will follow \(g(x)\).
+								<p> Based on the discussion in <a href="#Citations">Aarseth et al. (1974)</a>, we use the rejection technique to generate random pairs of values \((g_0, x_0)\), where \(x_0\) is between 0 and 1 (implying initial particle velocities between 0 and \(v_{esc}\)), and the velocity probability function \(g\) is allowed to vary between 0 and \(g_{max} \simeq 0.1\). The name of the rejection technique comes from the fact that only those pairs of values for which \(g_0 \leq g(x_0)\) will be kept. This method ensures that, as long as we sample a sufficiently large number of particles, their final velocity distribution will follow \(g(x)\).
 							</div>
+							<div id="Accuracy">
+							<br>
+								<br>
+								<br>
+								<h4><font color="#bb99ff">Physical Performance and Model Accuracy</font></h4>
+							</div>
+							<div id="Scalings">
+								<br>
+								<br>
+								<br>
+								<h4><font color="#bb99ff">Parallel Performance and Scalings</font></h4>
+							</div>
+							<br>
+							<br>
 						</section>
-						<section id="Movies" class="spotlight">
-							<div class="image"><img src="images/pic03.jpg" alt="" /></div><div class="content">
-								<h2>Movies</h2>
+						<!--<div class="wrapper style3" style="maxheight:2px;font-size:0.5;">
+						</div>-->
+						<div class="aligncenter" style="width:1600px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
+						<section id="Conclusions" class="inner">
+							<br>
+							<br>
+							<br>
+							<h2>Conclusions</h2>
+							<div id="Advanced">
+								<br>
+								<br>
+								<br>
+								<h4><font color="#bb99ff">Advanced features</font></h4>
+							</div>
+							<br>
+							<br>
+							<div id="Movies">
+								<br>
+								<br>
+								<br>
+								<h4><font color="#bb99ff">Movies</font></h4>
+							</div>
+							<br>
+							<br>
+							<div id="Future" class="image"><img src="images/pic03.jpg" alt="" /></div><div class="content">
+								<h4><font color="#bb99ff">Future work</font></h4>
 								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
 							</div>
 						</section>
@@ -210,7 +255,7 @@
 					<section id="Citations" class="wrapper style4">
 						<div class="inner">
 							<header>
-								<h2>Citations</h2>
+								<h2>References</h2>
 								<ul class="actions vertical">
 									<li>Aarseth S. J., Henon M., Wielen R., 1974, A&A, 37, 183</li>
 									<li>Binney J., Tremaine S., 2011, Galactic Dynamics. Princeton University Press</li>

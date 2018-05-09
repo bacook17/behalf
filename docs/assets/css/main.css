@@ -3105,13 +3105,158 @@
 					background-color: rgba(0, 0, 0, 0.1);
 				}
 
-			@media screen and (max-width: 736px) {
+		.wrapper.style5 {
+			background-color: #ffffff;
+			color: #4E4852;
+		}
 
-				.wrapper.style5 .features li {
-					border-top-color: #dfdfdf;
+			.wrapper.style6 strong, .wrapper.style6 b {
+				color: #1f262d;
+			}
+
+			.wrapper.style6 h2, .wrapper.style6 h3, .wrapper.style6 h4, .wrapper.style6 h5, .wrapper.style6 h6 {
+				color: #2E3842;
+			}
+
+			.wrapper.style6 hr {
+				border-color: #dfdfdf;
+			}
+
+			.wrapper.style6 blockquote {
+				border-color: #dfdfdf;
+			}
+
+			.wrapper.style6 code {
+				background: rgba(0, 0, 0, 0.0375);
+			}
+
+			.wrapper.style6 header p {
+				color: #8E8892;
+			}
+
+			.wrapper.style6 header.major h2, .wrapper.style6 header.major h3, .wrapper.style6 header.major h4, .wrapper.style6 header.major h5, .wrapper.style6 header.major h6 {
+				border-color: #dfdfdf;
+			}
+
+			.wrapper.style6 header.major p {
+				color: #4E4852;
+			}
+
+			.wrapper.style6 label {
+				color: #2E3842;
+			}
+
+			.wrapper.style6 input[type="text"],
+			.wrapper.style6 input[type="password"],
+			.wrapper.style6 input[type="email"],
+			.wrapper.style6 select,
+			.wrapper.style6 textarea {
+				background: rgba(0, 0, 0, 0.0375);
+			}
+
+			.wrapper.style6 .select-wrapper:before {
+				color: #dfdfdf;
+			}
+
+			.wrapper.style6 input[type="checkbox"] + label,
+			.wrapper.style6 input[type="radio"] + label {
+				color: #4E4852;
+			}
+
+				.wrapper.style6 input[type="checkbox"] + label:before,
+				.wrapper.style6 input[type="radio"] + label:before {
+					background: rgba(0, 0, 0, 0.0375);
+				}
+
+			.wrapper.style6 input[type="checkbox"]:checked + label:before,
+			.wrapper.style6 input[type="radio"]:checked + label:before {
+				background: #2E3842;
+				color: #ffffff;
+			}
+
+			.wrapper.style6 ::-webkit-input-placeholder {
+				color: #8E8892 !important;
+			}
+
+			.wrapper.style6 :-moz-placeholder {
+				color: #8E8892 !important;
+			}
+
+			.wrapper.style6 ::-moz-placeholder {
+				color: #8E8892 !important;
+			}
+
+			.wrapper.style6 :-ms-input-placeholder {
+				color: #8E8892 !important;
+			}
+
+			.wrapper.style6 .formerize-placeholder {
+				color: #8E8892 !important;
+			}
+
+			.wrapper.style6 .icon.major {
+				border-color: #dfdfdf;
+			}
+
+			.wrapper.style6 ul.alt li {
+				border-color: #dfdfdf;
+			}
+
+			.wrapper.style6 table tbody tr {
+				border-color: #dfdfdf;
+			}
+
+				.wrapper.style6 table tbody tr:nth-child(2n + 1) {
+					background-color: rgba(0, 0, 0, 0.0375);
+				}
+
+			.wrapper.style6 table th {
+				color: #2E3842;
+			}
+
+			.wrapper.style6 table thead {
+				border-color: #dfdfdf;
+			}
+
+			.wrapper.style6 table tfoot {
+				border-color: #dfdfdf;
+			}
+
+			.wrapper.style6 table.alt tbody tr td {
+				border-color: #dfdfdf;
+			}
+
+			.wrapper.style6 input[type="submit"],
+			.wrapper.style6 input[type="reset"],
+			.wrapper.style6 input[type="button"],
+			.wrapper.style6 button,
+			.wrapper.style6 .button {
+				box-shadow: inset 0 0 0 2px #dfdfdf;
+				color: #2E3842;
+			}
+
+				.wrapper.style6 input[type="submit"]:hover,
+				.wrapper.style6 input[type="reset"]:hover,
+				.wrapper.style6 input[type="button"]:hover,
+				.wrapper.style6 button:hover,
+				.wrapper.style6 .button:hover {
+					background-color: rgba(0, 0, 0, 0.0375);
+				}
+
+				.wrapper.style6 input[type="submit"]:active,
+				.wrapper.style6 input[type="reset"]:active,
+				.wrapper.style6 input[type="button"]:active,
+				.wrapper.style6 button:active,
+				.wrapper.style6 .button:active {
+					background-color: rgba(0, 0, 0, 0.1);
 				}
 
 			}
+
+		.wrapper.style6 {
+			background-color: #1f262d;
+			color: #4E4852;
+		}
 
 		@media screen and (max-width: 980px) {
 
