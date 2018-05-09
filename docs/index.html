@@ -153,7 +153,8 @@
 
 								<p>For our project, we will be focusing on the intermediate regime: galaxies. The fundamental unit of resolution in the study of galaxies is a star -- stars are born in a galaxy and move around the galaxy due to the force from the hundreds of billions of other stars in the galaxy. Consequently, studying how galaxies form and evolve is a rich and complicated endeavor that can no longer be attempted using just analytical theory. The dynamic scale that needs to be resolved in order to self-consistently study galaxies is enormous and spans many orders of magnitudes, necessitating the use of high performance computing and sophisticated codes that can utilize various different HPC programming models. </p>
 
-								<p>Naively, the N-body problem is O(N^2). However, most realistic simulations of galaxies require upwards of hundreds of millions of resolution elements. The N^2 scaling of the naive approach would make computations at that scale is just not feasible. Consequently, astronomers have come up with various approximate ways to calculate the forces in the N-body problem: tree-based methods (<a href="#Citations">Barnes and Hut (1986)</a>) and particle mesh methods (<a href="#Citations">Darden et al. (1993)</a>)</p>. For our project, we will be focusing on parallelizing the Barnes-Hut (BH) algorithm. 
+								<p>Naively, the N-body problem is O(N^2). However, most realistic simulations of galaxies require upwards of hundreds of millions of resolution elements. The N^2 scaling of the naive approach would make computations at that scale is just not feasible. Consequently, astronomers have come up with various approximate ways to calculate the forces in the N-body problem: tree-based methods (<a href="#Citations">Barnes and Hut (1986)</a>) and particle mesh methods (<a href="#Citations">Darden et al. 1993</a>). For our project, we will be focusing on parallelizing the Barnes-Hut (BH) algorithm. </p>
+
 							</div>
 						</section>
 						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
@@ -161,8 +162,9 @@
 								<h2>The Barnes-Hut Algorithm</h2>
 								<br>
 								<br>
-								<p> </p>
+								<p>The BH algorithm and various modifications of the original algorithm have been extensively used in astrophysical simulations (<a href="#Citations">Katz et al. 1995, Wadsley et al. 2004, Springel et al. 2005 </a>). The fundamental assumption in all variants of the BH algorithm is that the gravitational pull of many far-away bodies can be approximated as the gravitational pull due to a single body with a mass that totals the sum of all masses of the far-away bodies located at the center of mass of that set of far-away bodies (<a href="#Citations">Barnes and Hut (1986)</a>). </p>
 								<span class="image fit"><img src="images/BarnesHut_example.jpg"  /></span>
+								<p> Barnes and Hut represented this idea using the Octree data structure. In octrees, each internal node has exactly eight child nodes. Octrees have been used in various domains to partition a three-dimensional space by recursively subdividing the space into octants. The figure shown above is an illustration of the 2-dimensional version of the same problem using quadtrees instead of octrees. The far-field approximation that groups far-away particles together mentioned above clearly requires significantly fewer floating point operations than the naive force calculation. Barnes and Hut found that this approach scales as O(NlogN), where the tree traversal is a roughly log(N) operation and the N comes from calculating the force for the N particles in the system. </p>
 							</div>
 						</section>
 						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
@@ -295,8 +297,12 @@
 									<li>Brož, Miroslav, and David Vokrouhlický. "Asteroid families in the first-order resonances with Jupiter." Monthly Notices of the Royal Astronomical Society 390.2 (2008): 715-732.</li>
 									<li>Binney J., Tremaine S., 2011, Galactic Dynamics. Princeton University Press</li>
 									<li>Darden, Tom, Darrin York, and Lee Pedersen. "Particle mesh Ewald: An N⋅ log (N) method for Ewald sums in large systems." The Journal of chemical physics 98.12 (1993): 10089-10092. </li> 
+									<li>Katz, Neal, David H. Weinberg, and Lars Hernquist. "Cosmological simulations with TreeSPH." arXiv preprint astro-ph/9509107 (1995). </li> 
 									<li>Newton, Isaac. "Principia mathematica." Isaac Newton’s Philosophiae Naturalis Principia Mathematica, Harvard University Press, Cambridge, MA (1972).</li>
 									<li>Plummer H. C., 1911, MNRAS, 71, 460</li>
+									<li>Springel, Volker. "The cosmological simulation code GADGET-2." Monthly notices of the royal astronomical society 364.4 (2005): 1105-1134. </li>
+									<li>Wadsley, James W., Joachim Stadel, and Thomas Quinn. "Gasoline: a flexible, parallel implementation of TreeSPH." New Astronomy 9.2 (2004): 137-158. </li>
+
 
 								</ul>
 							</header>
