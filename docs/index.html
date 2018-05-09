@@ -199,7 +199,7 @@
 				for child in node.children: 
 					insertParticle(<font color="#32CD32">particle</font>, child) # insert particle into the appropriate child node
 						</code></pre>
-								<p> The insertParticle algorithm must be run for every particle in the simulation. The algorithm starts by checking to see if the particle is inside the given node's bounding box. Assuming it is, if the node has no particles, the particle currently being considered will be assigned to the given node. If the node is an internal node (that is, it has child nodes) but has no particles associated with it, we insert the particle into the appropriate child node and update the center of mass and the total mass of the node. If the node is an external node (i.e. it has no children) but already has a particle associated with it, we must first create children for that node and then recursively assign both the particle that was already assigned to the external node and the new particle that we were originally assinging. Once we loop over all particles, each leaf node will have only one particle associated with it. </p>
+								<p> The <font color="dark red">insertParticle</font> algorithm must be run for every particle in the simulation. The algorithm starts by checking to see if the particle is inside the given node's bounding box. Assuming it is, if the node has no particles, the particle currently being considered will be assigned to the given node. If the node is an internal node (that is, it has child nodes) but has no particles associated with it, we insert the particle into the appropriate child node and update the center of mass and the total mass of the node. If the node is an external node (i.e. it has no children) but already has a particle associated with it, we must first create children for that node and then recursively assign both the particle that was already assigned to the external node and the new particle that we were originally assinging. Once we loop over all particles, each leaf node will have only one particle associated with it. </p>
 						<pre><code>
 		function <font color="dark red">calculateAcceleration</font>(<font color="#32CD32">particle</font>, <font color="cyan">node</font>, thetaTolerance)
 			if(<font color="cyan">node</font>.leaf):
@@ -212,8 +212,9 @@
 					calculateAcceleration(<font color="#32CD32">particle</font>, child, thetaTolerance)
 					
 								</code></pre>
-								<p>
-									Furthermore, we optimized the force calculation using Cython. The speed-ups with the Cython version are shown in the Analysis section. </p>
+								<p> <font color="dark red">calculateAcceleration</font> takes in the particle we want to calculate the force for, the node we are currently comparing against, and thetaTolerance (the opening angle). The algorithm first starts by checking whether the node we are currently comparing against is a leaf node. If it is, it holds only one particle and we must directly calculate the gravitational influence of this particle on the the particle we passed in as an argument. If the current node is not a leaf, we calculate the opening angle theta (given by the size of the node divided by the distance from the node to the particle). If the opening angle is less than some pre-defined thetaTolerance (most codes in literature use 0.5), the far field approximation is valid and we can group all the particles belonging to this node and compute the gravitational influence of this group on the particle we want to calculate the acceleration for. If the far field approximation is not valid, we must open up the node and call calculateAcceleration for all children of the original node. </p> 
+								
+								<p> Through experimentation, we found that there was a significant amount of overhead associated with the original Python version of calculateAcceleration. Therefore, we optimized the force calculation using Cython. The speed-ups with the Cython version are shown in the Analysis section. </p>
 								</section>
 
 
