@@ -1,0 +1,2 @@
+/n/home01/bcook/behalf/behalf/integrator.py:48: UserWarning: GPU not available, switching to serial implementation
+  warn('GPU not available, switching to serial implementation')

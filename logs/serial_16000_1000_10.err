@@ -1,2 +1,2 @@
-/n/home03/apop/.local/lib/python3.6/site-packages/behalf/integrator.py:34: UserWarning: GPU not available, switching to serial implementation
-  warn('GPU not available, switching to serial implementation')
+slurmstepd: error: *** STEP 43673190.0 ON holy2a24101 CANCELLED AT 2018-05-09T12:59:01 ***
+slurmstepd: error: *** JOB 43673190 ON holy2a24101 CANCELLED AT 2018-05-09T12:59:01 ***
