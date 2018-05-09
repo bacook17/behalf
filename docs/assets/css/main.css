@@ -3313,7 +3313,7 @@
 		height: 100%;
 		max-width: 80%;
 		overflow-y: auto;
-		padding: 3em 2em;
+		padding: 0.5em 0.5em;
 		position: fixed;
 		right: 0;
 		top: 0;
@@ -3352,7 +3352,7 @@
 					@media screen and (max-width: 736px) {
 
 						#menu ul > li > a {
-							line-height: 3em;
+							line-height: 2em;
 						}
 
 					}

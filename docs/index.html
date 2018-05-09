@@ -37,6 +37,11 @@
 											<li><a href="#Nbody">N-body Problem</a></li>
 											<li><a href="#BarnesHut">Barnes-Hut Algorithm</a></li>
 											<li><a href="#Code">Code Implementation</a></li>
+												<ul>
+													<li><a href="index.html#Octtree"><font color="#d1d1e0">&nbsp; &nbsp;Oct-tree</font></a></li>
+													<li><a href="index.html#ParallelCode"><font color="#d1d1e0">&nbsp; &nbsp;Parallel Algorithm</font></a></li>
+													<li><a href="index.html#Infrastructure"><font color="#d1d1e0">&nbsp; &nbsp;Infrastructure</font></a></li>
+												</ul>
 											<li><a href="#Analysis">Performance and Analysis</a>
 												<ul>
 													<li><a href="index.html#Plummer"><font color="#d1d1e0">&nbsp; &nbsp;Initial conditions</font></a></li>
@@ -141,23 +146,47 @@
 
 				<!-- Two -->
 					<section id="two" class="wrapper alt style2">
-						<section   id="Nbody" class="spotlight">
-							<div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">
+						<section   id="Nbody" class="inner">
+							<!--<div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">-->
 								<h2>Introduction: N-Body Problem</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+								<p>What is the N-body problem, need for HPC, comparison to previous codes (and citations :) )</p>
 							</div>
 						</section>
-						<section id="BarnesHut" class="spotlight">
-							<div class="image"><img src="images/BarnesHut_example.jpg" alt="" /></div><div class="content">
-								<h2>Barnes-Hut and Oct-Trees</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+						<div class="aligncenter" style="width:1600px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
+						<section id="BarnesHut" class="inner">
+								<h2>The Barnes-Hut Algorithm</h2>
+								<br>
+								<br>
+								<p>Describe the algorithm, maybe use a few slides from our talk, describe how particles divided into octants and how the algorithm works theoretically. Cite existing codes</p>
+								<div class="image"><img src="images/BarnesHut_example.jpg" alt="" /></div>
 							</div>
 						</section>
+						<div class="aligncenter" style="width:1600px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
 						<section id="Code" class="spotlight">
 							<div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">
 								<h2>Code Implementation</h2>
-								<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+								<br>
+								<br>
+								<br>
+								<div id="Octtree">
+								<br>
+								<h4><font color="#bb99ff">Oct-tree</font></h4>
+								<p>We will test our code by simulating an elliptical galaxy, modeled by the Plummer density profile.</p>
+								</div>
+								<br>
+								<br>
+								<div id="ParallelCode">
+								<br>
+								<h4><font color="#bb99ff">Parallel Algorithm</font></h4>
+								<p>We will test our code by simulating an elliptical galaxy, modeled by the Plummer density profile.</p>
+								</div>
+								<br>
+								<br>
+								<div id="Infrastructure">
+								<br>
+								<h4><font color="#bb99ff">Infrastructure</font></h4>
+								<p>We will test our code by simulating an elliptical galaxy, modeled by the Plummer density profile.</p>
+								</div>
 							</div>
 						</section>
 						<div class="aligncenter" style="width:1600px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
@@ -219,7 +248,7 @@
 							<br>
 						</section>
 						<div class="aligncenter" style="width:1600px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
-						<div class="wrapper style4" style="maxheight:1px;font-size:0.5;">
+						<!--<div class="wrapper style4" style="maxheight:1px;font-size:0.5;">-->
 						</div>
 						<section id="Conclusions" class="inner">
 							<br>
@@ -246,7 +275,7 @@
 							</div>
 						</section>
 					</section>
-
+				<div class="aligncenter" style="width:1600px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
 
 
 				<!-- CTA -->
