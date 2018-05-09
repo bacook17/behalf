@@ -1,0 +1,22 @@
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Step 43613129.0 exceeded memory limit (92555964 > 88473600), being killed
+slurmstepd: error: Step 43613129.0 exceeded memory limit (89156212 > 88473600), being killed
+slurmstepd: error: Step 43613129.0 exceeded memory limit (92575364 > 88473600), being killed
+slurmstepd: error: Step 43613129.0 exceeded memory limit (91271620 > 88473600), being killed
+slurmstepd: error: Step 43613129.0 exceeded memory limit (92427112 > 88473600), being killed
+slurmstepd: error: Step 43613129.0 exceeded memory limit (88687412 > 88473600), being killed
+slurmstepd: error: Step 43613129.0 exceeded memory limit (90541992 > 88473600), being killed
+slurmstepd: error: Step 43613129.0 exceeded memory limit (88891624 > 88473600), being killed
+slurmstepd: error: *** STEP 43613129.0 ON holyseasgpu01 CANCELLED AT 2018-05-08T21:08:57 ***
+slurmstepd: error: Step 43613129.0 exceeded memory limit (92490320 > 88473600), being killed
+[mpiexec@holyseasgpu01.rc.fas.harvard.edu] control_cb (./pm/pmiserv/pmiserv_cb.c:215): assert (!closed) failed
+[mpiexec@holyseasgpu01.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[mpiexec@holyseasgpu01.rc.fas.harvard.edu] HYD_pmci_wait_for_completion (./pm/pmiserv/pmiserv_pmci.c:181): error waiting for event
+[mpiexec@holyseasgpu01.rc.fas.harvard.edu] main (./ui/mpich/mpiexec.c:405): process manager error waiting for completion
+sacct: unrecognized option '----format=JOBID%20,JobName,NTasks,AllocCPUs,AllocGRES,Partition,Elapsed,MaxRSS,MaxVMSize,MaxDiskRead,MaxDiskWrite,State'
