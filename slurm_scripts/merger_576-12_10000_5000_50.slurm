@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -p holyseasgpu
-#SBATCH -J merer_576-12_10000_5000_50 # Job Name
+#SBATCH -J merger_576-12_10000_5000_50 # Job Name
 #SBATCH -n 576 # Number of MPI tasks
 #SBATCH -N 12 # Fix number of nodes
 #SBATCH --gres=gpu:2 #Number of GPUs requested per node
