@@ -282,7 +282,7 @@
 								  force calculation is initially one of the most computationally demanding portions of the code, but this is
 								  conveniently the most trivially parallelizable portion, as distributing particles onto more processes nearly
 								  linearly reduces the execution time. <br>
-								  The second phase of parallelization comes in with the introduction of 
+								  The second phase of parallelization comes in step (3), as we used 
 								</p>
 								</div>
 								<br>
@@ -379,17 +379,26 @@
 								<br>
 								<h4><font color="#bb99ff">Movies</font></h4>
 								<center>
-								<video width="1280" height="960" style="max-width: 800px; margin-left:auto; margin-right:auto;" controls>
-								  <source src="movies/movie1.mp4" type="video/mp4">
-								Your browser does not support the video tag.
-								</video>
-								<p> A movie of the projected density in the x-y plane of a 10,000 particle simulation. </p>
-							</center>
+								  <video width="1280" height="960" style="max-width: 800px; margin-left:auto; margin-right:auto;" controls>
+								    <source src="movies/movie1.mp4" type="video/mp4">
+								      Your browser does not support the video tag.
+								  </video>
+								  <p> A movie of the projected density in the x-y plane of a 10,000 particle simulation. </p>
+								</center>
+								<center>
+								  <video width="1280" height="960" style="max-width: 800px; margin-left:auto; margin-right:auto;" controls>
+								    <source src="movies/merger_final.mp4" type="video/mp4">
+								      Your browser does not support the video tag.
+								  </video>
+								  <p> A movie
+								  of a merger
+								  of two Plummer sphere galaxies (1000 particles each) in the x-y plane. </p>
+								</center>
 							</div>
 							<br>
 							<br>
 							<div class="content">
-								<h4><font color="#bb99ff">Future work</font></h4>
+							  <h4><font color="#bb99ff">Future work</font></h4>
 								<p>There are many things one could do to improve both the accuracy and time required for the force calculation. </p>
 								<ul>
 								  <li>Cythonize the entire tree data structure</li>
