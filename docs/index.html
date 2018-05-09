@@ -38,7 +38,9 @@
 											<li><a href="#BarnesHut">Barnes-Hut Algorithm</a></li>
 											<li><a href="#Code">Code Implementation</a></li>
 												<ul>
-													<li><a href="index.html#Octtree"><font color="#d1d1e0">&nbsp; &nbsp;Oct-tree</font></a></li>
+													<li><a href="index.html#Octree"><font color="#d1d1e0">&nbsp; &nbsp;Oct-tree</font></a></li>
+													<li><a href="index.html#Leapfrog"><font color="#d1d1e0">&nbsp;
+													&nbsp;Leapfrog Algorithm</font></a></li>
 													<li><a href="index.html#ParallelCode"><font color="#d1d1e0">&nbsp; &nbsp;Parallel Algorithm</font></a></li>
 													<li><a href="index.html#Infrastructure"><font color="#d1d1e0">&nbsp; &nbsp;Infrastructure</font></a></li>
 												</ul>
@@ -176,7 +178,7 @@
 								<br>
 								<br>
 								<br>
-								<div id="Octtree">
+								<div id="Octree">
 								<br>
 								<h4><font color="#bb99ff">Octree</font></h4>
 								<p>There are two main algorithms required to calculate the force calculation using an octree: building the tree and traversing the tree to calculate the force on a single body. The pseudocode for these two algorithms is presented below. </p>
@@ -215,16 +217,40 @@
 								<p> <font color="dark red">calculateAcceleration</font> takes in the particle we want to calculate the force for, the node we are currently comparing against, and thetaTolerance (the opening angle). The algorithm first starts by checking whether the node we are currently comparing against is a leaf node. If it is, it holds only one particle and we must directly calculate the gravitational influence of this particle on the the particle we passed in as an argument. If the current node is not a leaf, we calculate the opening angle theta (given by the size of the node divided by the distance from the node to the particle). If the opening angle is less than some pre-defined thetaTolerance (most codes in literature use 0.5), the far field approximation is valid and we can group all the particles belonging to this node and compute the gravitational influence of this group on the particle we want to calculate the acceleration for. If the far field approximation is not valid, we must open up the node and call calculateAcceleration for all children of the original node. </p> 
 								
 								<p> Through experimentation, we found that there was a significant amount of overhead associated with the original Python version of calculateAcceleration. Therefore, we optimized the force calculation using Cython. The speed-ups with the Cython version are shown in the Analysis section. </p>
-								</section>
 
 
 								</div>
 								<br>
 								<br>
+								<div id="Leapfrog">
+								<br>
+								<h4><font color="#bb99ff">Leapfrog Algorithm</font></h4>
+								<p>
+								  Once the forces are calculated, we use the Leapfrog Algorithm to update the positions and velocities. The Leapfrog
+								  integration algorithm is a symplectic (i.e. time-reversible)
+								  								<pre><code>
+		function <font color="dark red">insertParticle</font>(<font color="lime"><font color="#32CD32">particle</font></font>, <font color="cyan">node</font>)
+			if(<font color="#32CD32">particle</font>.position is not in <font color="cyan">node</font>.box): # if particle is not in node's bounding box
+				return # end function
+			if(<font color="cyan">node</font> has no particles):
+				<font color="cyan">node</font>.<font color="#32CD32">particle</font> = <font color="#32CD32">particle</font> # particle is now assigned to node
+
+								  <span class="image fit"><img src="images/leapfrog.jpg"
+								  /></span>
+
+								</p>
+								</div>
 								<div id="ParallelCode">
 								<br>
 								<h4><font color="#bb99ff">Parallel Algorithm</font></h4>
-								<p>We will test our code by simulating an elliptical galaxy, modeled by the Plummer density profile.</p>
+								<p> Each step of the N-body integration algorithm has the following structure:
+								  <ol>
+								    <li> Build the Octree </li>
+								    <li> For each particle: compute the total force by traversing the Octree </li>
+								    <li> Update the velocites and positions using LeapFrog algorithm </li>
+								  </ol>
+								  
+								</p>
 								</div>
 								<br>
 								<br>
