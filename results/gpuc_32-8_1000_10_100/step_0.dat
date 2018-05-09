@@ -2,24 +2,24 @@
 # Total Energy: -6.698e+05
 #    Kinetic Energy: 6.692e+05
 #    Potential Energy: -1.339e+06
-# Current Time: 2018-05-08 20:24:21.703771
-# Elapsed Time: 0:00:11.648910
+# Current Time: 2018-05-08 21:42:53.011094
+# Elapsed Time: 0:00:07.387231
 # 
 # Med. Times for Sections
-#    Force Computation:		1.156301
-#        [1.156301, ]
-#    Gather Particles:		0.000585
-#        [0.000585, ]
-#    Overall:		3.115688
-#        [3.115688, ]
-#    Scatter Particles:		0.000983
-#        [0.000983, ]
-#    Time Integration:		0.007184
-#        [0.007184, ]
-#    Tree Broadcast:		0.882514
-#        [0.882514, ]
-#    Tree Construction:		1.068034
-#        [1.068034, ]
+#    Force Computation:		1.106283
+#        [1.106283, ]
+#    Gather Particles:		0.001011
+#        [0.001011, ]
+#    Overall:		3.005246
+#        [3.005246, ]
+#    Scatter Particles:		0.001249
+#        [0.001249, ]
+#    Time Integration:		0.010964
+#        [0.010964, ]
+#    Tree Broadcast:		0.795791
+#        [0.795791, ]
+#    Tree Construction:		1.089877
+#        [1.089877, ]
 # 
 # x	y	z	vx	vy	vz
 # 

@@ -1,0 +1,31 @@
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: Step 43615993.0 exceeded memory limit (79966852 > 75497472), being killed
+slurmstepd: error: Step 43615993.0 exceeded memory limit (79974548 > 75497472), being killed
+slurmstepd: error: Step 43615993.0 exceeded memory limit (79956352 > 75497472), being killed
+slurmstepd: error: Step 43615993.0 exceeded memory limit (79963688 > 75497472), being killed
+slurmstepd: error: Step 43615993.0 exceeded memory limit (79984864 > 75497472), being killed
+slurmstepd: error: Step 43615993.0 exceeded memory limit (79972248 > 75497472), being killed
+slurmstepd: error: Step 43615993.0 exceeded memory limit (79949516 > 75497472), being killed
+slurmstepd: error: Step 43615993.0 exceeded memory limit (79962872 > 75497472), being killed
+slurmstepd: error: Step 43615993.0 exceeded memory limit (79962776 > 75497472), being killed
+slurmstepd: error: Step 43615993.0 exceeded memory limit (79949548 > 75497472), being killed
+slurmstepd: error: Step 43615993.0 exceeded memory limit (79954564 > 75497472), being killed
+slurmstepd: error: *** STEP 43615993.0 ON holyseasgpu01 CANCELLED AT 2018-05-09T06:22:24 ***
+slurmstepd: error: *** STEP 43615993.0 ON holyseasgpu01 CANCELLED AT 2018-05-09T06:22:24 ***
+slurmstepd: error: Detected 1 oom-kill event(s) in step 43615993.0 cgroup.
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+[mpiexec@holyseasgpu01.rc.fas.harvard.edu] control_cb (./pm/pmiserv/pmiserv_cb.c:215): assert (!closed) failed
+[mpiexec@holyseasgpu01.rc.fas.harvard.edu] HYDT_dmxu_poll_wait_for_event (./tools/demux/demux_poll.c:77): callback returned error status
+[mpiexec@holyseasgpu01.rc.fas.harvard.edu] HYD_pmci_wait_for_completion (./pm/pmiserv/pmiserv_pmci.c:181): error waiting for event
+[mpiexec@holyseasgpu01.rc.fas.harvard.edu] main (./ui/mpich/mpiexec.c:405): process manager error waiting for completion
+sacct: unrecognized option '----format=JOBID%20,JobName,NTasks,AllocCPUs,AllocGRES,Partition,Elapsed,MaxRSS,MaxVMSize,MaxDiskRead,MaxDiskWrite,State'
