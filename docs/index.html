@@ -199,7 +199,7 @@
 				for child in node.children: 
 					insertParticle(<font color="#32CD32">particle</font>, child) # insert particle into the appropriate child node
 						</code></pre>
-
+								<p> The insertParticle algorithm must be run for every particle in the simulation. The algorithm starts by checking to see if the particle is inside the given node's bounding box. Assuming it is, if the node has no particles, the particle currently being considered will be assigned to the given node. If the node is an internal node (that is, it has child nodes) but has no particles associated with it, we insert the particle into the appropriate child node and update the center of mass and the total mass of the node. If the node is an external node (i.e. it has no children) but already has a particle associated with it, we must first create children for that node and then recursively assign both the particle that was already assigned to the external node and the new particle that we were originally assinging. Once we loop over all particles, each leaf node will have only one particle associated with it. </p>
 						<pre><code>
 		function <font color="dark red">calculateAcceleration</font>(<font color="#32CD32">particle</font>, <font color="cyan">node</font>, thetaTolerance)
 			if(<font color="cyan">node</font>.leaf):
@@ -212,8 +212,7 @@
 					calculateAcceleration(<font color="#32CD32">particle</font>, child, thetaTolerance)
 					
 								</code></pre>
-
-								<p> The insertParticle algorithm must be run for every particle in the simulation. The algorithm starts by checking to see if the particle is inside the given node's bounding box. Assuming it is, if the node has no particles, the particle currently being considered will be assigned to the given node. If the node is an internal node (that is, it has child nodes) but has no particles associated with it, we insert the particle into the appropriate child node and update the center of mass and the total mass of the node. 
+								<p>
 									Furthermore, we optimized the force calculation using Cython. The speed-ups with the Cython version are shown in the Analysis section. </p>
 								</section>
 
