@@ -213,7 +213,8 @@
 					
 								</code></pre>
 
-								<p>Furthermore, we optimized the force calculation using Cython. The speed-ups with the Cython version are shown in the Analysis section. </p>
+								<p> The insertParticle algorithm must be run for every particle in the simulation. The algorithm starts by checking to see if the particle is inside the given node's bounding box. Assuming it is, if the node has no particles, the particle currently being considered will be assigned to the given node. If the node is an internal node (that is, it has child nodes) but has no particles associated with it, we insert the particle into the appropriate child node and update the center of mass and the total mass of the node. 
+									Furthermore, we optimized the force calculation using Cython. The speed-ups with the Cython version are shown in the Analysis section. </p>
 								</section>
 
 
