@@ -1,18 +1,11 @@
-<!DOCTYPE HTML>
-<!--
-	Spectral by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+<!DOCTYPE HTML> <!-- Spectral by HTML5 UP html5up.net | @ajlkn Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
 	<head>
-		<title>Barnes-Hut Algorithm for CS205</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<title>Barnes-Hut Algorithm for CS205</title> <meta charset="utf-8" /> <meta name="viewport" content="width=device-width,
+		initial-scale=1" /> <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]--> <link rel="stylesheet"
+		href="assets/css/main.css" /> <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]--> <!--[if lte IE
+		9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<head>
 	  <script type="text/javascript" async
 	  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -38,24 +31,33 @@
 											<li><a href="#BarnesHut">Barnes-Hut Algorithm</a></li>
 											<li><a href="#Code">Code Implementation</a></li>
 												<ul>
-													<li><a href="index.html#Octree"><font color="#d1d1e0">&nbsp; &nbsp;Oct-tree</font></a></li>
+													<li><a href="index.html#Octree"><font color="#d1d1e0">&nbsp;
+													&nbsp;Oct-tree</font></a></li>
 													<li><a href="index.html#Leapfrog"><font color="#d1d1e0">&nbsp;
 													&nbsp;Leapfrog Algorithm</font></a></li>
-													<li><a href="index.html#ParallelCode"><font color="#d1d1e0">&nbsp; &nbsp;Parallel Algorithm</font></a></li>
-													<li><a href="index.html#Infrastructure"><font color="#d1d1e0">&nbsp; &nbsp;Infrastructure</font></a></li>
+													<li><a href="index.html#ParallelCode"><font color="#d1d1e0">&nbsp;
+													&nbsp;Parallel Algorithm</font></a></li>
+													<li><a href="index.html#Advanced"><font color="#d1d1e0">&nbsp;
+													&nbsp;Advanced Features</font></a></li>
+													<li><a href="index.html#Infrastructure"><font color="#d1d1e0">&nbsp;
+													&nbsp;Infrastructure</font></a></li>
 												</ul>
 											<li><a href="#Analysis">Performance and Analysis</a>
 												<ul>
-													<li><a href="index.html#Plummer"><font color="#d1d1e0">&nbsp; &nbsp;Initial conditions</font></a></li>
-													<li><a href="index.html#Accuracy"><font color="#d1d1e0">&nbsp; &nbsp;Accuracy</font></a></li>
-													<li><a href="index.html#Scalings"><font color="#d1d1e0">&nbsp; &nbsp;Parallel Performance</font></a></li>
+													<li><a href="index.html#Plummer"><font color="#d1d1e0">&nbsp;
+													&nbsp;Initial conditions</font></a></li>
+													<li><a href="index.html#Accuracy"><font color="#d1d1e0">&nbsp;
+													&nbsp;Accuracy</font></a></li>
+													<li><a href="index.html#Scalings"><font color="#d1d1e0">&nbsp;
+													&nbsp;Parallel Performance</font></a></li>
 												</ul>
 											</li>
-											<li><a href="#Conclusions">Conclusions and Results</a></li>
+											<li><a href="#Conclusions">Results and Conclusions</a></li>
 												<ul>
-													<li><a href="index.html#Advanced"><font color="#d1d1e0">&nbsp; &nbsp;Advanced Methods</font></a></li>
-													<li><a href="index.html#Future"><font color="#d1d1e0">&nbsp; &nbsp;Future work</font></a></li>
-													<li><a href="index.html#Movies"><font color="#d1d1e0">&nbsp; &nbsp;Movies</font></a></li>
+													<li><a href="index.html#Movies"><font color="#d1d1e0">&nbsp;
+													&nbsp;Movies</font></a></li>
+													<li><a href="index.html#Future"><font color="#d1d1e0">&nbsp;
+													&nbsp;Future work</font></a></li>
 												</ul>
 											<li><a href="#Citations">References</a></li>
 										</ul>
@@ -69,9 +71,11 @@
 					<section id="banner">
 						
 						<div class="inner">
-							<!--<div class="12u"><span class="image fit"><img src="images/home.png" alt="" /></span></div>-->
+							<!--<div class="12u"><span class="image fit"><img src="images/home.png" alt=""
+							/></span></div>-->
 							<h2>BEHALF</h2>
-							<p>BarnEs-Hut ALgorithm For <a href="http://iacs-courses.seas.harvard.edu/courses/cs205/">CS205</a></p>
+							<p>BarnEs-Hut ALgorithm
+							For <a href="http://iacs-courses.seas.harvard.edu/courses/cs205/">CS205</a></p>
 							<!--<ul class="actions">
 								<li><a href="#" class="button special">Activate</a></li>
 							</ul>-->
@@ -84,14 +88,21 @@
 						<div class="inner">
 							<header class="major">
 								<h2>The team</h2>
-								<p>We are three graduate students in the Astronomy Department at Harvard University. <br> This is our final project for <a href="http://iacs-courses.seas.harvard.edu/courses/cs205/">CS205: Computing Foundations for Computational Science</a>.</p>
+								<p>We are three graduate students in the Astronomy Department at Harvard
+								University. <br> This is our final project
+								for <a href="http://iacs-courses.seas.harvard.edu/courses/cs205/">CS205: Computing
+								Foundations for Computational Science</a>.</p>
 							</header>
 							<ul class="icons major">
 								<li>
-									<span class="icon fa-code major style1"><span class="label">Ben Cook</span><h5>Ben Cook</h5></span></li>
-								<li><span class="icon fa-code major style2"><span class="label">Harshil Kamdar </span><h5>Harshil Kamdar</h5></span>&nbsp;</li>&nbsp;
-								&nbsp;&nbsp;<li>&nbsp;&nbsp;<span class="icon fa-code major style3"><span class="label">Ana-Roxana Pop</span><h6>Ana-Roxana Pop</h6></span></li>
+								  <img src="images/Ben.jpg" class="icon fa-code major style1"/><h5><a href="https://github.com/bacook17">Ben Cook</a></h5></li>
+								&nbsp;
+								
+								<li><img src="images/Harshil.jpg" class="icon fa-code major style1"/><h5><a href="https://github.com/harshilkamdar">Harshil Kamdar</a></h5></li>
+								&nbsp;
 
+								<li><img src="images/roxana.jpeg" class="icon fa-code major style1"/><h5><a href="https://github.com/anaroxanapop">Ana-Roxana Pop</a></h5></li>
+								&nbsp;
 							</ul>
 						</div>
 					</section>
@@ -101,7 +112,12 @@
 						<div class="inner">
 							<header>
 								<h2>BEHALF at a Glance</h2>
-								<p>BEHALF is a parallel Barnes-Hut algorithm for solving the N-body problem, using MPI and GPU computing. This code was build for the final project of the <a href="http://iacs-courses.seas.harvard.edu/courses/cs205/">CS205</a> class at Harvard in the Spring 2018 semester.</p> <p>Keep exploring our website to learn more about the N-body problem, our parallel implementation of the Barnes-Hut algorithm, and our results simulating an elliptical galaxy.</p>
+								<p>BEHALF is a parallel Barnes-Hut algorithm for solving the N-body problem, using MPI
+								and GPU computing. This code was build for the final project of
+								the <a href="http://iacs-courses.seas.harvard.edu/courses/cs205/">CS205</a> class at
+								Harvard in the Spring 2018 semester.</p> <p>Keep exploring our website to learn more
+								about the N-body problem, our parallel implementation of the Barnes-Hut algorithm, and
+								our results simulating an elliptical galaxy.</p>
 							</header>
 							<ul class="actions vertical">
 								<!--<li><a href="#" class="button fit special">Activate</a></li>
@@ -114,27 +130,36 @@
 					<section id="three" class="wrapper style3 special">
 						<div class="inner">
 							<header class="major">
-								<h2>Explore different components of our project <br> or keep scrolling to see it all!</h2>
-								<!--<p>Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
-								fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.</p>-->
+								<h2>Explore different components of our project <br> or keep scrolling to see it
+								all!</h2>
 							</header>
 							<ul class="features">
 								<li class="icon fa-star-o">
 									<h3><a href="#Nbody">Introduction: <br> N-body problem</a></h3>
-									<p>The N-body problem refers to the challenge of predicting the motion of N individual objects under the force of gravity. A typical example consists of evolving the motion of stars or dark matter particles in a galaxy.</p>
+									<p>The N-body problem refers to the challenge of predicting the motion of N
+									individual objects under the force of gravity. A typical example consists of
+									evolving the motion of stars or dark matter particles in a galaxy.</p>
 								</li>
 								<li class="icon fa-tree">
-									<!--<h3><a class="t" href="{{ 'index.html' | absolute_url }}">Barnes-Hut and <br> Oct-Trees</a></h3>-->
+									<!--<h3><a class="t" href="{{ 'index.html' | absolute_url }}">Barnes-Hut
+									and <br> Oct-Trees</a></h3>-->
 									<h3><a href="#BarnesHut">Barnes-Hut and <br> Oct-Trees</a></h3>
-									<p>Barnes-Hut is a tree algorithm that can greatly speed-up the N-body computation by hierarchically subdividing space into octants, until there will be at most one particle per cell, and approximating the gravitational force between objects very far away from each other.</p>
+									<p>Barnes-Hut is a tree algorithm that can greatly speed-up the N-body
+									computation by hierarchically subdividing space into octants, until there will
+									be at most one particle per cell, and approximating the gravitational force
+									between objects very far away from each other.</p>
 								</li>
 								<li class="icon fa-code">
 									<h3><a href="#Code">Code Implementation</a></h3>
-									<p>Here we describe our oct-tree implementation, leapfrog integration, and parallel approach for the Barnes-Hut algorithm. All the code can be found at our <a href="https://github.com/bacook17/behalf">GitHub repo</a>.</p>
+									<p>Here we describe our octree implementation, leapfrog integration, and
+									parallel approach for the Barnes-Hut algorithm. All the code can be found at
+									our <a href="https://github.com/bacook17/behalf">GitHub repo</a>.</p>
 								</li>
 								<li class="icon fa-laptop">
 									<h3><a href="#Analysis">Performance and Analysis</a></h3>
-									<p>Read more about the performance of our code.</p>
+									<p>In this section, we analyze the accuracy of our method and the parallel
+									performance of our code (e.g., speed-up, efficiency, weak and strong
+									scaling).</p>
 								</li>
 								<li class="icon fa-film">
 									<h3><a href="#Movies">Movies</a></h3>
@@ -151,72 +176,162 @@
 						<section   id="Nbody" class="wrapper style6">
 							<!--<div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">-->
 								<h2>Introduction: N-Body Problem</h2>
-								<p>The N-body problem broadly describes the problem of predicting the future trajectories of a group of objects imparting a gravitational force on one another given each individual object's current position and velocity. The first general formulation of the N-body problem was proposed by Newton when he was studying the motions of Jupiter and its moons (<a href="#Citations">Newton 1687</a>). In Astronomy, the N-body problem has been studied at a wide variety of scales: the study of asteroids near Jupiter (<a href="#Citations">Brož et al. 2008</a>) to the study of the largest gravitationally bound clusters in the Universe (<a href="#Citations">Angulo et al. 2012</a>). </p>
+								<p>The N-body problem broadly describes the problem of predicting the future
+								trajectories of a group of objects under the mutual gravitational forces they exert on
+								one another, given each individual object's current position and velocity. The first
+								general formulation of the N-body problem was proposed by Newton when he was studying
+								the motions of Jupiter and its moons (<a href="#Citations">Newton 1687</a>). In
+								Astronomy, the N-body problem has been studied at a wide variety of scales: ranging
+								from the study of asteroids near Jupiter (<a href="#Citations">Brož et al. 2008</a>)
+								to the study of the largest gravitationally bound clusters in the Universe
+								(<a href="#Citations">Angulo et al. 2012</a>). </p>
 
-								<p>For our project, we will be focusing on the intermediate regime: galaxies. The fundamental unit of resolution in the study of galaxies is a star -- stars are born in a galaxy and move around the galaxy due to the force from the hundreds of billions of other stars in the galaxy. Consequently, studying how galaxies form and evolve is a rich and complicated endeavor that can no longer be attempted using just analytical theory. The dynamic scale that needs to be resolved in order to self-consistently study galaxies is enormous and spans many orders of magnitudes, necessitating the use of high performance computing and sophisticated codes that can utilize various different HPC programming models. </p>
+								<p>For our project, we will be focusing on an intermediate regime: the evolution of
+								galaxies. The fundamental resolution unit in the study of galaxies is a star; stars
+								are born out of the cold and dense gas inside the galaxy, and they move around the
+								galaxy due to the forces exerted by hundreds of billions of other stars in the galaxy
+								halo. Consequently, studying how galaxies form and evolve is a rich and complicated
+								endeavor that can no longer be fully modeled using just analytical theory. The dynamic
+								scale that needs to be resolved in order to self-consistently study galaxies is
+								enormous and spans many orders of magnitudes, necessitating the use of high
+								performance computing and sophisticated codes that can utilize various different HPC
+								programming models. </p>
 
-								<p>Naively, the N-body problem is O(N^2). However, most realistic simulations of galaxies require upwards of hundreds of millions of resolution elements. The N^2 scaling of the naive approach would make computations at that scale is just not feasible. Consequently, astronomers have come up with various approximate ways to calculate the forces in the N-body problem: tree-based methods (<a href="#Citations">Barnes and Hut 1986</a>) and particle mesh methods (<a href="#Citations">Darden et al. 1993</a>). For our project, we will be focusing on parallelizing the Barnes-Hut (BH) algorithm. </p>
+								<p>Naively, the N-body problem can be solved by considering all pairs of individual
+								points and adding up the contributions from all such particle-particle
+								interactions. Nonetheless, this approach scales quadratically with the number of
+								particles N: the running time is O(\(N^2\)). Most realistic galaxy simulations require
+								upwards of hundreds of millions of resolution elements. The \(N^2\) scaling of the
+								naive approach would make computations at that scale simply not
+								feasible. Consequently, astronomers have come up with various approximate methods to
+								calculate the forces in the N-body problem, such as tree-based methods
+								(<a href="#Citations">Barnes and Hut 1986</a>) and particle mesh methods
+								(<a href="#Citations">Darden et al. 1993</a>). For our project, we will be focusing on
+								parallelizing the Barnes-Hut (BH) algorithm. </p>
 
 							</div>
 						</section>
-						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
+						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid
+						#bb99ff;font-size:2;"></div>
 						<section id="BarnesHut" class="wrapper style6">
 								<h2>The Barnes-Hut Algorithm</h2>
 								<br>
 								<br>
-								<p>The BH algorithm and various modifications of the original algorithm have been extensively used in astrophysical simulations (<a href="#Citations">Katz et al. 1995, Wadsley et al. 2004, Springel et al. 2005 </a>). The fundamental assumption in all variants of the BH algorithm is that the gravitational pull of many far-away bodies can be approximated as the gravitational pull due to a single body with a mass that totals the sum of all masses of the far-away bodies located at the center of mass of that set of far-away bodies (<a href="#Citations">Barnes and Hut 1986</a>). </p>
-								<span class="image fit"><img src="images/BarnesHut_example.jpg"  /></span>
+								<p>The BH algorithm and various modifications of the original algorithm have been
+									extensively used in astrophysical simulations (e.g., <a href="#Citations">Katz
+									et al. 1995, Wadsley et al. 2004, Springel et al. 2005 </a>). The fundamental
+									assumption in all variants of the BH algorithm is that the gravitational pull
+									of many far-away bodies can be approximated by replacing the group of many
+									distant bodies with a single object located at the center of mass and
+									encompassing the total mass of those bodies <!--as the gravitational pull due
+									to a single body located at the center of mass of those far-away body and with
+									a magnitude with a mass that totals the sum of all masses of the far-away
+									bodies located at the center of mass of that set of far-away bodies-->
+									(<a href="#Citations">Barnes and Hut 1986</a>). </p>
 								
-								<p> Barnes and Hut represented this idea using the Octree data structure. In octrees, each internal node has exactly eight child nodes. Octrees have been used in various domains to partition a three-dimensional space by recursively subdividing the space into octants. The figure shown above is an illustration of the 2-dimensional version of the same problem using quadtrees instead of octrees. The far-field approximation that groups far-away particles together mentioned above clearly requires significantly fewer floating point operations than the naive force calculation. Barnes and Hut found that this approach scales as O(NlogN), where the tree traversal is a roughly log(N) operation and the N comes from calculating the force for the N particles in the system. </p>
 
+								
+								<p> Barnes and Hut represented this idea using the Octree data structure. In octrees,
+								each internal node has exactly eight child nodes. Octrees have been used in various
+								domains to partition a three-dimensional space by recursively subdividing the space
+								into octants. The figure shown below is an illustration of the 2-dimensional version
+								of the same problem using quadtrees instead of octrees. The upper right quadrant has
+								been recursively subdivided into 4 nodes at each level, until each leaf in the tree
+								contains at most one particle. In this example, we needed 4 levels in the tree in
+								order to fully subdivide the upper right quadrant.</p>
+								<span class="image fit"><img src="images/octree1.png" /></span>
+								<p> By grouping distant particles together, the far-field approximation requires
+								significantly fewer floating point operations than the naive force calculation. Barnes
+								and Hut found that this approach scales as O(N log N), where the tree traversal takes
+								roughly log(N) operations and calculating the force for the N particles in the system
+								requires N operations. </p>
+								<p>We will exemplify this by computing the force exerted on the particle highlighted
+								in red in the upper right corner. Particles in orange squares are sufficiently far
+								away from the target particle that we can group them based on their center of mass and
+								apply the far-field force approximation. However, the green particle is sufficiently
+								close to the target particle such that we will instead compute the precise
+								gravitational force exerted by this particle. In total, Barnes-Hut required only 5
+								force calculations instead of 23 using the exact particle-particle force calculations.
+								</p>
+								<span class="image fit"><img src="images/BarnesHut_example.jpg" /></span>
 							</div>
 						</section>
-						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
+						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid
+						#bb99ff;font-size:2;"></div>
 						<section id="Code" class="wrapper style6">
 								<div class="content">
 								<h2>Code Implementation</h2>
 								<br>
 								<br>
+								<p> To download, install, and run the BEHALF package, see
+								the <a href="https://github.com/bacook17/behalf">Github Source Repository</a>.</p>
 								<br>
 								<div id="Octree">
 								<br>
 								<h4><font color="#bb99ff">Octree</font></h4>
-								<p>There are two main algorithms required to calculate the force calculation using an octree: building the tree and traversing the tree to calculate the force on a single body. The pseudocode for these two algorithms is presented below. </p>
+								<p>There are two main algorithms required for the force calculation using an octree:
+								(1) building the tree and (2) traversing the tree to calculate the force on a single
+								body. The pseudocode for these two algorithms is presented below. </p>
 
-								<pre><code>
-		function <font color="dark red">insertParticle</font>(<font color="lime"><font color="#32CD32">particle</font></font>, <font color="cyan">node</font>)
-			if(<font color="#32CD32">particle</font>.position is not in <font color="cyan">node</font>.box): # if particle is not in node's bounding box
-				return # end function
-			if(<font color="cyan">node</font> has no particles):
-				<font color="cyan">node</font>.<font color="#32CD32">particle</font> = <font color="#32CD32">particle</font> # particle is now assigned to node
-			if(<font color="cyan">node</font> is an internal node):
-				updateCenterOfMass(<font color="cyan">node</font>) # update center of mass of node
-				updateTotalMass(<font color="cyan">node</font>) # update total mass of node
-				for child in <font color="cyan">node</font>.children: 
-					insertParticle(<font color="#32CD32">particle</font>, child) # insert particle into the appropriate child node
-			if(<font color="cyan">node</font> is an external node): # if node already has another particle associated with it
-				createChildren(<font color="cyan">node</font>) # subdivide this node into its 8 children
-				for child in <font color="cyan">node</font>.children: 
-					insertParticle(<font color="cyan">node</font>.<font color="#32CD32">particle</font>, child) # insert the existing node.particle into the appropriate child node
-				for child in node.children: 
-					insertParticle(<font color="#32CD32">particle</font>, child) # insert particle into the appropriate child node
+								<pre><code> function <font color="dark
+		red">insertParticle</font>(<font color="lime"><font color="#32CD32">particle</font></font>, <font color="cyan">node</font>)
+		if(<font color="#32CD32">particle</font>.position is not in <font color="cyan">node</font>.box): # if particle is not in node's
+		bounding box return # end function if(<font color="cyan">node</font> has no particles):
+				<font color="cyan">node</font>.<font color="#32CD32">particle</font> = <font color="#32CD32">particle</font> #
+			particle is now assigned to node if(<font color="cyan">node</font> is an internal node):
+			updateCenterOfMass(<font color="cyan">node</font>) # update center of mass of node
+			updateTotalMass(<font color="cyan">node</font>) # update total mass of node for child
+			in <font color="cyan">node</font>.children: insertParticle(<font color="#32CD32">particle</font>, child) # insert particle
+			into the appropriate child node if(<font color="cyan">node</font> is an external node): # if node already has another particle
+			associated with it createChildren(<font color="cyan">node</font>) # subdivide this node into its 8 children for child
+			in <font color="cyan">node</font>.children:
+			insertParticle(<font color="cyan">node</font>.<font color="#32CD32">particle</font>, child) # insert the existing
+			node.particle into the appropriate child node for child in node.children:
+			insertParticle(<font color="#32CD32">particle</font>, child) # insert particle into the appropriate child node
 						</code></pre>
-								<p> The <font color="dark red">insertParticle</font> algorithm must be run for every particle in the simulation. The algorithm starts by checking to see if the particle is inside the given node's bounding box. Assuming it is, if the node has no particles, the particle currently being considered will be assigned to the given node. If the node is an internal node (that is, it has child nodes) but has no particles associated with it, we insert the particle into the appropriate child node and update the center of mass and the total mass of the node. If the node is an external node (i.e. it has no children) but already has a particle associated with it, we must first create children for that node and then recursively assign both the particle that was already assigned to the external node and the new particle that we were originally assinging. Once we loop over all particles, each leaf node will have only one particle associated with it. </p>
-						<pre><code>
-		function <font color="dark red">calculateAcceleration</font>(<font color="#32CD32">particle</font>, <font color="cyan">node</font>, thetaTolerance)
-			if(<font color="cyan">node</font>.leaf):
-				directAccelCalculation(<font color="cyan">node</font>.particle, <font color="#32CD32">particle</font>) # directly sum this node's particle's force on the particle we're considering
-			theta = <font color="cyan">node</font>.size/distance(<font color="cyan">node</font>.com, <font color="#32CD32">particle</font>.position)
-			if(theta is less than thetaTolerance):
-				farFieldForceCalculation(<font color="cyan">node</font>.mass, <font color="cyan">node</font>.com, <font color="#32CD32">particle</font>) # far field approximation is valid
-			else: # far field approximation is not valid
-				for child in <font color="cyan">node</font>.chilren: 
-					calculateAcceleration(<font color="#32CD32">particle</font>, child, thetaTolerance)
+								<p> The <font color="dark red">insertParticle</font> algorithm must be run for every
+								particle in the simulation. The algorithm starts by checking to see if the particle is
+								inside the given node's bounding box. Assuming it is, if the node has no particles,
+								the particle currently being considered will be assigned to the given node. If the
+								node is an internal node (that is, it has child nodes) but has no particles associated
+								with it, we insert the particle into the appropriate child node and update the center
+								of mass and the total mass of the node. If the node is an external node (i.e. it has
+								no children) but already has a particle associated with it, we must first create
+								children for that node and then recursively assign both the particle that was already
+								assigned to the external node and the new particle that we were originally
+								assigning. Once we loop over all particles, each leaf node will have only one particle
+								associated with it. </p>
+						<pre><code> function <font color="dark
+		red">calculateAcceleration</font>(<font color="#32CD32">particle</font>, <font color="cyan">node</font>, thetaTolerance)
+		if(<font color="cyan">node</font>.leaf):
+		directAccelCalculation(<font color="cyan">node</font>.particle, <font color="#32CD32">particle</font>) # directly sum this node's
+		particle's force on the particle we're considering theta
+		= <font color="cyan">node</font>.size/distance(<font color="cyan">node</font>.com, <font color="#32CD32">particle</font>.position)
+		if(theta is less than thetaTolerance):
+		farFieldForceCalculation(<font color="cyan">node</font>.mass, <font color="cyan">node</font>.com, <font color="#32CD32">particle</font>)
+		# far field approximation is valid else: # far field approximation is not valid for child in <font color="cyan">node</font>.chilren:
+		calculateAcceleration(<font color="#32CD32">particle</font>, child, thetaTolerance)
 					
 								</code></pre>
-								<p> <font color="dark red">calculateAcceleration</font> takes in the particle we want to calculate the force for, the node we are currently comparing against, and thetaTolerance (the opening angle). The algorithm first starts by checking whether the node we are currently comparing against is a leaf node. If it is, it holds only one particle and we must directly calculate the gravitational influence of this particle on the the particle we passed in as an argument. If the current node is not a leaf, we calculate the opening angle theta (given by the size of the node divided by the distance from the node to the particle). If the opening angle is less than some pre-defined thetaTolerance (most codes in literature use 0.5), the far field approximation is valid and we can group all the particles belonging to this node and compute the gravitational influence of this group on the particle we want to calculate the acceleration for. If the far field approximation is not valid, we must open up the node and call calculateAcceleration for all children of the original node. </p> 
+								<p> <font color="dark red">calculateAcceleration</font> takes in the particle we want
+								to calculate the force for, the node we are currently comparing against, and
+								thetaTolerance (the opening angle). The algorithm first starts by checking whether the
+								node we are currently comparing against is a leaf node. If it is, it holds only one
+								particle and we must directly calculate the gravitational influence of this particle
+								on the the particle we passed in as an argument. If the current node is not a leaf, we
+								calculate the opening angle theta (given by the size of the node divided by the
+								distance from the node to the particle). If the opening angle is less than some
+								pre-defined thetaTolerance (most codes in literature use
+								0.5; <a href="#Citations">Springel et al. 2005 </a>), the far field approximation is
+								valid and we can group all the particles belonging to this node and compute the
+								gravitational influence of this group on the particle we want to calculate the
+								acceleration for. If the far field approximation is not valid, we must open up the
+								node and call calculateAcceleration for all children of the original node. </p>
 								
-								<p> Through experimentation, we found that there was a significant amount of overhead associated with the original Python version of calculateAcceleration. Therefore, we optimized the force calculation using Cython. The speed-ups with the Cython version are shown in the Analysis section. </p>
+								<p> Through experimentation, we found that there was a significant amount of overhead
+								associated with the original Python version of calculateAcceleration. Therefore, we
+								optimized the force calculation using Cython. The speed-ups with the Cython version
+								are shown in the <a href="#Advanced">Advanced Features</a> section. </p>
 
 
 								</div>
@@ -226,33 +341,35 @@
 								<br>
 								<h4><font color="#bb99ff">Leapfrog Algorithm</font></h4>
 								<p>
-								  Once the forces are calculated, we use the <a href="https://www.physics.drexel.edu/students/courses/Comp_Phys/Integrators/leapfrog/">Leapfrog Algorithm</a> to update the positions and velocities. The Leapfrog
-								  integration algorithm is a symplectic (i.e. time-reversible) method for solving the set of differential equations
-								  given by Newton's laws:<br>
+								  Once the forces are calculated, we use
+								  the <a href="https://www.physics.drexel.edu/students/courses/Comp_Phys/Integrators/leapfrog/">Leapfrog
+								  Algorithm</a> to update the positions and velocities. The Leapfrog integration
+								  algorithm is a symplectic (i.e. time-reversible) method for solving the set of
+								  differential equations given by Newton's laws:<br>
 
 								  \(v = \frac{dx}{dt}\) <br>
 								  
 								  \(F = m \frac{d^2x}{dt^2}\)<br>
 
-								  Because it is sympletctic, the Leapfrog Algorithm is guaranteed to conserve energy (to reasonable precision,
-								  determined by the time step chosen). Even though it is a first-order integrator, it performs better than
-								  higher-order algorithms (like 4th order Runge-Kutta) at conserving energy over many time steps.
+								  Because it is symplectic, the Leapfrog Algorithm is guaranteed to conserve energy
+								  (to reasonable precision, determined by the time step chosen). Even though it is a
+								  first-order integrator, it performs better than higher-order algorithms (like 4th
+								  order Runge-Kutta) at conserving energy over many time steps.
 
-								  The algorithm is nearly identical to the Euler method, except the velocities and positions are computed at
-								  half-timestep offsets:
+								  The algorithm is nearly identical to the Euler method, except the velocities and
+								  positions are computed at half-timestep offsets:
 
-								  <span class="image fit"><img src="images/leapfrog.jpg" style="max-width: 800px; margin-left:auto;
-								  margin-right:auto;" /></span>
+								  <span class="image fit"><img src="images/leapfrog.jpg" style="max-width: 300px;
+								  margin-left:auto; margin-right:auto;" /></span>
 
-								  Therefore, there is an initial self-start phase of a half-step:<br>
-								  \(a_0 = F(x_0) / m \)<br>
-								  \(v_{\frac{1}{2}} = v_0 + a_0 \frac{dt}{2} \)<br>
-								  \(x_1 = x_0 + v_{\frac{1}{2}} dt\)<br>
-								  followed by the regular Euler updating kick-drift steps:<br>
-								  \(a_1 = F(x_1) / m \)<br>
-								  \(v_{\frac{3}{2}} = v_{\frac{1}{2}} + a_1 dt\)<br>
-								  \(x_2 = x_1 + v_{\frac{3}{2}} dt\)<br>
-								  
+								  Therefore, there is an initial self-start phase of a half-step:<br> \(a_0 = F(x_0) /
+								  m \)<br> \(v_{\frac{1}{2}} = v_0 + a_0 \frac{dt}{2} \)<br> \(x_1 = x_0 +
+								  v_{\frac{1}{2}} dt\)<br> followed by the regular Euler updating kick-drift
+								  steps:<br> \(a_1 = F(x_1) / m \)<br> \(v_{\frac{3}{2}} = v_{\frac{1}{2}} + a_1
+								  dt\)<br> \(x_2 = x_1 + v_{\frac{3}{2}} dt\)<br>
+
+								  We discuss the choice of timestep that results in acceptable levels of energy
+								  error <a href="#Accuracy">below</a>.
 
 								</p>
 								</div>
@@ -263,21 +380,108 @@
 								  <ol>
 								    <li> Build the Octree </li>
 								    <li> For each particle: compute the total force by traversing the Octree </li>
-								    <li> Update the velocites and positions using LeapFrog algorithm </li>
+								    <li> Update the velocities and positions using LeapFrog time integration
+								    algorithm </li>
 								  </ol>
-								  
+
+								  We approach the parallelization of the entire code using a hybrid approach,
+								  combining MPI and CUDA. The major limiting step is Step (1), the creation of the
+								  Octree, which is <em>not parallelized</em> without significant changes to the
+								  algorithm (see below for suggested improvements). Therefore, the entire catalog of
+								  simulated particles is loaded into an individual process at the beginning of each
+								  timestep, before the tree is created. <br><br> For step (2), once the tree is
+								  created, we use MPI to broadcast the entire tree to a system of distributed-memory
+								  processes. The simulated particles are then distributed nearly exactly evenly (to
+								  within \(\pm 1\) particle) across the processes, and the force calculation occurs in
+								  parallel. As discussed <a href="#Scalings">below</a>, the force calculation is
+								  initially one of the most computationally demanding portions of the code, but this
+								  is conveniently the most trivially parallelizable portion, as distributing particles
+								  onto more processes nearly linearly reduces the execution time. <br><br> The second
+								  phase of parallelization comes in step (3), as we implemented the time integration
+								  step on GPUs using PyCUDA. The velocity and positions are updated for each particle
+								  in parallel on the GPU processors, which theoretically should provide significant
+								  speed-up. However, there are non-trivial overheads involved in moving to GPU
+								  acceleration. For one, the communication overhead of sending data to/from the GPU
+								  over the PCI-e bus can be significant, and speed-ups over basic Python
+								  implementation may not be seen unless a very large number of particles is
+								  used. <br><br> In addition, the number of GPUs available on a given node is
+								  typically much smaller (around 2, when available at all) than the number of
+								  CPUs. This means that for a fixed number of nodes, there may be as many as 32 times
+								  more CPUs available than GPUs. If all CPUs are being used to distribute MPI
+								  processes, then many processes will need to bind to the same GPUs, which limits the
+								  overall scalability of the GPU algorithm. In the
+								  sections <a href="#Scalings">below</a> we examine these potential limitations,
+								  ultimately finding that the GPU acceleration of the time integration step does not
+								  significantly improve the execution time in our tests, likely because too few
+								  particles were used to overcome the overheads.
+								  <br><br> Including the communication overheads, the final parallel algorithm has the
+								  following steps:
+								  <ol>
+								    <li> Build the Octree (on primary MPI node)</li>
+								    <ul>
+								      <li> Octree is broadcast to all MPI nodes</li>
+								    </ul>
+								    <li> For each particle: compute the total force by traversing the Octree </li>
+								    <ul>
+								      <li> Particle positions and velocities are distributed across MPI
+								      nodes</li></ul>
+								    <li> Update the velocities and positions using LeapFrog time integration algorithm
+								    (on the GPU) </li>
+								    <ul> <li> Particle positions, velocities, and accelerations are transferred to the
+								    GPU</li>
+								    <li> Updated particle data retrieved from GPU </li></ul>
+								      <li> Entire particle catalogs are sent back to the primary MPI node</li>
+								      </ul>
+								    </ol>
 								</p>
 								</div>
 								<br>
 								<br>
+							<div id="Advanced">
+								<br>
+								<br>
+								<br>
+								<h4><font color="#bb99ff">Advanced Features</font></h4>
+								<p>We found that a pure Python implementation of the force calculation came with many
+								overheads due to looping in Python. Instead, we wrote a Cython version of the force
+								calculation and traversal to mitigate this. We found that, on average, the Cython
+								version performed three times faster than the pure Python version. As discussed above,
+								however, the GPU acceleration was fairly insignificant, or even detrimental, as the
+								communication overhead was simply too large for this relatively small simulation
+								size.</p>
+								<span class="image fit"><img src="images/optimizations.jpg" style="max-width: 800px;
+								margin-left:auto;margin-right:auto;" /></span>
+							</div>
+							<br>
+							<br>
 								<div id="Infrastructure">
 								<br>
 								<h4><font color="#bb99ff">Infrastructure</font></h4>
-								<p>We will test our code by simulating an elliptical galaxy, modeled by the Plummer density profile.</p>
+								<p>The BEHALF package was developed and tested in Python 3.6 (but backported to
+								  support 2.7). Serial jobs without GPU acceleration were tested on Harvard's Odyssey
+								  cluster, on a private research queue. Each core on the queue has a CPU clock of 2.3
+								  GHz and operates on CentOS release 6.5.</p>
+
+								<p> The primary testing runs were performed on the <em>holyseasgpu</em> queue. Each of
+								  the 12 available nodes on this queue have 48 cores, a CPU clock of 2.4 GHz, and 2
+								  NVIDIA Tesla K40m GPUs, operating on CUDA 7.5.</p>
+
+								<p> The BEHALF package was tested with the following Python package versions:</p>
+								<ul>
+								  <li>numpy: v1.12.1</li>
+								  <li>pycuda: v2017.1.1</li>
+								  <li>mpi4py: v2.0.0</li>
+								  <li>future: v0.16.0</li>
+								  <li>cython: v0.26</li>
+								</ul>
+
+								<p> For details on the installation requirements and dependencies, see
+								the <a href="https://github.com/bacook17/behalf">Github Source Repository</a>.</p>
 								</div>
 							</div>
 						</section>
-						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
+						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid
+						#bb99ff;font-size:2;"></div>
 						<section id="Analysis" class="wrapper style6">
 							<!--<div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">-->
 								<br>
@@ -287,46 +491,116 @@
 								<div id="Plummer">
 								<br>
 								<h4><font color="#bb99ff">Initial conditions - Plummer sphere</font></h4>
-								<p>We will test our code by simulating an elliptical galaxy, modeled by the Plummer density profile.</p>
+								<p>We will test our code by simulating an elliptical galaxy, modeled by the Plummer
+								density profile.</p>
 
 									<!--<div class="box alt">
 										<div class="row uniform 50%">
-											<div class="4u"><span class="image fit"><img src="images/elliptical_Plummer.jpg" alt="" /></span></div>
+											<div class="4u"><span class="image
+											fit"><img src="images/elliptical_Plummer.jpg" alt=""
+											/></span></div>
 										</div>
 									</div>-->
 
-								<p><span class="image left"><img src="images/elliptical_Plummer.jpg" alt="" /></span>Galaxies in our Universe come in a variety of shapes and colors, and they are often subdivided into two main classes: elliptical glaxies and spiral galaxies. The number of elliptical galaxies is higher in the densest regions of galaxy clusters, and overall, ellipticals tend to have redder colors and much lower star formation rates than spiral galaxies.</p>
-								<p>The Plummer model (<a href="#Citations">Plummer 1911</a>) was initially developed for globular star clusters, yet it is often applied to the study of elliptical galaxies due to its relatively simple form and analytic solution for the distribution function.</p>
+								<p><span class="image left"><img src="images/elliptical_Plummer.jpg" alt=""
+								/></span>Galaxies in our Universe come in a variety of shapes and colors, and they are
+								often subdivided into two main classes: elliptical glaxies and spiral galaxies. The
+								number of elliptical galaxies is higher in the densest regions of galaxy clusters, and
+								overall, ellipticals tend to have redder colors and much lower star formation rates
+								than spiral galaxies.</p>
+								<p>The Plummer model (<a href="#Citations">Plummer 1911</a>) was initially developed
+								for globular star clusters, yet it is often applied to the study of elliptical
+								galaxies due to its relatively simple form and analytic solution for the distribution
+								function.</p>
 								<p>The Plummer 3D density profile is given by:
 								<br>
-								\(\rho(r) = \left(\frac{3M}{4\pi a^3}\right) \left( 1 + \frac{r^2}{a^2}\right)^{-5/2}\)
+								\(\rho(r) = \left(\frac{3M}{4\pi a^3}\right) \left( 1 +
+								\frac{r^2}{a^2}\right)^{-5/2}\)
 									<br>
-									where M is the total mass of the galaxy, and a is the Plummer radius - a scale parameter which sets the size of the cluster core.</p>
+									where M is the total mass of the galaxy, and a is the Plummer radius - a scale
+									parameter which sets the size of the cluster core.</p>
 								<p>The mass enclosed within radius r is:
 									<br>
-									\( M(\lt r) = 4 \pi \int_0^r r^2 \rho (r) dr = M \frac{r^3}{(r^2 + a^2)^{3/2}} \) </p>
-								<p> The Plummer model has a distribution function \(f(E)\) that has an analytic expression - it is a polytrope with index \(n=5\) (see, for e.g., <a href="#Citations">Binney & Tremaine 2011</a>) and the distribution function for polytropes follows:
+									\( M(\lt r) = 4 \pi \int_0^r r^2 \rho (r) dr = M \frac{r^3}{(r^2 + a^2)^{3/2}}
+									\) </p>
+								<p> The Plummer model has a distribution function \(f(E)\) that has an analytic
+								expression - it is a polytrope with index \(n=5\) (see, for
+								e.g., <a href="#Citations">Binney & Tremaine 2011</a>) and the distribution function
+								for polytropes follows:
 								<br>
-								\(f(E) \propto |E|^{n-3/2} \Rightarrow f(E) \propto |E|^{7/2}\) for Plummer 
+								\(f(E) \propto |E|^{n-3/2} \Rightarrow f(E) \propto |E|^{7/2}\) for Plummer
 								<br>
-								Thus, the probability for a particle to have absolute velocity \(v\) at radius \(r\) from the center of the galaxy is:
+								Thus, the probability for a particle to have absolute velocity \(v\) at radius \(r\)
+								from the center of the galaxy is:
 								<br>
 								\(g(v) dv \propto |E|^{7/2} v^2 dv \)
 								<br>
-								Letting \( x \equiv v/v_{esc}\) , where the escape velocity of a particle in the Plummer model is:
+								Letting \( x \equiv v/v_{esc}\) , where the escape velocity of a particle in the
+								Plummer model is:
 								<br>
 								\(v_{esc} = \sqrt{\frac{2GM}{a}} \left[ 1 + \left(\frac{r}{a}\right)^2\right]^{-1/4}\)
 								<br>
-								allows us to simplify the expressions for the energy per unit mass \(E \propto (x^2 - 1)\) and the probability for a particle at radius r to have velocity v: \( g(x) \propto x^2 (1-x^2)^{7/2}\) </p> 
-								<p> Based on the discussion in <a href="#Citations">Aarseth et al. (1974)</a>, we use the rejection technique to generate random pairs of values \((g_0, x_0)\), where \(x_0\) is between 0 and 1 (implying initial particle velocities between 0 and \(v_{esc}\)), and the velocity probability function \(g\) is allowed to vary between 0 and \(g_{max} \simeq 0.1\). The name of the rejection technique comes from the fact that only those pairs of values for which \(g_0 \leq g(x_0)\) will be kept. This method ensures that, as long as we sample a sufficiently large number of particles, their final velocity distribution will follow \(g(x)\).
+								allows us to simplify the expressions for the energy per unit mass \(E \propto (x^2 -
+								1)\) and the probability for a particle at radius r to have velocity v: \( g(x)
+								\propto x^2 (1-x^2)^{7/2}\) </p>
+								<p> Based on the discussion in <a href="#Citations">Aarseth et al. (1974)</a>, we use
+								the rejection technique to generate random pairs of values \((g_0, x_0)\), where
+								\(x_0\) is between 0 and 1 (implying initial particle velocities between 0 and
+								\(v_{esc}\)), and the velocity probability function \(g\) is allowed to vary between 0
+								and \(g_{max} \simeq 0.1\). The name of the rejection technique comes from the fact
+								that only those pairs of values for which \(g_0 \leq g(x_0)\) will be kept. This
+								method ensures that, as long as we sample a sufficiently large number of particles,
+								their final velocity distribution will follow \(g(x)\).</p>
+								<p>We simulated an elliptical galaxy with a total mass of \(10^{14} \mathrm{M}_\odot\)
+								and half-mass radius of roughly 50 kpc. This elliptical galaxy is thus approximately
+								100 times more massive than our own Milky Way galaxy (which is a disk galaxy). Most of
+								our test runs involve \(10^3 - 10^5\) particles, and therefore, we chose a softening
+								length of 0.01 kpc (for more details on choosing a good softening length value, see
+								for e.g. <a href="#Citations">Athanassoula et al. 2000</a>). We also ran tests
+								simulating the merger between two equal mass \(10^{14} \mathrm{M}_\odot\) elliptical
+								galaxies, which are shown in the <a href="index.html#Movies">movies</a> section.</p>
 							</div>
 							<div id="Accuracy">
 							<br>
 								<br>
 								<br>
 								<h4><font color="#bb99ff">Physical Performance and Model Accuracy</font></h4>
-								<span class="image fit"><img src="images/EnergyDiffCheck.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
-								<span class="image fit"><img src="images/theta_err.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+								<p> To test the accuracy of our code, we compute the relative total energy change over
+								a large number of time steps. The figure below shows the change in the total energy of
+								the system with respect to the initial total energy, i.e., \((E(t)-E(t=0))/E(t=0)\),
+								for an elliptical galaxy modeled using 1000 particles and with a total mass of
+								\(10^{14} \mathrm{M}_\odot\). In both cases, we ran our code for 1000 time steps, but
+								with a different time step size: 0.1 Myr shown in orange and 0.01 Myr shown in
+								blue. We find that for a time step of 0.01 Myr, our relative total energy change
+								saturates at the percent level, providing us with a sufficiently accurate method to
+								run long simulations. We note that the relative error in the total energy conservation
+								will change as a function of the time step size, the choice of softening length (which
+								we set at 0.01 kpc in order to avoid false scatterings between particles very close to
+								each other), and the \(\theta\) parameter for the Barnes-Hut algorithm (discussed
+								below).
+								</p>
+								<span class="image fit"><img src="images/EnergyDiffCheck.png" style="max-width: 800px;
+								margin-left:auto; margin-right:auto;" /></span>
+								<p>The accuracy of the Barnes-Hut algorithm is strongly related to the choice of
+								distances over which we apply the far-field force approximation. Let's consider the
+								distance to the center of an octree cell to be \(D\) and the width of the said cell to
+								be \(L\). A critical parameter of the BH algorithm is \(\theta = L/D\). This is an
+								adjustable parameter, which tells the algorithm that for particles sufficiently far
+								away such that \(L/D \lt \theta\), those particles should be approximated by their
+								center of mass. Naively, setting \(\theta = 0\), reduces the Barnes-Hut algorithm to
+								an exact particle-particle force calculation, because no particles will be
+								sufficiently far away to satisfy the requirement \(L/D \lt \theta\). As we increase
+								\(\theta\) more and more, the algorithm speeds up significantly, yet the relative
+								error in the force computation also increases. These trends are shown in the figure
+								below. We ran several tests with values of \(\theta\) ranging from 0 to 2, and we
+								decided that a value of \(\theta = 0.5\) gives us a good compromise between the
+								running time and the force computation error (\(\sim 10^{-3}\) for
+								\(\theta=0.5\)). </p>
+								<span class="image fit"><img src="images/theta_err.png" style="max-width: 800px;
+								margin-left:auto; margin-right:auto;" /></span>
+								<p>Based on the discussion above, the following simulations were run using a time step
+								\(\Delta t = 0.01\) Myr, far-field force approximation parameter \(\theta = 0.5\), and
+								softening length of 0.01 kpc.</p>
 							</div>
 							<div id="Scalings">
 								<br>
@@ -336,49 +610,210 @@
 							</div>
 							<br>
 							<br>
-							<span class="image fit"><img src="images/TotalrunningTime_vs_Npart.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+							<h5> Scaling with number of cores</h5>
+							<p> To begin with, we tested the performance of the BEHALF algorithm in the Strong-Scaling
+							regime by analyzing the time taken for each time step to simulate a Plummer sphere with 1000
+							particles. The baseline test, run on 1 core with 1 GPU, took an average of 8.5 seconds for a
+							timestep.</p>
+
+							<p> It is slightly ambiguous how to define "scaling up" the number of cores used, as there are
+							  three total dimensions of "scale-up":
+							  <ul>
+							    <li>Total number of CPUs</li>
+							    <li>Total number of GPUs</li>
+							    <li>Number of Nodes distributed across</li></ul> <span class="image left" ><img src="images/speedup.jpg" alt="" style="width:350px" /></span> Due to the architecture limitation of no more than 2 GPUs on a node, we
+							  initially tested in two scaling regimes: scaling with 1 core (hence 1 GPU) per node, and scaling with 2 cores (2 GPUs) per
+							  node. For a fixed number of cores (say, 8), this resulted in significantly different results due to the difference in
+							  communication overhead (between cores on the same node, and wrangling multiple GPUs on the same node). The plot below
+							  shows the overall speedup and scaling efficiency in these two regimes, as we scale up from 1 to 8
+							  nodes. 
+							Very surprisingly, the
+							  efficiency is significantly better when 1 core per node is used than 2 cores. We were unable to explore this issue fully,
+							  but our suspicion is that it may have to issues with processor affinity (whether the processes are being bound on
+							individual processors or on the same processor).<br><br>
+							</p>
+							<p>
+							We additionally profile individual portions of the code, and how those profiles scale with number of cores. First, we show
+							below the fraction of time spent in each portion of the code for the serial code (including GPU time integration and
+							Cython-ized force calculation).
+							<span class="image left" ><img src="images/timing_pie_serial.jpg" style="width:200px" />1000 Particle Serial Run (+GPU
+							  +Cython)</span>
+							</p>
+							<p>
+							In the serial run, even after optimizing with Cython, the force calculation takes nearly 90% of the execution time. The tree
+							construction and communication overheads account for the remainder, with time integration taking nearly zero time
+							(reasonable for 1000 particles).</p>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<p>
+							 We then compare to the serial baseline for an increasing number of cores: 
+							<span class="image fit"><img src="images/scaling_times.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;"
+										     /></span>
+							As we scale up to 2, 4, 8, and 16 cores, the overall speedup increases to a factor of nearly 4x, with the majority of the
+										     speed-up due to the force calculation. The communication overhead increases slightly, which is
+										     to be expected. The integration time also increases slightly, likely due to overheads in
+										     communicating with multiple GPUs.
+							<span class="image fit"><img src="images/speedup_force_comm.jpg" style="max-width: 800px; margin-left:auto;
+																margin-right:auto;" /></span>
+							<br>
+							We also test how the algorithm scales when we surpass 2 cores on a node. In this scaling
+							model, there are more processes active than GPUs available, but since the integration time is
+							such an insignificant fraction of runtime, the overhead of having multiple processors bound to
+							a single GPU is small. Overall, we find that the more cores used, the better the speedup of
+							the force calculation (as shown above). Once again, there is a troubling discrepancy between 1
+							core per node and 2 cores per node, where distributing, for example, 8 cores across 8 nodes is faster
+							even at computing forces than distributing across fewer nodes. The communication overhead is
+							likewise much larger for multiple cores per node, which seems unusual for MPI.<br><br>
+							</p>
+							
+							<span class="image left"><img src="images/timing_pie_16-8.jpg" style="max-width: 300px;
+															      margin-left:auto;
+															      margin-right:auto;"/>
+															      1000 Particle Run, 16
+															      cores, 8 nodes(+GPU
+															      +Cython)</span><br>
+							<p>
+							Finally, we show the timing profile for a scaled-up run with 16 total cores (and 16 GPUs)
+								spread across 8 nodes.
+							Once scaled up to 16 cores, the force computation takes only around 30% of the execution time,
+							while the communication overhead and tree construction have balooned to each encompass 30% and
+							40% (respectively) of the execution time.
+							
+							</p>
+							<br><br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<h5> Scalings with the number of particles</h5>
+							<p>The figure below shows the scaling between the median time step of our BH code and the
+							total number of particles in the simulation. We are showing a range of tests with 2 cores per
+							node and 2 GPUs per node, with the total number of particles being [1000, 4000, 10000, 16000,
+							100000]. We also include for comparison, serial runs shown in black, and in light blue we show
+							our results when utilizing the maximum number of cores (576) and GPUs (24) available on
+							the <em>holyseasgpu</em> queue on Odyssey. The dotted red line shows the \(N^2\) scaling
+							expected for an exact particle-particle force calculation, while the dashed magenta line
+							indicates the theoretical \(N \,\mathrm{log}(N)\) expectation for the Barnes-Hut octree
+							implementation. Our implementation matches \(N \,\mathrm{log}(N)\) very well for particle
+							numbers up to \(\sim 2\times 10^4\). For larger simulations, our scaling gets slightly worse
+							than \(N \,\mathrm{log}(N)\) (but still much better than \(N^2\)) because the depth of the
+							tree can increase rapidly due to false scatterings between particles. As two particles get
+							close together, the very large gravitational force between them multiplied by our fixed time
+							step will lead to an artificially large scatter, causing one of the particles to be flung far
+							away from the center of the simulation box. In order to accommodate this particle, the tree
+							traversal will start to take longer than the average \(\log(N)\) number of operations. </p>
+
+							<span class="image fit"><img src="images/TotalrunningTime_vs_Npart.png" style="max-width:
+																       800px;
+																       margin-left:auto;
+																       margin-right:auto;"
+																       /></span>
+
+							We also examine how the efficiency changes as a function of number of particles, i.e. in the
+							weak-scaling regime. The iso-efficiency curve will be very flat, as there is only a small
+							difference in efficiency at much larger simulation sizes. This implies that the iso-efficiency
+							scaling of the algorithm is fairly weak, as a small increase in the number of processors requires a
+							large increase in problem size in order to retain constant efficiency.
+							<span class="image fit"><img src="images/Efficiency_vs_Npart.png" style="max-width: 800px;
+							margin-left:auto;margin-right:auto;" /></span>
+
 						</section>
-						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
-						<!--<div class="wrapper style4" style="maxheight:1px;font-size:0.5;">-->
+						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid
+						#bb99ff;font-size:2;"></div> <!--<div class="wrapper style4" style="maxheight:1px;font-size:0.5;">-->
 						</div>
 						<section id="Conclusions" class="wrapper style6">
 							<br>
-							<h2>Conclusions</h2>
-							<div id="Advanced">
-								<br>
-								<br>
-								<br>
-								<h4><font color="#bb99ff">Advanced features</font></h4>
-								<p>We found that a pure Python implementation of the force calculation came with many overheads due to looping in Python. Instead, we wrote a Cython version of the force calculation and traversal to mitigate this. We found that, on average, the Cython version performed three times faster than the pure Python version. </p>
-								<p>Moreover, binding all the GPUs on a single node "BEN WRITES STUFF HERE" </p>
-							</div>
-							<br>
-							<br>
+							<h2>Results and Conclusions</h2>
 							<div id="Movies">
 								<br>
 								<br>
 								<br>
-								<h4><font color="#bb99ff">Movies</font></h4>
+								<h4><font color="#bb99ff">Resulting Movies</font></h4>
+								<p> Below are two movies exmplifying the type of simulation runs we tested in our
+								project. These are showing the evolution of (1) a \(10^{14} \mathrm{M}_\odot\)
+								elliptical galaxy and (2) the merger between two \(10^{14} \mathrm{M}_\odot\)
+								galaxies, using our parallel implementation of the Barnes-Hut algorithm.</p>
 								<center>
-								<video width="1280" height="960" controls>
-								  <source src="movies/movie1.mp4" type="video/mp4">
-								Your browser does not support the video tag.
-								</video>
-								<p> A movie of the projected density in the x-y plane of a 10,000 particle simulation. </p>
-							</center>
+								  <video width="1280" height="960" style="max-width: 800px; margin-left:auto; margin-right:auto;" controls>
+								    <source src="movies/movie1.mp4" type="video/mp4">
+								      Your browser does not support the video tag.
+								  </video>
+								  <p> A movie of the projected density in the x-y plane of a 10,000 particle
+								  simulation. </p>
+								</center>
+								<center>
+								  <video width="1280" height="960" style="max-width: 800px; margin-left:auto; margin-right:auto;" controls>
+								    <source src="movies/merger_final.mp4" type="video/mp4">
+								      Your browser does not support the video tag.
+								  </video>
+								  <p> A movie of a merger of two Plummer sphere galaxies (1000 particles each) in the
+								  x-y plane, applying a Gaussian smoothing kernel. </p>
+								</center>
 							</div>
 							<br>
+							<div id="Future">
 							<br>
 							<div class="content">
-								<h4><font color="#bb99ff">Future work</font></h4>
-								<p>There are many things one could do to improve both the accuracy and time required for the force calculation. </p>
-								<ul>
-								  <li>Cythonize the entire tree data structure</li>
-								  <li>Use kD trees instead of octrees</li>
-								  <li>Use GPUs to do the force calculations</li>
-								  <li>Parallelize tree construction</li> 
-								</ul>
+							  <h4><font color="#bb99ff">Future work</font></h4>
+								<p>There are many avenues for improving the execution time of the force
+								  calculation. Below we list a few such directions, in order of increasing difficulty
+								  and potential improvement: </p>
 
+								<h5> Cythonize the entire tree data structure</h5> The octree structure is constructed
+								in Python, and while Cython allowed us to improve speed in traversing the tree for
+								force calculations, there were still significant overheads involved in calling Python
+								object features from the Cython code. If the entire octree creation were re-written in
+								Cython, such that there was no Python overhead involved, we anticipate a speed-up of
+								around 50% to 2x in the tree-construction and force calculation phases.<br><br>
+
+								<h5> Use kD trees instead of octree</h5>
+								<a href="http://pointclouds.org/documentation/tutorials/kdtree_search.php">K-Dimensional
+								trees</a> are significantly more memory-efficient, and would decrease the overhead in
+								traversing the
+								tree and
+								broadcasting it
+								to all
+								nodes. The
+								construction of
+								kD trees is
+								also more
+								easily
+								parallelizable
+								than Octrees.
+								<br><br>
+								<h5> Use GPUs to do force calculations</h5> Optimizing the force calculations further
+								could involve transferring the trees to the GPU, and then computing particle forces in
+								parallel on the GPU. The many-core nature of the GPU could improve the throughput
+								significantly, although the overhead of transferring the tree across the data bus
+								would need to be considered.
+								<br><br>
+
+								<h5> Partially Cache the Octree</h5> Depending on the size of the timestep, many
+								particles do not move very far each iteration, meaning that the Octree is likely very
+								similar from one timestep to the next. Saving the Octree and only updating portions
+								that have changed significantly could reduce the tree construction time significantly.
+
+								<br><br>
+								
+								<h5> Parallelize tree construction</h5> Besides MPI communication, the primary serial
+								component of our code is the computation of the tree, which naiively requires one node
+								to have all particles stored in memory. An advanced implementation of the algorithm
+								could construct the tree in parallel, perhaps by assigning the first 1 or 2 levels of
+								the sub-tree to different processes, and ensuring that nearby particles are assigned
+								to similar nodes. More MPI communication would be required in the force computation,
+								in the cases where particles nearby to box boundaries would need to traverse
+								neighboring portions of the overall tree.
 
 							</div>
 						</section>
@@ -393,16 +828,33 @@
 								<h2>References</h2>
 								<ul class="actions vertical">
 									<li>Aarseth S. J., Henon M., Wielen R., 1974, A&A, 37, 183</li>
-									<li> Angulo, R. E., et al. "Scaling relations for galaxy clusters in the Millennium-XXL simulation." Monthly Notices of the Royal Astronomical Society 426.3 (2012): 2046-2062. </li>
-									<li>Barnes, Josh, and Piet Hut. "A hierarchical O (N log N) force-calculation algorithm." nature 324.6096 (1986): 446. </li>
-									<li>Brož, Miroslav, and David Vokrouhlický. "Asteroid families in the first-order resonances with Jupiter." Monthly Notices of the Royal Astronomical Society 390.2 (2008): 715-732.</li>
-									<li>Binney J., Tremaine S., 2011, Galactic Dynamics. Princeton University Press</li>
-									<li>Darden, Tom, Darrin York, and Lee Pedersen. "Particle mesh Ewald: An N⋅ log (N) method for Ewald sums in large systems." The Journal of chemical physics 98.12 (1993): 10089-10092. </li> 
-									<li>Katz, Neal, David H. Weinberg, and Lars Hernquist. "Cosmological simulations with TreeSPH." arXiv preprint astro-ph/9509107 (1995). </li> 
-									<li>Newton, Isaac. "Principia mathematica." Isaac Newton’s Philosophiae Naturalis Principia Mathematica, Harvard University Press, Cambridge, MA (1972).</li>
+									<li> Angulo, R. E., et al. "Scaling relations for galaxy clusters in the
+									Millennium-XXL simulation." Monthly Notices of the Royal Astronomical Society
+									426.3 (2012): 2046-2062. </li>
+									<li>Athanassoula, E., et al. “Optimal softening for force calculations in
+									collisionless N-body simulations.” Monthly Notices of the Royal Astronomical
+									Society 314.3 (2000): 475-488.</li>
+									<li>Barnes, Josh, and Piet Hut. "A hierarchical O (N log N) force-calculation
+									algorithm." nature 324.6096 (1986): 446. </li>
+									<li>Brož, Miroslav, and David Vokrouhlický. "Asteroid families in the
+									first-order resonances with Jupiter." Monthly Notices of the Royal
+									Astronomical Society 390.2 (2008): 715-732.</li>
+									<li>Binney J., Tremaine S., 2011, Galactic Dynamics. Princeton University
+									Press</li>
+									<li>Darden, Tom, Darrin York, and Lee Pedersen. "Particle mesh Ewald: An N⋅
+									log (N) method for Ewald sums in large systems." The Journal of chemical
+									physics 98.12 (1993): 10089-10092. </li>
+									<li>Katz, Neal, David H. Weinberg, and Lars Hernquist. "Cosmological
+									simulations with TreeSPH." arXiv preprint astro-ph/9509107 (1995). </li>
+									<li>Newton, Isaac. "Principia mathematica." Isaac Newton’s Philosophiae
+									Naturalis Principia Mathematica, Harvard University Press, Cambridge, MA
+									(1972).</li>
 									<li>Plummer H. C., 1911, MNRAS, 71, 460</li>
-									<li>Springel, Volker. "The cosmological simulation code GADGET-2." Monthly notices of the royal astronomical society 364.4 (2005): 1105-1134. </li>
-									<li>Wadsley, James W., Joachim Stadel, and Thomas Quinn. "Gasoline: a flexible, parallel implementation of TreeSPH." New Astronomy 9.2 (2004): 137-158. </li>
+									<li>Springel, Volker. "The cosmological simulation code GADGET-2." Monthly
+									notices of the royal astronomical society 364.4 (2005): 1105-1134. </li>
+									<li>Wadsley, James W., Joachim Stadel, and Thomas Quinn. "Gasoline: a
+									flexible, parallel implementation of TreeSPH." New Astronomy 9.2 (2004):
+									137-158. </li>
 
 
 								</ul>
@@ -426,10 +878,12 @@
 							<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
 						</ul>-->
 						<ul class="copyright">
-							<li>&copy; Ana-Roxana Pop 2018. All rights reserved. <br> Design: This is a modified version of the Spectral theme by <a href="http://html5up.net">HTML5 UP</a>. </li>
+							<li>&copy; Ana-Roxana Pop 2018. All rights reserved. <br> Design: This is a modified version
+							of the Spectral theme by <a href="http://html5up.net">HTML5 UP</a>. </li>
 							<br>
 							<li>
-								Banner image of Centaurus A - Credit: ESO/WFI (Optical); MPIfR/ESO/APEX/A.Weiss et al. (Submillimetre); NASA/CXC/CfA/R.Kraft et al. (X-ray).</li>
+								Banner image of Centaurus A - Credit: ESO/WFI (Optical); MPIfR/ESO/APEX/A.Weiss et
+								al. (Submillimetre); NASA/CXC/CfA/R.Kraft et al. (X-ray).</li>
 						</ul>
 					</footer>
 
@@ -440,8 +894,7 @@
 			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/util.js"></script> <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
 
 	</body>
