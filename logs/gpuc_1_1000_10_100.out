@@ -1,20 +1,2 @@
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
-not prod 1
-not prod 2
+pid 22493's current affinity mask: 1
+pid 22493's new affinity mask: 1
