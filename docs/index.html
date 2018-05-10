@@ -420,10 +420,6 @@
 							</div>
 							<br>
 							<br>
-
-							<h5>Overall Performance of Parallel code</h5>
-							<br>
-
 							<h5> Scaling with number of cores</h5>
 							<p> To begin with, we tested the performance of the BEHALF algorithm in the Strong-Scaling regime by analyzing the time
 							taken for each time step to simulate a Plummer sphere with 1000 particles. The baseline test, run on 1 core with 1 GPU, took
@@ -444,13 +440,15 @@
 							  efficiency is significantly better when 1 core per node is used than 2 cores. We were unable to explore this issue fully,
 							  but our suspicion is that it may have to issues with processor affinity (whether the processes are being bound on
 							individual processors or on the same processor).<br><br>
-
+							</p>
+							<p>
 							We additionally profile individual portions of the code, and how those profiles scale with number of cores. First, we show
-							below the proportion of time spent in each portion of the code for the serial code (including GPU time integration and
+							below the fraction of time spent in each portion of the code for the serial code (including GPU time integration and
 							Cython-ized force calculation):
 							<span class="image right" ><img src="images/timing_pie_serial.jpg" style="width:200px" />1000 Particle Serial Run (+GPU
 							  +Cython)</span>
-
+							</p>
+							<p>
 							In the serial run, even after optimizing with Cython, the force calculation takes nearly 90% of the execution time. The tree
 							construction and communication overheads account for the remainder, which time integration taking nearly zero time
 							(reasonable for 1000 particles). We then compare to this baseline for an increasing number of cores: 
