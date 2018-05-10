@@ -620,14 +620,13 @@
 							  <ul>
 							    <li>Total number of CPUs</li>
 							    <li>Total number of GPUs</li>
-<<<<<<< HEAD
-							    <li>Number of Nodes distributed across</li></ul> Due to the architecture limitation of no more than 2 GPUs on a node, we
+							    <li>Number of Nodes distributed across</li></ul> <span class="image left" ><img src="images/speedup.jpg" alt="" style="width:350px" /></span> Due to the architecture limitation of no more than 2 GPUs on a node, we
 							  initially tested in two scaling regimes: scaling with 1 core (hence 1 GPU) per node, and scaling with 2 cores (2 GPUs) per
 							  node. For a fixed number of cores (say, 8), this resulted in significantly different results due to the difference in
 							  communication overhead (between cores on the same node, and wrangling multiple GPUs on the same node). The plot below
 							  shows the overall speedup and scaling efficiency in these two regimes, as we scale up from 1 to 8
 							  nodes. 
-							<span class="image left" ><img src="images/speedup.jpg" alt="" style="width:350px" /></span> Very surprisingly, the
+							Very surprisingly, the
 							  efficiency is significantly better when 1 core per node is used than 2 cores. We were unable to explore this issue fully,
 							  but our suspicion is that it may have to issues with processor affinity (whether the processes are being bound on
 							individual processors or on the same processor).<br><br>
@@ -635,8 +634,8 @@
 							<p>
 							We additionally profile individual portions of the code, and how those profiles scale with number of cores. First, we show
 							below the fraction of time spent in each portion of the code for the serial code (including GPU time integration and
-							Cython-ized force calculation):
-							<span class="image right" ><img src="images/timing_pie_serial.jpg" style="width:200px" />1000 Particle Serial Run (+GPU
+							Cython-ized force calculation).
+							<span class="image left" ><img src="images/timing_pie_serial.jpg" style="width:200px" />1000 Particle Serial Run (+GPU
 							  +Cython)</span>
 							</p>
 							<p>
@@ -651,7 +650,6 @@
 										     communicating with multiple GPUs.
 							<span class="image fit"><img src="images/speedup_force_comm.jpg" style="max-width: 800px; margin-left:auto;
 																margin-right:auto;" /></span>
-=======
 							    <li>Number of Nodes distributed across</li></ul> Due to the architecture limitation of no
 							  more than 2 GPUs on a node, we initially tested in two scaling regimes: scaling with 1 core
 							  (hence 1 GPU) per node, and scaling with 2 cores (2 GPUs) per node. For a fixed number of
@@ -664,7 +662,9 @@
 							  2 cores. We were unable to explore this issue fully, but our suspicion is that it may have
 							  to issues with processor affinity (whether the processes are being bound on individual
 							  processors or on the same processor).<br><br>
-
+							<br>
+							<br>
+							<br>
 							<p>
 							We additionally profile individual portions of the code, and how those profiles scale with
 							number of cores. First, we show below the proportion of time spent in each portion of the code
@@ -672,6 +672,7 @@
 							<span class="image right" ><img src="images/timing_pie_serial.jpg" style="width:200px" />1000
 							  Particle Serial Run (+GPU +Cython)</span>
 							 </p>
+							<p>
 							In the serial run, even after optimizing with Cython, the force calculation takes nearly 90%
 							of the execution time. The tree construction and communication overheads account for the
 							remainder, which time integration taking nearly zero time (reasonable for 1000 particles). We
