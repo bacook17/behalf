@@ -1,2 +1,8 @@
+pid 19807's current affinity mask: 80000
+pid 19807's new affinity mask: 80000
 Starting Integration Loop
-Iteration 0 complete. 920.1 seconds elapsed.
+Iteration 0 complete. 803.8 seconds elapsed.
+Iteration 1 complete. 1188.3 seconds elapsed.
+Iteration 2 complete. 1571.2 seconds elapsed.
+               JobID    JobName   NTasks  AllocCPUS    AllocGRES  Partition    Elapsed     MaxRSS  MaxVMSize  MaxDiskRead MaxDiskWrite      State 
+-------------------- ---------- -------- ---------- ------------ ---------- ---------- ---------- ---------- ------------ ------------ ---------- 

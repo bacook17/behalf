@@ -10,7 +10,7 @@
 #SBATCH --mail-type=BEGIN,END,FAIL #alert when done
 #SBATCH --mail-user=bcook@cfa.harvard.edu #Email to send to
 
-mpiexec -n $SLURM_NTASKS run_behalf.py --run-name $SLURM_JOB_NAME --clobber --verbose --N-parts 1000 --N-steps 3 --dt 0.01 --save-every 1
+mpiexec -n $SLURM_NTASKS run_behalf.py --run-name $SLURM_JOB_NAME --clobber --verbose --no-cython --N-parts 1000 --N-steps 3 --dt 0.01 --save-every 1
 RESULT=${PIPESTATUS[0]}
 sacct -j "${SLURM_JOB_ID}".batch --format=JOBID%20,JobName,NTasks,AllocCPUs,AllocGRES,Partition,Elapsed,MaxRSS,MaxVMSize,MaxDiskRead,MaxDiskWrite,State 
 exit $RESULT

@@ -121,10 +121,10 @@ if __name__ == '__main__':
         vel_1 -= np.mean(vel_1, axis=0)
         vel_2 -= np.mean(vel_2, axis=0)
         # On merging trajectory
-        vel_1[:,0] -= 3.0
-        vel_1[:,1] += 1.0
-        vel_2[:,0] += 3.0
-        vel_2[:,1] -= 1.0
+        vel_1[:,0] -= 1.0
+        vel_1[:,1] += 0.5
+        vel_2[:,0] += 1.0
+        vel_2[:,1] -= 0.5
         pos_init = np.append(pos_1, pos_2, axis=0)
         vel_init = np.append(vel_1, vel_2, axis=0)
         

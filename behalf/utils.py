@@ -15,6 +15,7 @@ from glob import glob
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+import sys
 from datetime import datetime, timedelta
 
 __CYTHON_AVAIL = False
@@ -26,6 +27,7 @@ except:
 
 standard_library.install_aliases()
 
+sys.setrecursionlimit(5000)
 
 def construct_tree(pos, mass):
     sim_box = octree.bbox(np.array([np.min(pos, axis=0),

@@ -377,16 +377,19 @@
 								<br>
 								allows us to simplify the expressions for the energy per unit mass \(E \propto (x^2 - 1)\) and the probability for a particle at radius r to have velocity v: \( g(x) \propto x^2 (1-x^2)^{7/2}\) </p> 
 								<p> Based on the discussion in <a href="#Citations">Aarseth et al. (1974)</a>, we use the rejection technique to generate random pairs of values \((g_0, x_0)\), where \(x_0\) is between 0 and 1 (implying initial particle velocities between 0 and \(v_{esc}\)), and the velocity probability function \(g\) is allowed to vary between 0 and \(g_{max} \simeq 0.1\). The name of the rejection technique comes from the fact that only those pairs of values for which \(g_0 \leq g(x_0)\) will be kept. This method ensures that, as long as we sample a sufficiently large number of particles, their final velocity distribution will follow \(g(x)\).</p>
-								<p>We simulated an elliptical galaxy with a total mass of \(10^{14} \mathrm{M}_\odot\) and half-light radius of roughly 50 kpc. This elliptical galaxy is thus approximately 100 times more massive than our own Milky Way galaxy (which is a disk galaxy). Most of our test runs involve \(10^3 - 10^4\) particles, and therefore, we chose a softening length of 0.01 kpc (for more details on choosing a good softening length value, see for e.g. <a href="#Citations">Athanassoula et al. 2000</a>). We also ran tests simulating the merger between two equal mass \(10^{14} \mathrm{M}_\odot\) elliptical galaxies, which are shown in the <a href="index.html#Movies">movies</a> section.</p>
+								<p>We simulated an elliptical galaxy with a total mass of \(10^{14} \mathrm{M}_\odot\) and half-light radius of roughly 50 kpc. This elliptical galaxy is thus approximately 100 times more massive than our own Milky Way galaxy (which is a disk galaxy). Most of our test runs involve \(10^3 - 10^5\) particles, and therefore, we chose a softening length of 0.01 kpc (for more details on choosing a good softening length value, see for e.g. <a href="#Citations">Athanassoula et al. 2000</a>). We also ran tests simulating the merger between two equal mass \(10^{14} \mathrm{M}_\odot\) elliptical galaxies, which are shown in the <a href="index.html#Movies">movies</a> section.</p>
 							</div>
 							<div id="Accuracy">
 							<br>
 								<br>
 								<br>
 								<h4><font color="#bb99ff">Physical Performance and Model Accuracy</font></h4>
+								<p> To test the accuracy of our code, we compute the relative total energy change over a large number of time steps. The figure below shows the change in the total energy of the system with respect to the initial total energy, i.e., \((E(t)-E(t=0))/E(t=0)\), for an elliptical galaxy modeled using 1000 particles and with a total mass of \(10^{14} \mathrm{M}_\odot\). In both cases, we ran our code for 1000 time steps, but with a different time step size: 0.1 Myr shown in orange and 0.01 Myr shown in blue. We find that for a time step of 0.01 Myr, our relative total energy change saturates at the percent level, providing us with a sufficiently accurate method to run long simulations. We note that the relative error in the total energy conservation will change as a function of the time step size, the choice of softening length (which we set at 0.01 kpc in order to avoid false scatterings between particles very close to each other), and the \(\theta\) parameter for the Barnes-Hut algorithm (discussed below).
+								</p>
 								<span class="image fit"><img src="images/EnergyDiffCheck.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
 								<p>The accuracy of the Barnes-Hut algorithm is strongly related to the choice of distances over which we apply the far-field force approximation. Let's consider the distance to the center of an octree cell to be \(D\) and the width of the said cell to be \(L\). A critical parameter of the BH algorithm is \(\theta = L/D\). This is an adjustable parameter, which tells the algorithm that for particles sufficiently far away such that \(L/D \lt \theta\), those particles should be approximated by their center of mass. Naively, setting \(\theta = 0\), reduces the Barnes-Hut algorithm to an exact particle-particle force calculation, because no particles will be sufficiently far away to satisfy the requirement \(L/D \lt \theta\). As we increase \(\theta\) more and more, the algorithm speeds up significantly, yet the relative error in the force computation also increases. These trends are shown in the figure below. We ran several tests with values of \(\theta\) ranging from 0 to 2, and we decided that a value of \(\theta = 0.5\) gives us a good compromise between the running time and the force computation error (\(\sim 10^{-3}\) for \(\theta=0.5\)). </p>
 								<span class="image fit"><img src="images/theta_err.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+								<p>Based on the discussion above, the following simulations were run using a time step \(\Delta t = 0.01\) Myr, far-field force approximation parameter \(\theta = 0.5\), and softening length of 0.01 kpc.</p>
 							</div>
 							<div id="Scalings">
 								<br>
@@ -397,6 +400,7 @@
 							<br>
 							<br>
 							<span class="image fit"><img src="images/TotalrunningTime_vs_Npart.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+							<span class="image fit"><img src="images/Efficiency_vs_Npart.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
 						</section>
 						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
 						<!--<div class="wrapper style4" style="maxheight:1px;font-size:0.5;">-->
@@ -419,6 +423,7 @@
 								<br>
 								<br>
 								<h4><font color="#bb99ff">Movies</font></h4>
+								<p> Below are two movies exmplifying the type of simulation runs we tested in our project. These are showing the evolution of (1) a \(10^{14} \mathrm{M}_\odot\) elliptical galaxy and (2) the merger between two \(10^{14} \mathrm{M}_\odot\) galaxies, using our parallel implementation of the Barnes-Hut algorithm.</p>
 								<center>
 								  <video width="1280" height="960" style="max-width: 800px; margin-left:auto; margin-right:auto;" controls>
 								    <source src="movies/movie1.mp4" type="video/mp4">
@@ -433,14 +438,14 @@
 								  </video>
 								  <p> A movie
 								  of a merger
-								  of two Plummer sphere galaxies (1000 particles each) in the x-y plane. </p>
+								  of two Plummer sphere galaxies (1000 particles each) in the x-y plane, applying a Gaussian smoothing kernel. </p>
 								</center>
 							</div>
 							<br>
 							<br>
 							<div class="content">
 							  <h4><font color="#bb99ff">Future work</font></h4>
-								<p>There are many things one could do to improve both the accuracy and time required for the force calculation. </p>
+								<p>There are many avenues for improving both the accuracy and execution time for the force calculation. Below we list a few such directions: </p>
 								<ul>
 								  <li>Cythonize the entire tree data structure</li>
 								  <li>Use kD trees instead of octrees</li>
