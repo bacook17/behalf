@@ -223,7 +223,9 @@
 								</code></pre>
 								<p> <font color="dark red">calculateAcceleration</font> takes in the particle we want to calculate the force for, the node we are currently comparing against, and thetaTolerance (the opening angle). The algorithm first starts by checking whether the node we are currently comparing against is a leaf node. If it is, it holds only one particle and we must directly calculate the gravitational influence of this particle on the the particle we passed in as an argument. If the current node is not a leaf, we calculate the opening angle theta (given by the size of the node divided by the distance from the node to the particle). If the opening angle is less than some pre-defined thetaTolerance (most codes in literature use 0.5), the far field approximation is valid and we can group all the particles belonging to this node and compute the gravitational influence of this group on the particle we want to calculate the acceleration for. If the far field approximation is not valid, we must open up the node and call calculateAcceleration for all children of the original node. </p> 
 								
-								<p> Through experimentation, we found that there was a significant amount of overhead associated with the original Python version of calculateAcceleration. Therefore, we optimized the force calculation using Cython. The speed-ups with the Cython version are shown in the Analysis section. </p>
+								<p> Through experimentation, we found that there was a significant amount of overhead associated with the original
+								Python version of calculateAcceleration. Therefore, we optimized the force calculation using Cython. The speed-ups
+								with the Cython version are shown in the <a href="#Advanced">Advanced Features</a> section. </p>
 
 
 								</div>
@@ -382,7 +384,7 @@
 								<br>
 								allows us to simplify the expressions for the energy per unit mass \(E \propto (x^2 - 1)\) and the probability for a particle at radius r to have velocity v: \( g(x) \propto x^2 (1-x^2)^{7/2}\) </p> 
 								<p> Based on the discussion in <a href="#Citations">Aarseth et al. (1974)</a>, we use the rejection technique to generate random pairs of values \((g_0, x_0)\), where \(x_0\) is between 0 and 1 (implying initial particle velocities between 0 and \(v_{esc}\)), and the velocity probability function \(g\) is allowed to vary between 0 and \(g_{max} \simeq 0.1\). The name of the rejection technique comes from the fact that only those pairs of values for which \(g_0 \leq g(x_0)\) will be kept. This method ensures that, as long as we sample a sufficiently large number of particles, their final velocity distribution will follow \(g(x)\).</p>
-								<p>We simulated an elliptical galaxy with a total mass of \(10^{14} \mathrm{M}_\odot\) and half-light radius of roughly 50 kpc. This elliptical galaxy is thus approximately 100 times more massive than our own Milky Way galaxy (which is a disk galaxy). Most of our test runs involve \(10^3 - 10^5\) particles, and therefore, we chose a softening length of 0.01 kpc (for more details on choosing a good softening length value, see for e.g. <a href="#Citations">Athanassoula et al. 2000</a>). We also ran tests simulating the merger between two equal mass \(10^{14} \mathrm{M}_\odot\) elliptical galaxies, which are shown in the <a href="index.html#Movies">movies</a> section.</p>
+								<p>We simulated an elliptical galaxy with a total mass of \(10^{14} \mathrm{M}_\odot\) and half-mass radius of roughly 50 kpc. This elliptical galaxy is thus approximately 100 times more massive than our own Milky Way galaxy (which is a disk galaxy). Most of our test runs involve \(10^3 - 10^5\) particles, and therefore, we chose a softening length of 0.01 kpc (for more details on choosing a good softening length value, see for e.g. <a href="#Citations">Athanassoula et al. 2000</a>). We also ran tests simulating the merger between two equal mass \(10^{14} \mathrm{M}_\odot\) elliptical galaxies, which are shown in the <a href="index.html#Movies">movies</a> section.</p>
 							</div>
 							<div id="Accuracy">
 							<br>
@@ -424,21 +426,58 @@
 							  communication overhead (between cores on the same node, and wrangling multiple GPUs on the same node). The plot below
 							  shows the overall speedup and scaling efficiency in these two regimes, as we scale up from 1 to 8
 							  nodes. 
-							  Very surprisingly, the efficiency is significantly better when 1 core per node is used than 2 cores. 
+							<span class="image left" ><img src="images/speedup.jpg" alt="" style="width:350px" /></span> Very surprisingly, the
+							  efficiency is significantly better when 1 core per node is used than 2 cores. We were unable to explore this issue fully,
+							  but our suspicion is that it may have to issues with processor affinity (whether the processes are being bound on
+							individual processors or on the same processor).<br><br>
+
+							We additionally profile individual portions of the code, and how those profiles scale with number of cores. First, we show
+							below the proportion of time spent in each portion of the code for the serial code (including GPU time integration and
+							Cython-ized force calculation):
+							<span class="image right" ><img src="images/timing_pie_serial.jpg" style="width:200px" />1000 Particle Serial Run (+GPU
+							  +Cython)</span>
+
+							In the serial run, even after optimizing with Cython, the force calculation takes nearly 90% of the execution time. The tree
+							construction and communication overheads account for the remainder, which time integration taking nearly zero time
+							(reasonable for 1000 particles). We then compare to this baseline for an increasing number of cores: 
+							<span class="image fit"><img src="images/scaling_times.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;"
+										     /></span>
+							As we scale-up to 2, 4, 8, and 16 cores, the overall speedup increases to a factor of nearly 4x, with the majority of the
+										     speed-up due to the force calculation. The communication overhead increases slightly, which is
+										     to be expected. The integration time also increases slightly, likely due to overheads in
+										     communicating with multiple GPUs.
+							<span class="image fit"><img src="images/speedup_force_comm.jpg" style="max-width: 800px; margin-left:auto;
+																margin-right:auto;" /></span>
+							<br>
+							We also test how the algorithm scales when we surpass 2 cores on a node. In this scaling model, there are more processes
+							active than GPUs available, but since the integration time is such an insignificant fraction of runtime, the overhead of
+							having multiple processors bound to a single GPU is small. Overall, we find that the more cores used, the better the speedup
+							of the force calculation (as shown above). Once again, there is a troubling discrepancy between 1 core per node and 2 cores
+							per node, where distributing (eg.) 8 cores across 8 nodes is faster even at computing forces than distributing across fewer
+							nodes. The communication overhead is likewise much larger for multiple cores per node, which seems unusual for MPI.<br><br>
+
+							Finally, we show the timing profile for a scaled-up run with 16 total cores (and 16 GPUs) spread across 8 nodes:
+							<span class="image left"><img src="images/timing_pie_16-8.jpg" style="max-width: 300px; margin-left:auto;
+															      margin-right:auto;"/> 1000 Particle Run, 16 cores, 8
+															      nodes(+GPU +Cython)</span><br>
+
+							Once scaled up to 16 cores, the force computation takes only around 30% of the execution time, while the communication
+							overhead and tree construction have balooned to each encompass 30% and 40% (respectively) of the execution time.
+							
 							</p>
-							<span class="image left" ><img src="images/speedup.jpg" alt="" style="width:350px" /></span>
-							<p> Some text</p>
-							<span class="image left" ><img src="images/timing_pie_serial.jpg" style="width:200px" /></span>
-							<span class="image fit"><img src="images/scaling_times.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
-							<span class="image fit"><img src="images/speedup_force_comm.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
-							<span class="image fit"><img src="images/timing_pie_16-8.jpg" style="max-width: 300px; margin-left:auto; margin-right:auto;" /></span>
 							<br><br>
 
 							<h5> Scalings with the number of particles</h5>
 							<p>The figure below shows the scaling between the median time step of our BH code and the total number of particles in the simulation. We are showing a range of tests with 2 cores per node and 2 GPUs per node, with the total number of particles being [1000, 4000, 10000, 16000, 100000]. We also include for comparison, serial runs shown in black, and in light blue we show our results when utilizing the maximum number of cores (576) and GPUs (24) available on the <em>holyseasgpu</em> queue on Odyssey. The dotted red line shows the \(N^2\) scaling expected for an exact particle-particle force calculation, while the dashed magenta line indicates the theoretical \(N \,\mathrm{log}(N)\) expectation for the Barnes-Hut octree implementation. Our implementation matches \(N \,\mathrm{log}(N)\) very well for particle numbers up to \(\sim 2\times 10^4\). For larger simulations, our scaling gets slightly worse than \(N \,\mathrm{log}(N)\) (but still much better than \(N^2\)) because 
 							the depth of the tree can increase rapidly due to false scatterings between particles. As two particles get close together, the very large gravitational force between them multiplied by our fixed time step will lead to an artificially large scatter, causing one of the particles to be flung far away from the center of the simulation box. In order to accommodate this particle, the tree traversal will start to take longer than the average \(\log(N)\) number of operations. </p>
 
-							<span class="image fit"><img src="images/TotalrunningTime_vs_Npart.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+							<span class="image fit"><img src="images/TotalrunningTime_vs_Npart.png" style="max-width: 800px; margin-left:auto;
+																       margin-right:auto;" /></span>
+
+							We also examine how the efficiency changes as a function of number of particles, i.e. in the weak-scaling regime. The
+							iso-efficiency curve will be very flat, as there is only a small difference in efficiency at much larger simulation
+							sizes. This implies that the iso-efficiency scaling of the algorithm fairly weak, as a small increase in number of
+							processors requires a large increase in problem size to retain constant efficiency.  
 							<span class="image fit"><img src="images/Efficiency_vs_Npart.png" style="max-width: 800px; margin-left:auto;margin-right:auto;" /></span>
 
 						</section>
@@ -452,11 +491,10 @@
 								<br>
 								<br>
 								<br>
-								<h4><font color="#bb99ff">Advanced features</font></h4>
+								<h4><font color="#bb99ff">Advanced Features</font></h4>
 								<p>We found that a pure Python implementation of the force calculation came with many overheads due to looping in
 								Python. Instead, we wrote a Cython version of the force calculation and traversal to mitigate this. We found that,
 								on average, the Cython version performed three times faster than the pure Python version. </p>
-								<p>Moreover, binding all the GPUs on a single node "BEN WRITES STUFF HERE" </p>
 								<span class="image fit"><img src="images/optimizations.jpg" style="max-width: 800px; margin-left:auto;margin-right:auto;" /></span>
 							</div>
 							<br>
