@@ -75,3 +75,26 @@ optional arguments:
                         False)
   --no-cython           Dont use Cython (default: False)
 ```
+
+### Examples
+The `examples` directory contains a collection of a few example SLURM files which can be submitted to Odyssey using the `sbatch` command. The examples vary in problem size (`1000p` or `16000p` for 1000 or 16000 particles) and number of cores (`serial`, `4c2n`, and `16c8n` for 1 core, 4 cores on 2 nodes, and 16 cores on 8 nodes, respectively). 
+
+Example of how to run: from the repository home, execute:
+
+```
+sbatch examples/serial_1000p.slurm
+```
+
+According to our own profiling tests, the jobs should take roughly the following execution time to run for 1000 time steps:
+
+`serial_1000p`: 3 hours
+
+`serial_16000p`: 3 days
+
+`4c2n_1000p`: 1.5 hours
+
+`4c2n_16000p`: 1.5 days
+
+`16c8n_1000p`: 1 hour
+
+`16c8n_16000p`: 1 day
