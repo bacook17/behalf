@@ -640,8 +640,19 @@
 							</p>
 							<p>
 							In the serial run, even after optimizing with Cython, the force calculation takes nearly 90% of the execution time. The tree
-							construction and communication overheads account for the remainder, which time integration taking nearly zero time
-							(reasonable for 1000 particles). We then compare to this baseline for an increasing number of cores: 
+							construction and communication overheads account for the remainder, with time integration taking nearly zero time
+							(reasonable for 1000 particles).</p>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<p>
+							 We then compare to the serial baseline for an increasing number of cores: 
 							<span class="image fit"><img src="images/scaling_times.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;"
 										     /></span>
 							As we scale-up to 2, 4, 8, and 16 cores, the overall speedup increases to a factor of nearly 4x, with the majority of the
