@@ -665,12 +665,13 @@
 							  to issues with processor affinity (whether the processes are being bound on individual
 							  processors or on the same processor).<br><br>
 
+							<p>
 							We additionally profile individual portions of the code, and how those profiles scale with
 							number of cores. First, we show below the proportion of time spent in each portion of the code
 							for the serial code (including GPU time integration and Cython-ized force calculation):
 							<span class="image right" ><img src="images/timing_pie_serial.jpg" style="width:200px" />1000
 							  Particle Serial Run (+GPU +Cython)</span>
-
+							 </p>
 							In the serial run, even after optimizing with Cython, the force calculation takes nearly 90%
 							of the execution time. The tree construction and communication overheads account for the
 							remainder, which time integration taking nearly zero time (reasonable for 1000 particles). We
