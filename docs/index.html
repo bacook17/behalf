@@ -95,13 +95,14 @@
 							</header>
 							<ul class="icons major">
 								<li>
-								  <img src="images/Ben.jpg" class="icon fa-code major style1"><h5>Ben Cook</h5></li>
+								  <img src="images/Ben.jpg" class="icon fa-code major style1"/><h5><a href="https://github.com/bacook17">Ben Cook</a></h5></li>
 								&nbsp;
-								<li><span class="icon fa-code major style2"><span class="label">Harshil
-								Kamdar </span><h5>Harshil Kamdar</h5></span>&nbsp;</li>&nbsp;
-								&nbsp;&nbsp;<li>&nbsp;&nbsp;<span class="icon fa-code major
-								style3"><span class="label">Ana-Roxana Pop</span><h6>Ana-Roxana Pop</h6></span></li>
+								
+								<li><img src="images/Harshil.jpg" class="icon fa-code major style1"/><h5><a href="https://github.com/harshilkamdar">Harshil Kamdar</a></h5></li>
+								&nbsp;
 
+								<li><img src="images/roxana.jpeg" class="icon fa-code major style1"/><h5><a href="https://github.com/anaroxanapop">Ana-Roxana Pop</a></h5></li>
+								&nbsp;
 							</ul>
 						</div>
 					</section>
@@ -661,44 +662,6 @@
 										     communicating with multiple GPUs.
 							<span class="image fit"><img src="images/speedup_force_comm.jpg" style="max-width: 800px; margin-left:auto;
 																margin-right:auto;" /></span>
-							    <li>Number of Nodes distributed across</li></ul> Due to the architecture limitation of no
-							  more than 2 GPUs on a node, we initially tested in two scaling regimes: scaling with 1 core
-							  (hence 1 GPU) per node, and scaling with 2 cores (2 GPUs) per node. For a fixed number of
-							  cores (say, 8), this resulted in significantly different results due to the difference in
-							  communication overhead (between cores on the same node, and wrangling multiple GPUs on the
-							  same node). The plot below shows the overall speedup and scaling efficiency in these two
-							  regimes, as we scale up from 1 to 8 nodes.
-							<span class="image left" ><img src="images/speedup.jpg" alt="" style="width:350px" /></span>
-							  Very surprisingly, the efficiency is significantly better when 1 core per node is used than
-							  2 cores. We were unable to explore this issue fully, but our suspicion is that it may have
-							  to issues with processor affinity (whether the processes are being bound on individual
-							  processors or on the same processor).<br><br>
-							<br>
-							<br>
-							<br>
-							<p>
-							We additionally profile individual portions of the code, and how those profiles scale with
-							number of cores. First, we show below the proportion of time spent in each portion of the code
-							for the serial code (including GPU time integration and Cython-ized force calculation):
-							<span class="image right" ><img src="images/timing_pie_serial.jpg" style="width:200px" />1000
-							  Particle Serial Run (+GPU +Cython)</span>
-							 </p>
-							<p>
-							In the serial run, even after optimizing with Cython, the force calculation takes nearly 90%
-							of the execution time. The tree construction and communication overheads account for the
-							remainder, which time integration taking nearly zero time (reasonable for 1000 particles). We
-							then compare to this baseline for an increasing number of cores:
-							<span class="image fit"><img src="images/scaling_times.jpg" style="max-width: 800px;
-										     margin-left:auto; margin-right:auto;" /></span> As we scale-up to
-										     2, 4, 8, and 16 cores, the overall speedup increases to a factor
-										     of nearly 4x, with the majority of the speed-up due to the force
-										     calculation. The communication overhead increases slightly, which
-										     is to be expected. The integration time also increases slightly,
-										     likely due to overheads in communicating with multiple GPUs.
-							<span class="image fit"><img src="images/speedup_force_comm.jpg" style="max-width: 800px;
-																margin-left:auto;
-																margin-right:auto;"
-																/></span>
 							<br>
 							We also test how the algorithm scales when we surpass 2 cores on a node. In this scaling
 							model, there are more processes active than GPUs available, but since the integration time is
@@ -795,7 +758,7 @@
 							<br>
 							<div class="content">
 							  <h4><font color="#bb99ff">Future work</font></h4>
-								<p>There are many avenues for improving both the execution time for the force
+								<p>There are many avenues for improving the execution time of the force
 								  calculation. Below we list a few such directions, in order of increasing difficulty
 								  and potential improvement: </p>
 
