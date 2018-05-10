@@ -5,7 +5,7 @@
 #SBATCH -N 1 # Fix number of nodes
 #SBATCH --gres=gpu:1 #Number of GPUs requested per node
 #SBATCH --constraint=cuda-7.5 #require CUDA
-#SBATCH -t 0-04:00 # runtime in D-HH:MM
+#SBATCH -t 4-00:00 # runtime in D-HH:MM
 #SBATCH --mem-per-cpu 1536 # memory per MPI task
 #SBATCH -o logs/%x.out
 #SBATCH -e logs/%x.err

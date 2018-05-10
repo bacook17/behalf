@@ -3,7 +3,7 @@
 #SBATCH -J serial_1000p # Job Name
 #SBATCH -n 1 # Number of MPI tasks
 #SBATCH -N 1 # Fix number of nodes
-#SBATCH -t 0-02:00 # runtime in D-HH:MM
+#SBATCH -t 0-04:00 # runtime in D-HH:MM
 #SBATCH --gres=gpu:2 #Number of GPUs requested per node
 #SBATCH --constraint=cuda-7.5 #require CUDA
 #SBATCH --mem-per-cpu 1536 # memory per MPI task
