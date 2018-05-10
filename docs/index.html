@@ -388,7 +388,7 @@
 								  combining MPI and CUDA. The major limiting step is Step (1), the creation of the
 								  Octree, which is <em>not parallelized</em> without significant changes to the
 								  algorithm (see below for suggested improvements). Therefore, the entire catalog of
-								  simulate d particles is loaded into an individual process at the beginning of each
+								  simulated particles is loaded into an individual process at the beginning of each
 								  timestep, before the tree is created. <br><br> For step (2), once the tree is
 								  created, we use MPI to broadcast the entire tree to a system of distributed-memory
 								  processes. The simulated particles are then distributed nearly exactly evenly (to
