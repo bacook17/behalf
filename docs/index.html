@@ -406,9 +406,6 @@
 							<br>
 
 							<h5>Overall Performance of Parallel code</h5>
-							<span class="image fit"><img src="images/scaling_times.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
-							<span class="image fit"><img src="images/scaling_times_large.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
-							<span class="image fit"><img src="images/speedup_force_comm.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
 							<br>
 
 							<h5> Scaling with number of cores</h5>
@@ -425,11 +422,15 @@
 							  initially tested in two scaling regimes: scaling with 1 core (hence 1 GPU) per node, and scaling with 2 cores (2 GPUs) per
 							  node. For a fixed number of cores (say, 8), this resulted in significantly different results due to the difference in
 							  communication overhead (between cores on the same node, and wrangling multiple GPUs on the same node). The plot below
-							  shows the overall speedup and scaling efficiency in these two regimes, as we scale up from 1 to 8 nodes. 
+							  shows the overall speedup and scaling efficiency in these two regimes, as we scale up from 1 to 8
+							  nodes. <span class="image fit"><img src="images/speedup.jpg" style="max-width: 400px; margin-left:auto;
+							  margin-right:auto;" /></span>
+							  Very surprisingly, the efficiency is significantly better when 1 core per node is used than 2 cores. 
 							</p>
-							<span class="image fit"><img src="images/speedup.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;"
-										     /></span>
-							
+							<span class="image fit"><img src="images/timing_pie_serial.jpg" style="max-width: 300px; margin-left:auto; margin-right:auto;" /></span>
+							<span class="image fit"><img src="images/scaling_times.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+							<span class="image fit"><img src="images/speedup_force_comm.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+							<span class="image fit"><img src="images/timing_pie_16-8.jpg" style="max-width: 300px; margin-left:auto; margin-right:auto;" /></span>
 							<br><br>
 
 							<h5> Scalings with the number of particles</h5>
