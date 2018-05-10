@@ -409,8 +409,7 @@
 							the depth of the tree can increase rapidly due to false scatterings between particles. As two particles get close together, the very large gravitational force between them multiplied by our fixed time step will lead to an artificially large scatter, causing one of the particles to be flung far away from the center of the simulation box. In order to accommodate this particle, the tree traversal will start to take longer than the average \(\log(N)\) number of operations. </p>
 
 							<span class="image fit"><img src="images/TotalrunningTime_vs_Npart.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
-							<span class="image fit"><img src="images/Efficiency_vs_Npart.png" style="max-width: 800px; margin-left:auto;
-																 margin-right:auto;" /></span>
+							<span class="image fit"><img src="images/Efficiency_vs_Npart.png" style="max-width: 800px; margin-left:auto;margin-right:auto;" /></span>
 
 						</section>
 						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
@@ -428,6 +427,7 @@
 								Python. Instead, we wrote a Cython version of the force calculation and traversal to mitigate this. We found that,
 								on average, the Cython version performed three times faster than the pure Python version. </p>
 								<p>Moreover, binding all the GPUs on a single node "BEN WRITES STUFF HERE" </p>
+								<span class="image fit"><img src="images/optimizations.jpg" style="max-width: 800px; margin-left:auto;margin-right:auto;" /></span>
 							</div>
 							<br>
 							<br>
