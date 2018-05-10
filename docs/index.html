@@ -393,7 +393,7 @@
 								  created, we use MPI to broadcast the entire tree to a system of distributed-memory
 								  processes. The simulated particles are then distributed nearly exactly evenly (to
 								  within \(\pm 1\) particle) across the processes, and the force calculation occurs in
-								  parallel. As discussed <a href="Scaling">below</a>, the force calculation is
+								  parallel. As discussed <a href="#Scalings">below</a>, the force calculation is
 								  initially one of the most computationally demanding portions of the code, but this
 								  is conveniently the most trivially parallelizable portion, as distributing particles
 								  onto more processes nearly linearly reduces the execution time. <br><br> The second
