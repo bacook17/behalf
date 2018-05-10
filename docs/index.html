@@ -409,7 +409,9 @@
 							the depth of the tree can increase rapidly due to false scatterings between particles. As two particles get close together, the very large gravitational force between them multiplied by our fixed time step will lead to an artificially large scatter, causing one of the particles to be flung far away from the center of the simulation box. In order to accommodate this particle, the tree traversal will take start to take longer than the average \(\log(N)\) number of operations. </p>
 
 							<span class="image fit"><img src="images/TotalrunningTime_vs_Npart.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
-							<span class="image fit"><img src="images/Efficiency_vs_Npart.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+							<span class="image fit"><img src="images/Efficiency_vs_Npart.png" style="max-width: 800px; margin-left:auto;
+																 margin-right:auto;" /></span>
+
 						</section>
 						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
 						<!--<div class="wrapper style4" style="maxheight:1px;font-size:0.5;">-->
@@ -422,7 +424,9 @@
 								<br>
 								<br>
 								<h4><font color="#bb99ff">Advanced features</font></h4>
-								<p>We found that a pure Python implementation of the force calculation came with many overheads due to looping in Python. Instead, we wrote a Cython version of the force calculation and traversal to mitigate this. We found that, on average, the Cython version performed three times faster than the pure Python version. </p>
+								<p>We found that a pure Python implementation of the force calculation came with many overheads due to looping in
+								Python. Instead, we wrote a Cython version of the force calculation and traversal to mitigate this. We found that,
+								on average, the Cython version performed three times faster than the pure Python version. </p>
 								<p>Moreover, binding all the GPUs on a single node "BEN WRITES STUFF HERE" </p>
 							</div>
 							<br>
