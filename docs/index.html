@@ -269,20 +269,47 @@
 								  <ol>
 								    <li> Build the Octree </li>
 								    <li> For each particle: compute the total force by traversing the Octree </li>
-								    <li> Update the velocities and positions using LeapFrog algorithm </li>
+								    <li> Update the velocities and positions using LeapFrog time integration algorithm </li>
 								  </ol>
 
 								  We approach the parallelization of the entire code using a hybrid approach, combining MPI and CUDA. The major
 								  limiting step is Step (1), the creation of the Octree, which is <em>not parallelized</em> without significant
 								  changes to the algorithm (see below for suggested improvements). Therefore, the entire catalog of simulate d
-								  particles is loaded into an individual process at the beginning of each timestep, before the tree is created. <br>
-								  For step (2), once the tree is created, we use MPI to broadcast the entire tree to a system of distributed-memory
-								  processes. The simulated particles are then distributed nearly exactly evenly (to within \(\pm 1\) particle)
-								  across the processes, and the force calculation occurs in parallel. As discussed <a href="Scaling">below</a>, the
-								  force calculation is initially one of the most computationally demanding portions of the code, but this is
-								  conveniently the most trivially parallelizable portion, as distributing particles onto more processes nearly
-								  linearly reduces the execution time. <br>
-								  The second phase of parallelization comes in step (3), as we used 
+								  particles is loaded into an individual process at the beginning of each timestep, before the tree is
+								  created. <br><br> For step (2), once the tree is created, we use MPI to broadcast the entire tree to a system of
+								  distributed-memory processes. The simulated particles are then distributed nearly exactly evenly (to within \(\pm
+								  1\) particle) across the processes, and the force calculation occurs in parallel. As
+								  discussed <a href="Scaling">below</a>, the force calculation is initially one of the most computationally
+								  demanding portions of the code, but this is conveniently the most trivially parallelizable portion, as
+								  distributing particles onto more processes nearly linearly reduces the execution time. <br><br> The second phase
+								  of parallelization comes in step (3), as we implemented the time integration step on GPUs using PyCUDA. The
+								  velocity and positions are updated for each particle in parallel on the GPU processors, which theoretically should
+								  provide significant speed-up. However, there are non-trivial overheads involved in moving to GPU acceleration. For
+								  one, the communication overhead of sending data to/from the GPU over the PCI-e bus can be significant, and
+								  speed-ups over basic Python implementation may not be seen unless a very large number of particles are used. <br><br> In
+								  addition, the number of GPUs available on a given node are typically much smaller (around 2, when available at
+								  all) than the number of CPUs. This means that for a fixed number of nodes, there may be as many as 32 times more
+								  CPUs available than GPUs. If all CPUs are being used to distribute MPI processes, then many processes will need to
+								  bind to the same GPUs, which limits the overall scalability of the GPU algorithm. In the
+								  sections <a href="#Scaling">below</a> we examine these potential limitations, ultimately finding that the GPU
+								  acceleration of the time integration step does not significantly improve the execution time in our tests, likely
+								  because too few particles were used to overcome the overheads.
+								  <br><br>
+								  Including the communication overheads, the final parallel algorithm has the following steps:
+								  <ol>
+								    <li> Build the Octree (on primary MPI node)</li>
+								    <ul>
+								      <li> Octree is broadcast to all MPI nodes</li>
+								    </ul>
+								    <li> For each particle: compute the total force by traversing the Octree </li>
+								    <ul>
+								      <li> Particle positions and velocities are distributed across MPI nodes</li></ul>
+								    <li> Update the velocities and positions using LeapFrog time integration algorithm (on the GPU) </li>
+								    <ul>   <li> Particle positions, velocities, and accelerations are transferred to the GPU</li>
+								    <li> Updated particle data retrieved from GPU </li></ul>
+								      <li> Entire particle catalogs are sent back to the primary MPI node</li>
+								      </ul>
+								    </ol>
 								</p>
 								</div>
 								<br>
@@ -290,7 +317,21 @@
 								<div id="Infrastructure">
 								<br>
 								<h4><font color="#bb99ff">Infrastructure</font></h4>
-								<p>We will test our code by simulating an elliptical galaxy, modeled by the Plummer density profile.</p>
+								<p>The BEHALF package was developed and tested in Python 3.6 (but backported to support 2.7). Serial jobs without
+								  GPU acceleration were tested on Harvard's Odyssey cluster, on the <em>Hernquist</em> queue. Each core on the Hernquist queue
+								  has a CPU clock of 2.3 GHz and operates on CentOS release 6.5.</p>
+
+								<p> The primary testing runs were performed on the <em>holyseasgpu</em> queue. Each of the 12 available nodes on
+								  this queue have 48 cores, a CPU clock of 2.4 GHz, and 2 NVIDIA Tesla K40m GPUs, operating on CUDA 7.5.</p>
+
+								<p> The BEHALF package was tested with the following Python package versions:</p>
+								<ul>
+								  <li>numpy: v1.12.1</li>
+								  <li>pycuda: v2017.1.1</li>
+								  <li>mpi4py: v2.0.0</li>
+								  <li>future: v0.16.0</li>
+								  <li>cython: v0.26</li>
+								</ul>
 								</div>
 							</div>
 						</section>
