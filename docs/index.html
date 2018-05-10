@@ -388,12 +388,12 @@
 								  combining MPI and CUDA. The major limiting step is Step (1), the creation of the
 								  Octree, which is <em>not parallelized</em> without significant changes to the
 								  algorithm (see below for suggested improvements). Therefore, the entire catalog of
-								  simulate d particles is loaded into an individual process at the beginning of each
+								  simulated particles is loaded into an individual process at the beginning of each
 								  timestep, before the tree is created. <br><br> For step (2), once the tree is
 								  created, we use MPI to broadcast the entire tree to a system of distributed-memory
 								  processes. The simulated particles are then distributed nearly exactly evenly (to
 								  within \(\pm 1\) particle) across the processes, and the force calculation occurs in
-								  parallel. As discussed <a href="Scaling">below</a>, the force calculation is
+								  parallel. As discussed <a href="#Scalings">below</a>, the force calculation is
 								  initially one of the most computationally demanding portions of the code, but this
 								  is conveniently the most trivially parallelizable portion, as distributing particles
 								  onto more processes nearly linearly reduces the execution time. <br><br> The second
@@ -403,8 +403,8 @@
 								  speed-up. However, there are non-trivial overheads involved in moving to GPU
 								  acceleration. For one, the communication overhead of sending data to/from the GPU
 								  over the PCI-e bus can be significant, and speed-ups over basic Python
-								  implementation may not be seen unless a very large number of particles are
-								  used. <br><br> In addition, the number of GPUs available on a given node are
+								  implementation may not be seen unless a very large number of particles is
+								  used. <br><br> In addition, the number of GPUs available on a given node is
 								  typically much smaller (around 2, when available at all) than the number of
 								  CPUs. This means that for a fixed number of nodes, there may be as many as 32 times
 								  more CPUs available than GPUs. If all CPUs are being used to distribute MPI
@@ -668,7 +668,7 @@
 							such an insignificant fraction of runtime, the overhead of having multiple processors bound to
 							a single GPU is small. Overall, we find that the more cores used, the better the speedup of
 							the force calculation (as shown above). Once again, there is a troubling discrepancy between 1
-							core per node and 2 cores per node, where distributing (eg.) 8 cores across 8 nodes is faster
+							core per node and 2 cores per node, where distributing, for example, 8 cores across 8 nodes is faster
 							even at computing forces than distributing across fewer nodes. The communication overhead is
 							likewise much larger for multiple cores per node, which seems unusual for MPI.<br><br>
 							</p>
