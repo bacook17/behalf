@@ -404,6 +404,12 @@
 							</div>
 							<br>
 							<br>
+							<h5>Overall Performance of Parallel code</h5>
+							<span class="image fit"><img src="images/scaling_times.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+							<span class="image fit"><img src="images/scaling_times_large.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+							<span class="image fit"><img src="images/speedup.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+							<span class="image fit"><img src="images/speedup_force_comm.jpg" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+							<br>
 							<h5> Scalings with the number of particles</h5>
 							<p>The figure below shows the scaling between the median time step of our BH code and the total number of particles in the simulation. We are showing a range of tests with 2 cores per node and 2 GPUs per node, with the total number of particles being [1000, 4000, 10000, 16000, 100000]. We also include for comparison, serial runs shown in black, and in light blue we show our results when utilizing the maximum number of cores (576) and GPUs (24) available on the <em>holyseasgpu</em> queue on Odyssey. The dotted red line shows the \(N^2\) scaling expected for an exact particle-particle force calculation, while the dashed magenta line indicates the theoretical \(N \,\mathrm{log}(N)\) expectation for the Barnes-Hut octree implementation. Our implementation matches \(N \,\mathrm{log}(N)\) very well for particle numbers up to \(\sim 2\times 10^4\). For larger simulations, our scaling gets slightly worse than \(N \,\mathrm{log}(N)\) (but still much better than \(N^2\)) because 
 							the depth of the tree can increase rapidly due to false scatterings between particles. As two particles get close together, the very large gravitational force between them multiplied by our fixed time step will lead to an artificially large scatter, causing one of the particles to be flung far away from the center of the simulation box. In order to accommodate this particle, the tree traversal will start to take longer than the average \(\log(N)\) number of operations. </p>
