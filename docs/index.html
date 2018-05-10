@@ -182,6 +182,8 @@
 								<h2>Code Implementation</h2>
 								<br>
 								<br>
+								<p> To download, install, and run the BEHALF package, see
+								the <a href="https://github.com/bacook17/behalf">Github Source Repository</a>.</p>
 								<br>
 								<div id="Octree">
 								<br>
@@ -291,7 +293,7 @@
 								  all) than the number of CPUs. This means that for a fixed number of nodes, there may be as many as 32 times more
 								  CPUs available than GPUs. If all CPUs are being used to distribute MPI processes, then many processes will need to
 								  bind to the same GPUs, which limits the overall scalability of the GPU algorithm. In the
-								  sections <a href="#Scaling">below</a> we examine these potential limitations, ultimately finding that the GPU
+								  sections <a href="#Scalings">below</a> we examine these potential limitations, ultimately finding that the GPU
 								  acceleration of the time integration step does not significantly improve the execution time in our tests, likely
 								  because too few particles were used to overcome the overheads.
 								  <br><br>
@@ -318,8 +320,8 @@
 								<br>
 								<h4><font color="#bb99ff">Infrastructure</font></h4>
 								<p>The BEHALF package was developed and tested in Python 3.6 (but backported to support 2.7). Serial jobs without
-								  GPU acceleration were tested on Harvard's Odyssey cluster, on the <em>Hernquist</em> queue. Each core on the Hernquist queue
-								  has a CPU clock of 2.3 GHz and operates on CentOS release 6.5.</p>
+								  GPU acceleration were tested on Harvard's Odyssey cluster, on a private research queue. Each core on the queue has
+								  a CPU clock of 2.3 GHz and operates on CentOS release 6.5.</p>
 
 								<p> The primary testing runs were performed on the <em>holyseasgpu</em> queue. Each of the 12 available nodes on
 								  this queue have 48 cores, a CPU clock of 2.4 GHz, and 2 NVIDIA Tesla K40m GPUs, operating on CUDA 7.5.</p>
@@ -332,6 +334,9 @@
 								  <li>future: v0.16.0</li>
 								  <li>cython: v0.26</li>
 								</ul>
+
+								<p> For details on the installation requirements and dependencies, see
+								the <a href="https://github.com/bacook17/behalf">Github Source Repository</a>.</p>
 								</div>
 							</div>
 						</section>
@@ -400,7 +405,8 @@
 							<br>
 							<br>
 							<h5> Scalings with the number of particles</h5>
-							<p>The figure below shows the scaling between the median time step of our BH code and the total number of particles in the simulation. We are showing a range of tests with 2 cores per node and 2 GPUs per node, with the total number of particles being [1000, 4000, 10000, 16000, 100000]. We also include for comparison, serial runs shown in black, and in light blue we show our results when utilizing the maximum number of cores (576) and GPUs (24) available on holyseasgpu on Odyssey. The dotted red line shows the \(N^2\) scaling expected for an exact particle-particle force calculation, while the dashed magenta line indicates the theoretical \(N log(N)\) expectation for the Barnes-Hut octree implementation. HARSHIL will write more reasons why the scaling is not quite NlogN as we increase number of particles.</p>
+							<p>The figure below shows the scaling between the median time step of our BH code and the total number of particles in the simulation. We are showing a range of tests with 2 cores per node and 2 GPUs per node, with the total number of particles being [1000, 4000, 10000, 16000, 100000]. We also include for comparison, serial runs shown in black, and in light blue we show our results when utilizing the maximum number of cores (576) and GPUs (24) available on holyseasgpu on Odyssey. The dotted red line shows the \(N^2\) scaling expected for an exact particle-particle force calculation, while the dashed magenta line indicates the theoretical \(N log(N)\) expectation for the Barnes-Hut octree implementation. Our scaling is slightly slower than \(N\logN\) -- we believe that this is likely due to the depth of the tree increasing a lot when we have close interactions between two particles and one of them gets flung far away from the center of the simulation box. The tree will still include that particle far away from the simulation box and will make the traversal slightly worse than an \(\log(N)\) operation. </p>
+
 							<span class="image fit"><img src="images/TotalrunningTime_vs_Npart.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
 							<span class="image fit"><img src="images/Efficiency_vs_Npart.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
 						</section>
