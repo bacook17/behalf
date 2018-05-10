@@ -671,16 +671,17 @@
 							core per node and 2 cores per node, where distributing (eg.) 8 cores across 8 nodes is faster
 							even at computing forces than distributing across fewer nodes. The communication overhead is
 							likewise much larger for multiple cores per node, which seems unusual for MPI.<br><br>
-
-							Finally, we show the timing profile for a scaled-up run with 16 total cores (and 16 GPUs)
-							spread across 8 nodes:
+							</p>
+							
 							<span class="image left"><img src="images/timing_pie_16-8.jpg" style="max-width: 300px;
 															      margin-left:auto;
 															      margin-right:auto;"/>
 															      1000 Particle Run, 16
 															      cores, 8 nodes(+GPU
 															      +Cython)</span><br>
-
+							<p>
+							Finally, we show the timing profile for a scaled-up run with 16 total cores (and 16 GPUs)
+								spread across 8 nodes.
 							Once scaled up to 16 cores, the force computation takes only around 30% of the execution time,
 							while the communication overhead and tree construction have balooned to each encompass 30% and
 							40% (respectively) of the execution time.
