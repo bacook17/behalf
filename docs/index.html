@@ -42,6 +42,7 @@
 													<li><a href="index.html#Leapfrog"><font color="#d1d1e0">&nbsp;
 													&nbsp;Leapfrog Algorithm</font></a></li>
 													<li><a href="index.html#ParallelCode"><font color="#d1d1e0">&nbsp; &nbsp;Parallel Algorithm</font></a></li>
+													<li><a href="index.html#Advanced"><font color="#d1d1e0">&nbsp; &nbsp;Advanced Features</font></a></li>
 													<li><a href="index.html#Infrastructure"><font color="#d1d1e0">&nbsp; &nbsp;Infrastructure</font></a></li>
 												</ul>
 											<li><a href="#Analysis">Performance and Analysis</a>
@@ -51,11 +52,10 @@
 													<li><a href="index.html#Scalings"><font color="#d1d1e0">&nbsp; &nbsp;Parallel Performance</font></a></li>
 												</ul>
 											</li>
-											<li><a href="#Conclusions">Conclusions and Results</a></li>
+											<li><a href="#Conclusions">Results and Conclusions</a></li>
 												<ul>
-													<li><a href="index.html#Advanced"><font color="#d1d1e0">&nbsp; &nbsp;Advanced Methods</font></a></li>
-													<li><a href="index.html#Future"><font color="#d1d1e0">&nbsp; &nbsp;Future work</font></a></li>
 													<li><a href="index.html#Movies"><font color="#d1d1e0">&nbsp; &nbsp;Movies</font></a></li>
+													<li><a href="index.html#Future"><font color="#d1d1e0">&nbsp; &nbsp;Future work</font></a></li>
 												</ul>
 											<li><a href="#Citations">References</a></li>
 										</ul>
@@ -318,6 +318,20 @@
 								</div>
 								<br>
 								<br>
+							<div id="Advanced">
+								<br>
+								<br>
+								<br>
+								<h4><font color="#bb99ff">Advanced Features</font></h4>
+								<p>We found that a pure Python implementation of the force calculation came with many overheads due to looping in
+								Python. Instead, we wrote a Cython version of the force calculation and traversal to mitigate this. We found that,
+								on average, the Cython version performed three times faster than the pure Python version. As discussed above,
+								however, the GPU acceleration was fairly insignificant, or even detrimental, as the communication overhead was
+								simply too large for this relatively small simulation size.</p>
+								<span class="image fit"><img src="images/optimizations.jpg" style="max-width: 800px; margin-left:auto;margin-right:auto;" /></span>
+							</div>
+							<br>
+							<br>
 								<div id="Infrastructure">
 								<br>
 								<h4><font color="#bb99ff">Infrastructure</font></h4>
@@ -486,24 +500,12 @@
 						</div>
 						<section id="Conclusions" class="wrapper style6">
 							<br>
-							<h2>Conclusions</h2>
-							<div id="Advanced">
-								<br>
-								<br>
-								<br>
-								<h4><font color="#bb99ff">Advanced Features</font></h4>
-								<p>We found that a pure Python implementation of the force calculation came with many overheads due to looping in
-								Python. Instead, we wrote a Cython version of the force calculation and traversal to mitigate this. We found that,
-								on average, the Cython version performed three times faster than the pure Python version. </p>
-								<span class="image fit"><img src="images/optimizations.jpg" style="max-width: 800px; margin-left:auto;margin-right:auto;" /></span>
-							</div>
-							<br>
-							<br>
+							<h2>Results and Conclusions</h2>
 							<div id="Movies">
 								<br>
 								<br>
 								<br>
-								<h4><font color="#bb99ff">Movies</font></h4>
+								<h4><font color="#bb99ff">Resulting Movies</font></h4>
 								<p> Below are two movies exmplifying the type of simulation runs we tested in our project. These are showing the evolution of (1) a \(10^{14} \mathrm{M}_\odot\) elliptical galaxy and (2) the merger between two \(10^{14} \mathrm{M}_\odot\) galaxies, using our parallel implementation of the Barnes-Hut algorithm.</p>
 								<center>
 								  <video width="1280" height="960" style="max-width: 800px; margin-left:auto; margin-right:auto;" controls>
@@ -523,18 +525,38 @@
 								</center>
 							</div>
 							<br>
+							<div id="Future">
 							<br>
 							<div class="content">
 							  <h4><font color="#bb99ff">Future work</font></h4>
-								<p>There are many avenues for improving both the accuracy and execution time for the force calculation. Below we list a few such directions: </p>
-								<ul>
-								  <li>Cythonize the entire tree data structure</li>
-								  <li>Use kD trees instead of octrees</li>
-								  <li>Use GPUs to do the force calculations</li>
-								  <li>Parallelize tree construction</li> 
-								</ul>
+								<p>There are many avenues for improving both the execution time for the force calculation. Below we list a few such
+								  directions, in order of increasing difficulty and potential improvement: </p>
 
+								<h5> Cythonize the entire tree data structure</h5> The octree structure is constructed in Python, and while Cython
+								allowed us to improve speed in traversing the tree for force calculations, there were still significant overheads
+								involved in calling Python object features from the Cython code. If the entire octree creation were re-written in
+								Cython, such that there was no Python overhead involved, we anticipate a speed-up of around 50% to 2x in the
+								tree-construction and force calculation phases.<br><br>
 
+								<h5> Use kD trees instead of octree</h5>
+								<a href="http://pointclouds.org/documentation/tutorials/kdtree_search.php">K-Dimensional trees</a> are significantly
+								more memory-efficient, and would decrease the overhead in traversing the tree and broadcasting it to all nodes.
+								<br><br>
+								<h5> Use GPUs to do force calculations</h5>
+								Optimizing the force calculations further could involve transferring the trees to the GPU, and then computing
+								particle forces in parallel on the GPU. The many-core nature of the GPU could improve the throughput significantly,
+								although the overhead of transferring the tree across the data bus would need to be considered.
+								<br><br>
+								
+								<h5> Parallelize tree construction</h5> Besides MPI communication, the primary serial component of our code is the
+								computation of the tree, which naiively requires one node to have all particles stored in memory. An advanced
+								implementation of the algorithm could construct the tree in parallel, perhaps by assigning the first 1 or 2 levels
+								of the sub-tree to different processes, and ensuring that nearby particles are assigned to similar nodes. More MPI
+								communication would be required in the force computation, in the cases where particles nearby to box boundaries
+								would need to traverse neighboring portions of the overall tree. 
+
+								<h5> Cache portions of tree</h5>
+								Depending 
 							</div>
 						</section>
 					</section>
