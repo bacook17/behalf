@@ -77,7 +77,9 @@ optional arguments:
 ```
 
 ### Examples
-The `examples` directory contains a collection of a few example SLURM files which can be submitted to Odyssey using the `sbatch` command. The examples vary in problem size (`1000p` or `16000p` for 1000 or 16000 particles) and number of cores (`serial`, `4c2n`, and `16c8n` for 1 core, 4 cores on 2 nodes, and 16 cores on 8 nodes, respectively). 
+The `examples` directory contains a collection of a few example SLURM files which can be submitted to Odyssey using the `sbatch` command. The examples vary in problem size (`1000p` or `16000p` for 1000 or 16000 particles) and number of cores (`serial`, `4c2n`, and `16c8n` for 1 core, 4 cores on 2 nodes, and 16 cores on 8 nodes, respectively).
+
+All of these examples assume that the user has access to the `holyseasgpu` queue, and use 1 GPU for each CPU core.
 
 Example of how to run: from the repository home, execute:
 
