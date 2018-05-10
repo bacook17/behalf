@@ -404,10 +404,14 @@
 							</div>
 							<br>
 							<br>
-							<h5> Scalings with the number of particles</h5>
+							<h5> Scaling with number of cores</h5>
+							<p>  </p>
+							<h5> Scaling with the number of particles</h5>
 							<p>The figure below shows the scaling between the median time step of our BH code and the total number of particles in the simulation. We are showing a range of tests with 2 cores per node and 2 GPUs per node, with the total number of particles being [1000, 4000, 10000, 16000, 100000]. We also include for comparison, serial runs shown in black, and in light blue we show our results when utilizing the maximum number of cores (576) and GPUs (24) available on holyseasgpu on Odyssey. The dotted red line shows the \(N^2\) scaling expected for an exact particle-particle force calculation, while the dashed magenta line indicates the theoretical \(N log(N)\) expectation for the Barnes-Hut octree implementation. Our scaling is slightly slower than \(N\logN\) -- we believe that this is likely due to the depth of the tree increasing a lot when we have close interactions between two particles and one of them gets flung far away from the center of the simulation box. The tree will still include that particle far away from the simulation box and will make the traversal slightly worse than an \(\log(N)\) operation. </p>
 							<span class="image fit"><img src="images/TotalrunningTime_vs_Npart.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
-							<span class="image fit"><img src="images/Efficiency_vs_Npart.png" style="max-width: 800px; margin-left:auto; margin-right:auto;" /></span>
+							<span class="image fit"><img src="images/Efficiency_vs_Npart.png" style="max-width: 800px; margin-left:auto;
+																 margin-right:auto;" /></span>
+
 						</section>
 						<div class="aligncenter" style="width:3200px;height:0;border-top:6px solid #bb99ff;font-size:2;"></div>
 						<!--<div class="wrapper style4" style="maxheight:1px;font-size:0.5;">-->
@@ -420,7 +424,9 @@
 								<br>
 								<br>
 								<h4><font color="#bb99ff">Advanced features</font></h4>
-								<p>We found that a pure Python implementation of the force calculation came with many overheads due to looping in Python. Instead, we wrote a Cython version of the force calculation and traversal to mitigate this. We found that, on average, the Cython version performed three times faster than the pure Python version. </p>
+								<p>We found that a pure Python implementation of the force calculation came with many overheads due to looping in
+								Python. Instead, we wrote a Cython version of the force calculation and traversal to mitigate this. We found that,
+								on average, the Cython version performed three times faster than the pure Python version. </p>
 								<p>Moreover, binding all the GPUs on a single node "BEN WRITES STUFF HERE" </p>
 							</div>
 							<br>
